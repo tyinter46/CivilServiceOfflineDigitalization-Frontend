@@ -4,22 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { fetchSchools } from "../../services/schools.service";
 import { getLongDate } from "utils";
 import LogoLoader from "components/widgets/loader/LogoLoader";
+import { ISchools } from "types";
 
-interface ISchools {
-  _id?: string;
-  nameOfSchool: string;
-  category: string;
-  address: string;
-  location: string;
-  zone: string;
-  division: string;
-  listOfStaff: any[];
-  principal: any;
-  vicePrincipalAdmin: any;
-  vicePrincipalAcademics: any;
-  latitude: string;
-  longitude: string;
-}
 
 const ITEMS_PER_PAGE = 9;
 
@@ -171,35 +157,6 @@ export const SchoolView: React.FC = () => {
     <p className="text-gray-700 mb-1">
       <strong>Location:</strong> {school?.location}
     </p>
-  </div>
-
-  <div className="mb-4">
-    <h5 className="text-lg font-semibold text-black">List of Staff</h5>
-    {school?.listOfStaff?.length > 0 ? (
-      <ul className="list-disc pl-5 space-y-2">
-        {school?.listOfStaff?.map((staff: any) => (
-          <li key={staff?._id} className="text-gray-700">
-            <p>
-              <strong>Staff Name:</strong> {staff?.staffName?.firstName}
-            </p>
-            <p>
-              <strong>Position:</strong> {staff?.position}
-            </p>
-            <p>
-              <strong>Phone:</strong> {staff?.phoneNumber}
-            </p>
-            <p>
-              <strong>OG Number:</strong> {staff?.ogNumber}
-            </p>
-            <p>
-              <strong>TSC File Number:</strong> {staff?.tscFileNumber}
-            </p>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p>No staff members found.</p>
-    )}
   </div>
 
   <div className="flex flex-col space-y-4">
@@ -361,6 +318,37 @@ export const SchoolView: React.FC = () => {
     </div>
   </div>
 </div>
+
+
+  <div className="mt-2 flex-1 bg-gray-50 p-4 rounded-lg shadow-sm">
+    <h5 className="text-lg font-semibold text-black">List of Staff</h5>
+    {school?.listOfStaff?.length > 0 ? (
+      <ul className="list-disc pl-5 space-y-2">
+        {school?.listOfStaff?.map((staff: any) => (
+          <li key={staff?._id} className="text-gray-700">
+            <p>
+              <strong>Staff Name:</strong> {staff?.staffName?.firstName}
+            </p>
+            <p>
+              <strong>Position:</strong> {staff?.position}
+            </p>
+            <p>
+              <strong>Phone:</strong> {staff?.phoneNumber}
+            </p>
+            <p>
+              <strong>OG Number:</strong> {staff?.ogNumber}
+            </p>
+            <p>
+              <strong>TSC File Number:</strong> {staff?.tscFileNumber}
+            </p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No staff members found.</p>
+    )}
+  </div>
+
               
                   </motion.div>
                 )}

@@ -20,6 +20,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier", "promise"],
   "rules": {
+    "@typescript-eslint/no-confusing-void-expression":["off"],
     "react/react-in-jsx-scope": ["off"],
     "react/jsx-uses-react": ["off"],
     "react/prop-types": ["off"],
@@ -36,6 +37,7 @@
     "@typescript-eslint/non-nullable-type-assertion-style": ["off"],
     "@typescript-eslint/no-unsafe-argument" : ["off"],
     "@typescript-eslint/ban-types": ["off"],
+    "@typescript-eslint/consistent-type-definitions": ["off"],
     "no-empty-pattern": ["off"],
     "no-restricted-imports": [
       "off",
