@@ -24,7 +24,7 @@ export const PrincipalsAndVicePrincipalsContainer: FC = ()=>{
           try {
             const fetchedUsers = await fetchUsers()
             setUsers(fetchedUsers)
-            console.log(fetchedUsers)
+   
           } catch (error) {
             toast.error('Failed to fetch users')
           }
@@ -34,9 +34,7 @@ export const PrincipalsAndVicePrincipalsContainer: FC = ()=>{
       }, []);
     
 
-      const onSubmit = ()=>{
-        console.log("submitted")
-      }
+     
     
-    return <PrincipalsAndVicePrincipalsView schools = {schools} staff = {users} onSubmit={onSubmit} />
+    return <PrincipalsAndVicePrincipalsView schools = {schools} staff = {users}  />
 }

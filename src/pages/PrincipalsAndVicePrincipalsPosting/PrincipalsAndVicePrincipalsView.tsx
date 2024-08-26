@@ -1,24 +1,15 @@
 import { useState, useEffect } from "react";
 import { ISchools, IUser } from "types";
-import { fetchUsersFromAparticularSchool } from "../../services/schools.service";
+import { fetchUsersFromAparticularSchool, postPrincipalsAndVicePrincipals } from "../../services/schools.service";
 import { toast } from "react-toastify";
+import { Navbar } from "components";
 
 type PostingFormProps = {
   schools: ISchools[];
   staff: IUser[];
-  onSubmit: (
-    selectedSchool: string,
-    selectedPrincipal: string,
-    selectedVicePrincipalAdmin: string,
-    selectedVicePrincipalAcademics: string
-  ) => void;
 };
 
-export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
-  schools,
-
-  onSubmit,
-}) => {
+export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({ schools }) => {
   const [selectedSourceSchool, setSelectedSourceSchool] = useState<string>("");
   const [selectedDestinationSchool, setSelectedDestinationSchool] = useState<string>("");
   const [selectedPrincipal, setSelectedPrincipal] = useState<string>("");
@@ -41,128 +32,182 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
     }
   };
 
-  const handleSubmit = () => {
-    onSubmit(
-      selectedDestinationSchool,
-      selectedPrincipal,
-      selectedVicePrincipalAdmin,
-      selectedVicePrincipalAcademics
-    );
+  const handleSubmit = async () => {
+    // console.log(       selectedPrincipal ,selectedVicePrincipalAdmin, selectedVicePrincipalAcademics   )
+    // if (
+    //    selectedPrincipal === selectedVicePrincipalAdmin ||
+    //   selectedPrincipal === selectedVicePrincipalAcademics
+    // ) {
+    //   toast.error("This user is already selected for another position.");
+    //   return;
+    // }
+    // if (
+    //   selectedVicePrincipalAdmin === selectedPrincipal ||
+    //   selectedVicePrincipalAdmin === selectedVicePrincipalAcademics
+    // ) {
+    //   toast.error("This user is already selected for another position.");
+    //   return;
+    // }
+    // if (
+    //   selectedVicePrincipalAcademics === selectedPrincipal ||
+    //   selectedVicePrincipalAcademics === selectedVicePrincipalAdmin
+    // ) {
+    //   toast.error("This user is already selected for another position.");
+    //   return;
+    // }
+
+
+    try {
+      await postPrincipalsAndVicePrincipals({
+        principal: selectedPrincipal,
+        vicePrincipalAdmin: selectedVicePrincipalAdmin,
+        vicePrincipalAcademics: selectedVicePrincipalAcademics,
+        schoolId: selectedDestinationSchool,
+      });
+
+      toast.success("Staff posted successfully!");
+    
+      // Correctly reset state
+      setSelectedSourceSchool("");
+      setSelectedDestinationSchool("");
+      setSelectedPrincipal("");
+      setSelectedVicePrincipalAdmin("");
+      setSelectedVicePrincipalAcademics("");
+    } catch (error: any) {
+      toast.error(error.message || "An error occurred while posting staff.");
+    }
   };
-
+  
   return (
-    <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Post Principals & Vice Principals</h2>
+    <>
+      <Navbar />
+      <div className="p-4 bg-gray-100 rounded-lg shadow-md mt-16">
+        <h2 className="text-xl font-bold mb-4">Post Principals & Vice Principals</h2>
 
-      {/* Source School Selection */}
-      <div className="mb-4">
-        <label htmlFor="sourceSchool" className="block text-md font-medium text-gray-700">
-          Source School
-        </label>
-        <select
-          id="sourceSchool"
-          value={selectedSourceSchool}
-          onChange={(e) => {setSelectedSourceSchool(e.target.value)}}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-md border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-        >
-          <option value="">Select Source School</option>
-          {schools?.map((school) => (
-            <option key={school?._id} value={school?._id}>
-              {school?.nameOfSchool} {school?.category}
+        {/* Source School Selection */}
+        <div className="mb-4 text-lg">
+          <label htmlFor="sourceSchool" className="block text-md font-medium text-gray-700">
+            Source School
+          </label>
+          <select
+            id="sourceSchool"
+            value={selectedSourceSchool}
+            onChange={(e) => setSelectedSourceSchool(e.target.value)}
+            className="mt-1 block w-full pl-3 h-10 pr-10 py-1 text-lg border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg rounded-md"
+          >
+            <option value="" className="text-lg">
+              Select Source School
             </option>
-          ))}
-        </select>
-      </div>
+            {schools?.map((school) => (
+              <option key={school?._id} value={school?._id} className="text-xl overflow-scroll">
+                {school?.nameOfSchool} {school?.category}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Destination School Selection */}
-      <div className="mb-4">
-        <label htmlFor="destinationSchool" className="block text-md font-medium text-gray-700">
-          Destination School
-        </label>
-        <select
-          id="destinationSchool"
-          value={selectedDestinationSchool}
-          onChange={(e) => {setSelectedDestinationSchool(e.target.value)}}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-md border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-        >
-          <option value="">Select Destination School</option>
-          {schools?.map((school) => (
-            <option key={school._id} value={school._id}>
-              {school.nameOfSchool} {school.category}
+        {/* Destination School Selection */}
+        <div className="mb-4">
+          <label htmlFor="destinationSchool" className="block text-md font-medium text-gray-700">
+            Destination School
+          </label>
+          <select
+            id="destinationSchool"
+            value={selectedDestinationSchool }
+            onChange={(e) => setSelectedDestinationSchool(e.target.value)}
+            className="mt-1 block w-full h-10 pl-3 pr-10 py-2 text-lg border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg rounded-md"
+          >
+            <option value="" className="text-lg">
+              Select Destination School
             </option>
-          ))}
-        </select>
-      </div>
+            {schools?.map((school) => (
+              <option key={school._id} value={school._id} className="text-xl">
+                {school.nameOfSchool} {school.category}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Principal Selection */}
-      <div className="mb-4">
-        <label htmlFor="principal" className="block text-md font-medium text-gray-700">
-          Principal
-        </label>
-        <select
-          id="principal"
-          value={selectedPrincipal}
-          onChange={(e) => {setSelectedPrincipal(e.target.value)}}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-md border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-        >
-          <option value="">Select Principal</option>
-          {usersFromSchools?.map((user) => (
-            <option key={user._id} value={user._id}>
-              {user?.staffName?.firstName} {user?.staffName?.lastName}
+        {/* Principal Selection */}
+        <div className="mb-4">
+          <label htmlFor="principal" className="block text-md font-medium text-gray-700">
+            Principal
+          </label>
+          <select
+            id="principal"
+            value={selectedPrincipal}
+            onChange={(e) => setSelectedPrincipal(e.target.value)}
+            className="mt-1 block w-full h-10 pl-3 pr-10 py-2 text-md border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg rounded-md"
+          
+         >
+            <option value="" className="text-lg">
+              Select Principal
             </option>
-          ))}
-        </select>
-      </div>
+            {usersFromSchools?.map((user) => (
+              <option key={user._id} value={user._id} className="text-xl">
+                {user?.staffName?.firstName} {user?.staffName?.lastName} {user?.position}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Vice Principal (Admin) Selection */}
-      <div className="mb-4">
-        <label htmlFor="vicePrincipalAdmin" className="block text-md font-medium text-gray-700">
-          Vice Principal (Admin)
-        </label>
-        <select
-          id="vicePrincipalAdmin"
-          value={selectedVicePrincipalAdmin}
-          onChange={(e) => {setSelectedVicePrincipalAdmin(e.target.value)}}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-md border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-        >
-          <option value="">Select Vice Principal (Admin)</option>
-          {usersFromSchools?.map((user) => (
-            <option key={user._id} value={user._id}>
-              {user?.staffName?.firstName} {user?.staffName?.lastName}
+        {/* Vice Principal (Admin) Selection */}
+        <div className="mb-4">
+          <label htmlFor="vicePrincipalAdmin" className="block text-md font-medium text-gray-700">
+            Vice Principal (Admin)
+          </label>
+          <select
+            id="vicePrincipalAdmin"
+            value={selectedVicePrincipalAdmin}
+            onChange={(e) => setSelectedVicePrincipalAdmin(e.target.value)}
+            className="mt-1 block w-full h-10 pl-3 pr-10 py-2 text-md border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg rounded-md"
+          >
+            <option value="" className="text-lg">
+              Select Vice Principal (Admin)
             </option>
-          ))}
-        </select>
-      </div>
+            {usersFromSchools?.map((user) => (
+              <option key={user._id} value={user._id} className="text-lg">
+                {user?.staffName?.firstName} {user?.staffName?.lastName} {user?.position}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Vice Principal (Academics) Selection */}
-      <div className="mb-4">
-        <label htmlFor="vicePrincipalAcademics" className="block text-md font-medium text-gray-700">
-          Vice Principal (Academics)
-        </label>
-        <select
-          id="vicePrincipalAcademics"
-          value={selectedVicePrincipalAcademics}
-          onChange={(e) => {setSelectedVicePrincipalAcademics(e.target.value)}}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-md border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-        >
-          <option value="">Select Vice Principal (Academics)</option>
-          {usersFromSchools?.map((user) => (
-            <option key={user._id} value={user._id}>
-              {user?.staffName?.firstName} {user?.staffName?.lastName}
+        {/* Vice Principal (Academics) Selection */}
+        <div className="mb-4">
+          <label
+            htmlFor="vicePrincipalAcademics"
+            className="block text-md font-medium text-gray-700"
+          >
+            Vice Principal (Academics)
+          </label>
+          <select
+            id="vicePrincipalAcademics"
+            value={selectedVicePrincipalAcademics}
+            onChange={(e) => setSelectedVicePrincipalAcademics(e.target.value)}
+            className="mt-1 block w-full h-10 pl-3 pr-10 py-2 text-md border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg rounded-md"
+          >
+            <option value="" className="text-lg">
+              Select Vice Principal (Academics)
             </option>
-          ))}
-        </select>
-      </div>
+            {usersFromSchools?.map((user) => (
+              <option key={user._id} value={user._id} className="text-lg">
+                {user?.staffName?.firstName} {user?.staffName?.lastName}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Submit Button */}
-      <div className="flex justify-end">
-        <button
-          onClick={handleSubmit}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        >
-          Post Staff
-        </button>
+        {/* Submit Button */}
+        <div className="flex justify-end">
+          <button
+            onClick={()=> {  void handleSubmit()}}
+            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Post Staff
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
