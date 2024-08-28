@@ -95,7 +95,7 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
               </div>
               <div className="p-2">
 
-                <div className="text-md font-semibold text-yellow-500">Date of Retirement</div
+                <div className="text-md font-semibold text-yellow-500">Date of Retirement</div>
                 <div className="text-md font-semibold text-yellow-500">Date of First Retirement</div>
                 <span className="text-lg">{userDetails.dateOfRetirement}</span>
               </div>
