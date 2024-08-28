@@ -6,6 +6,7 @@ import { ProfileViewModal } from "components/modules/modals";
 import { useState } from "react";
 import { UserDetails, Settings } from "types";
 import { Formik } from "formik";
+// import { Link } from "react-router-dom";
 
 type ModalId = string | null;
 interface Props {
@@ -29,6 +30,7 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
     pictureUpload(file);
   };
 
+  const postingLetterUrl = userDetails?.letters ?? '';
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
@@ -78,25 +80,38 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
             </div>
           </Formik>
           <div className="p-4 bg-green-800 border-color-white border-2 rounded-md shadow-md mb-6">
+          <div>
+      <h1>Download Posting Letter</h1>
+      {postingLetterUrl ? (
+
+      <a href={postingLetterUrl[0].appointmentLetter} download>
+      Download Here
+    </a>
+      ) : (
+        'No posting letter available'
+      )}
+    </div>
+
             <div className="flex flex-col sm:flex-row">
               <div className="p-2">
                 <div className="text-md font-semibold text-yellow-500">Full Name</div>
-                <span className="text-lg">
-                  {userDetails.staffName} 
-                </span>
+                <span className="text-lg">{userDetails.staffName}</span>
               </div>
               <div className="p-2">
                 <div className="text-md font-semibold text-yellow-500">Date of Birth</div>
                 <span className="text-lg">{userDetails.dateOfBirth}</span>
               </div>
               <div className="p-2">
-                <div className="text-md font-semibold text-yellow-500">Date of First Appointment</div>
+                <div className="text-md font-semibold text-yellow-500">
+                  Date of First Appointment
+                </div>
                 <span className="text-lg">{userDetails.dateOfFirstAppointment}</span>
               </div>
               <div className="p-2">
-
                 <div className="text-md font-semibold text-yellow-500">Date of Retirement</div>
-                <div className="text-md font-semibold text-yellow-500">Date of First Retirement</div>
+                <div className="text-md font-semibold text-yellow-500">
+                  Date of First Retirement
+                </div>
                 <span className="text-lg">{userDetails.dateOfRetirement}</span>
               </div>
             </div>
@@ -149,7 +164,9 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
           </div>
           <div className="flex justify-end">
             <Button
-              onClick={() => {setOpenModal("form")}}
+              onClick={() => {
+                setOpenModal("form");
+              }}
               size="sm"
               type="submit"
               className="w-20 h-12 bg-yellow-500 text-black hover:bg-yellow-600"

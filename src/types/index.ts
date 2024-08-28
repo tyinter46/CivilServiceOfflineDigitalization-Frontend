@@ -5,6 +5,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export interface UserDetails {
   _id: string;
+  letters:Letters [];
   staffName: string;
   phoneNumber: string
   tscFileNumber: string;
@@ -61,6 +62,14 @@ export interface ISchools {
   longitude: string;
 }
 
+export interface Letters {
+  postingLetter?: string;
+  promotionLetter?: string;
+  confirmationLetter?: string;
+  appointmentLetter?: string;
+  offerOfAppointmentLetter?: string;
+  otherLetter?: string;
+}
 
 export interface IUser {
   _id?: string;
