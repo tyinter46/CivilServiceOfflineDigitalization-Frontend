@@ -1,8 +1,10 @@
-import { LeftContent, AboutUsHome } from "components/layouts/home";
+import { LeftContent,  AboutUsHome } from "components/layouts/home";
 const HomeView = () => {
   return (
-    <div className="flex flex-row gap-10 overflow-hidden bg-black-100">
-      <LeftContent /> <AboutUsHome /> 
+    <div className="flex flex-row gap-10 overflow-auto bg-black-100">
+      <LeftContent />
+        <AboutUsHome />  
+       {/* <RightContent/> */}
     </div>
   );
 };

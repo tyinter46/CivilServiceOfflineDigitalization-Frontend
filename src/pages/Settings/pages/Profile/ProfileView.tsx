@@ -6,6 +6,8 @@ import { ProfileViewModal } from "components/modules/modals";
 import { useState } from "react";
 import { UserDetails, Settings } from "types";
 import { Formik } from "formik";
+import { downloadLogo } from "assets/logos";
+// import { Link } from "react-router-dom";
 
 type ModalId = string | null;
 interface Props {
@@ -29,6 +31,9 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
     pictureUpload(file);
   };
 
+  const postingLetterUrl = userDetails?.letters;
+
+  console.log(postingLetterUrl);
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
@@ -77,38 +82,52 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
               </div>
             </div>
           </Formik>
-          <div className="p-4 bg-green-800 border-color-white border-2 rounded-md shadow-md mb-6">
-            <div className="flex flex-col sm:flex-row">
-              <div className="p-2">
-                <div className="text-md font-semibold text-yellow-500">Full Name</div>
-                <span className="text-lg">
-                  {userDetails.staffName} 
-                </span>
-              </div>
-              <div className="p-2">
-                <div className="text-md font-semibold text-yellow-500">Date of Birth</div>
-                <span className="text-lg">{userDetails.dateOfBirth}</span>
-              </div>
-              <div className="p-2">
-                <div className="text-md font-semibold text-yellow-500">Date of First Appointment</div>
-                <span className="text-lg">{userDetails.dateOfFirstAppointment}</span>
-              </div>
-              <div className="p-2">
-                <div className="text-md font-semibold text-yellow-500">Date of First Retirement</div>
-                <span className="text-lg">{userDetails.dateOfRetirement}</span>
-              </div>
+          <div className="flex flex-col h-full p-4 bg-green-800 border-color-white border-2 rounded-md shadow-md mb-6">
+            
+            <div className="relative flex flex-col justify-center items-center">
+            <h5 className="text-red-100">Click Here to Download Your Posting Letter</h5>
+
+              {postingLetterUrl ? (
+                <a href={postingLetterUrl} download>
+                  <div className=" flex justify-center items-center shadow rounded-full w-[80px] h-[80px] bg-green">
+                    <img src={downloadLogo} alt="Click Here To Download" className="h-10 w-10" />
+                  </div>
+                </a>
+              ) : (
+                "No posting letter available"
+              )}
+             
             </div>
-          </div>
+
+          
+<div className="flex flex-col md:flex-row justify-between gap-4">
+  <div className="p-2 flex-1">
+    <div className="text-md font-semibold text-yellow-500">Full Name</div>
+    <span className="text-lg">{userDetails.staffName}</span>
+  </div>
+  <div className="p-2 flex-1">
+    <div className="text-md font-semibold text-yellow-500">Date of First Appointment</div>
+    <span className="text-lg">{userDetails.dateOfFirstAppointment}</span>
+  </div>
+  <div className="p-2 flex-1">
+    <div className="text-md font-semibold text-yellow-500">Phone Number</div>
+    <span className="text-lg">{userDetails?.phoneNumber || "-"}</span>
+  </div>
+  <div className="p-2 flex-1">
+    <div className="text-md font-semibold text-yellow-500">OG Number</div>
+    <span className="text-lg">{userDetails?.ogNumber}</span>
+  </div>
+</div>
+
+     
+            {/* </div>
           <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6">
             <div className="flex flex-col sm:flex-row">
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">Address</div>
                 <span className="text-lg">{userDetails?.tscFileNumber || "-"}</span>
               </div>
-              <div className="p-2 flex-1">
-                <div className="text-md font-semibold text-yellow-500">OG Number</div>
-                <span className="text-lg"> {userDetails?.ogNumber}</span>
-              </div>
+             
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">City</div>
                 <span className="text-lg">{userDetails?.zone || "-"}</span>
@@ -126,10 +145,7 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
             </div>
           </div>
           <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6 flex flex-col sm:flex-row">
-            <div className="p-2 flex-1">
-              <div className="text-md font-semibold text-yellow-500">Phone Number</div>
-              <span className="text-lg">{userDetails?.phoneNumber || "-"}</span>
-            </div>
+            
             <div className="p-2 flex-1">
               <div className="text-md font-semibold text-yellow-500">Email Address</div>
               <span className="text-lg">{userDetails?.email || "-"}</span>
@@ -143,14 +159,17 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
             <div className="p-2 flex-1">
               <div className="text-md font-semibold text-yellow-500">Cadre</div>
               <span className="text-lg">{userDetails?.cadre || "-"}</span>
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-end">
             <Button
-              onClick={() => {setOpenModal("form")}}
+              onClick={() => {
+                setOpenModal("form");
+              }}
               size="sm"
               type="submit"
               className="w-20 h-12 bg-yellow-500 text-black hover:bg-yellow-600"
+              disabled
             >
               {loading ? <Loader /> : "Edit"}
             </Button>

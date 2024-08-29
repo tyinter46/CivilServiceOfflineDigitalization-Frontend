@@ -35,7 +35,9 @@ export const signup = createAsyncThunk(
         confirmPhoneNumber
       });
       toast.success(MESSAGE);
+
       console.log(DATA)
+
       return { userId: DATA.id, name: DATA.user?.staffName?.firstName };
     } catch (error) {
       const message = formatErrorResponse(error);
@@ -64,8 +66,15 @@ export const login = createAsyncThunk(
   async ({ ogNumber, password }: { ogNumber: string; password: string }, thunkAPI) => {
     try {
       const { DATA } = await AuthService.signin({ ogNumber, password });
-      console.log(DATA)
-      return { userId: DATA.user.id, ogNumber: DATA.user.ogNumber, firstName: DATA.user._doc.staffName.firstName };
+
+      console.log(DATA);
+      return {
+        userId: DATA.user.id,
+        ogNumber: DATA.user.ogNumber,
+        firstName: DATA.user._doc.staffName.firstName
+      };
+
+ 
     } catch (error) {
       const message = formatErrorResponse(error);
       toast.error(message);
@@ -91,7 +100,8 @@ export const confirmAccount = createAsyncThunk(
     try {
       const { MESSAGE, DATA } = await AuthService.confirmAccount(code, ogNumber);
       toast.success(MESSAGE);
-      return { userId: DATA.id, ogNumber: DATA.ogNumber, firstName: DATA.firstName };
+      console.log(DATA);
+      return { userId: DATA.id, ogNumber: DATA.ogNumber, firstName: DATA.staffName.firstName };
     } catch (error) {
       const message = formatErrorResponse(error);
       toast.error(message);
@@ -106,7 +116,7 @@ export const resendConfirmAccountTokenSlice = createAsyncThunk(
     try {
       const { MESSAGE, DATA } = await AuthService.resendConfirmationCode(ogNumber);
       toast.success(MESSAGE);
-      return { phoneNumber: DATA.phoneNumber, firstName: DATA.firstName };
+      return { phoneNumber: DATA.phoneNumber, firstName: DATA.user.firstName };
     } catch (error: any) {
       const message = formatErrorResponse(error.message);
       toast.error(message);

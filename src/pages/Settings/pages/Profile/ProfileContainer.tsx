@@ -33,12 +33,13 @@ const dateOfRetirement = getLongDate(user?.user?._doc?.dateOfRetirement)
 
   const userDetails: UserDetails = {
     _id: user?.user?._doc.id,
-    staffName: user?.user?._doc?.staffName.firstName,  
+    staffName: user?.user?._doc?.staffName?.firstName,  
     dateOfBirth: dateOfBirth,
     dateOfFirstAppointment: dateOfFirstAppointment,
     dateOfRetirement: dateOfRetirement ,
     ogNumber: user?.user?._doc?.ogNumber,
     phoneNumber: user?.user?._doc.phoneNumber,
+    letters: user?.user?._doc.letters.postingLetter,
     tscFileNumber: "",
     schoolOfPresentPosting: "",
     zone: "",
@@ -75,6 +76,7 @@ const dateOfRetirement = getLongDate(user?.user?._doc?.dateOfRetirement)
     professionalStatus: "",
     email: ""
   };
+  // console.log(userDetails.letters.postingLetter)
 
 // const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>)=>{
 // const files = event.target.files

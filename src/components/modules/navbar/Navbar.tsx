@@ -17,7 +17,15 @@ import { ogLogo } from "assets/logos";
 import NavLink from "./NavLink";
 import { toast } from "react-toastify";
 
-
+const rollAnimation = {
+  rotate: [0, 360], // Rotate from 0 to 360 degrees
+  transition: {
+      repeat: Infinity, // Repeat forever
+      repeatType: 'loop' as const, // Correct type for repeatType
+      duration: 2, // Duration of one rotation in seconds
+      ease: 'linear' // Linear easing for smooth continuous rotation
+  }
+};
 
 
 
@@ -54,7 +62,7 @@ const Navbar = () => {
     >
       <div className="flex flex-row justify-start">
         <Link to={HOME}>
-          <img src={ogLogo} alt="logo here"></img>
+        <motion.img   src={ogLogo} alt="logo here"  animate={rollAnimation} />
         </Link>
       </div>
       {!isLoggedIn ? (
