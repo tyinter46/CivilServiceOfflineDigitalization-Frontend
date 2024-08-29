@@ -39,7 +39,7 @@ const dateOfRetirement = getLongDate(user?.user?._doc?.dateOfRetirement)
     dateOfRetirement: dateOfRetirement ,
     ogNumber: user?.user?._doc?.ogNumber,
     phoneNumber: user?.user?._doc.phoneNumber,
-    letters: user?.user?._doc.letters,
+    letters: user?.user?._doc.letters.postingLetter,
     tscFileNumber: "",
     schoolOfPresentPosting: "",
     zone: "",

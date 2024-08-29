@@ -5,7 +5,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export interface UserDetails {
   _id: string;
-  letters:Letters [];
+  letters:string;
   staffName: string;
   phoneNumber: string
   tscFileNumber: string;
