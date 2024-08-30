@@ -87,7 +87,7 @@ export interface IUser {
   phoneNumber?: string;
   confirmPhoneNumber?: string;
   tscFileNumber?: string;
-  schoolOfPresentPosting?: ISchools;
+  schoolOfPresentPosting?: ISchools | null;
   zone?: string;
   division?: string;
   nationality?: string;

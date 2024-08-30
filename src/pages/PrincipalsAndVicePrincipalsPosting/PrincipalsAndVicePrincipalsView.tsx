@@ -1,28 +1,45 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Select, { SingleValue } from "react-select";
 import { ISchools, IUser } from "types";
 import { postPrincipalsAndVicePrincipals } from "../../services/schools.service";
 import { toast } from "react-toastify";
 import { Navbar } from "components";
-// import { getLongDate } from "utils";
 
 type PostingFormProps = {
   schools: ISchools[];
   staff: IUser[];
 };
 
-export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({ schools, staff }) => {
-  const [selectedDestinationSchool, setSelectedDestinationSchool] = useState<string>("");
-  const [selectedPrincipal, setSelectedPrincipal] = useState<string>("");
-  const [selectedVicePrincipalAdmin, setSelectedVicePrincipalAdmin] = useState<string>("");
-  const [selectedVicePrincipalAcademics, setSelectedVicePrincipalAcademics] = useState<string>("");
-  const [destinationSchoolDetails, setDestinationSchoolDetails] = useState<ISchools | null>(null);
-  const [destinationSchoolStaff, setDestinationSchoolStaff] = useState<IUser[]>([]);
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
+  schools,
+  staff,
+}) => {
+  const [selectedDestinationSchool, setSelectedDestinationSchool] =
+    useState<string | null>(null);
+  const [selectedPrincipal, setSelectedPrincipal] = useState<string | null>(
+    null
+  );
+  const [selectedVicePrincipalAdmin, setSelectedVicePrincipalAdmin] =
+    useState<string | null>(null);
+  const [selectedVicePrincipalAcademics, setSelectedVicePrincipalAcademics] =
+    useState<string | null>(null);
+  const [destinationSchoolDetails, setDestinationSchoolDetails] =
+    useState<ISchools | null>(null);
+  const [destinationSchoolStaff, setDestinationSchoolStaff] = useState<IUser[]>(
+    []
+  );
 
   useEffect(() => {
     if (selectedDestinationSchool) {
-      const schoolDetails = schools.find((school) => school._id === selectedDestinationSchool);
-      setDestinationSchoolDetails(schoolDetails ?? null);
-  console.log(destinationSchoolStaff)
+      const schoolDetails =
+        schools.find((school) => school._id === selectedDestinationSchool) ??
+        null;
+      setDestinationSchoolDetails(schoolDetails);
       const schoolStaff = staff.filter(
         (user) => user.schoolOfPresentPosting?._id === selectedDestinationSchool
       );
@@ -34,128 +51,213 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({ sc
   }, [selectedDestinationSchool, schools, staff]);
 
   const handleSubmit = async () => {
+    if (!selectedDestinationSchool) {
+      toast.error("Please select a destination school.");
+      return;
+    }
+
+    const selectedValues = [
+      selectedDestinationSchool,
+      selectedPrincipal,
+      selectedVicePrincipalAdmin,
+      selectedVicePrincipalAcademics,
+    ].filter((value) => value !== null);
+
+    const hasDuplicates = new Set(selectedValues).size !== selectedValues.length;
+
+    if (hasDuplicates) {
+      toast.error("Please ensure all selections are unique.");
+      return;
+    }
+
+    // Capture current details
+    const previousDetails = {
+      details: destinationSchoolDetails,
+      staff: destinationSchoolStaff,
+    };
+
     try {
       await postPrincipalsAndVicePrincipals({
-        principal: selectedPrincipal,
-        vicePrincipalAdmin: selectedVicePrincipalAdmin,
-        vicePrincipalAcademics: selectedVicePrincipalAcademics,
+        principal: selectedPrincipal ?? "",
+        vicePrincipalAdmin: selectedVicePrincipalAdmin ?? "",
+        vicePrincipalAcademics: selectedVicePrincipalAcademics ?? "",
         schoolId: selectedDestinationSchool,
       });
+
+      // Fetch updated school details and staff
+      const updatedSchoolDetails = schools.find(
+        (school) => school._id === selectedDestinationSchool
+      ) ?? null;
+      const updatedSchoolStaff = staff.filter(
+        (user) => user.schoolOfPresentPosting?._id === selectedDestinationSchool
+      );
+
+      setDestinationSchoolDetails(updatedSchoolDetails);
+      setDestinationSchoolStaff(updatedSchoolStaff);
 
       toast.success("Staff posted successfully!");
 
       // Reset state
-      setSelectedDestinationSchool("");
-      setSelectedPrincipal("");
-      setSelectedVicePrincipalAdmin("");
-      setSelectedVicePrincipalAcademics("");
-    } catch (error: any) {
-      toast.error(error.message || "An error occurred while posting staff.");
+      setSelectedDestinationSchool(null);
+      setSelectedPrincipal(null);
+      setSelectedVicePrincipalAdmin(null);
+      setSelectedVicePrincipalAcademics(null);
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "An error occurred while posting staff."
+      );
+
+      // Optionally restore previous state if needed
+      setDestinationSchoolDetails(previousDetails.details);
+      setDestinationSchoolStaff(previousDetails.staff);
     }
   };
+
+  const schoolOptions: SelectOption[] = schools
+    .filter((school) => school._id) // Ensure _id exists
+    .map((school) => ({
+      value: school._id ?? "", // Provide a fallback empty string if _id is undefined
+      label: `${school?.nameOfSchool} ${school?.category}`,
+    }));
+
+  const staffOptions: SelectOption[] = staff
+    .filter((member) => member._id) // Ensure _id exists
+    .map((member) => ({
+      value: member._id ?? "", // Provide a fallback empty string if _id is undefined
+      label: `${member?.staffName?.firstName}`,
+    }));
+
+  const handleSelectChange =
+    (setter: React.Dispatch<React.SetStateAction<string | null>>) =>
+    (selectedOption: SingleValue<SelectOption>) => {
+      const newValue = selectedOption ? selectedOption.value : null;
+
+      // Ensure uniqueness
+      const selectedValues = [
+        selectedDestinationSchool,
+        selectedPrincipal,
+        selectedVicePrincipalAdmin,
+        selectedVicePrincipalAcademics,
+      ].filter(Boolean);
+
+      if (newValue && selectedValues.includes(newValue)) {
+        toast.error("The selected value must be unique. Please choose a different option.");
+        return;
+      }
+
+      setter(newValue);
+    };
 
   return (
     <>
       <Navbar />
-      <div className="flex flex-row pt-10 gap-4 px-4">
+      <div className="flex flex-row pt-6 gap-4 px-4">
         {/* Form Container */}
         <div className="flex-1 p-6 bg-green-500 rounded-lg shadow-lg mt-16">
-          <h2 className="text-xl font-bold mb-6 text-black">Post Principals & Vice Principals</h2>
+          <h2 className="text-xl font-bold mb-6 text-black">
+            Post Principals & Vice Principals
+          </h2>
 
           {/* Destination School Selection */}
           <div className="mb-6">
-            <label htmlFor="destinationSchool" className="block text-lg font-medium text-black mb-2">
+            <label
+              htmlFor="destinationSchool"
+              className="block text-lg font-medium text-black mb-2"
+            >
               Destination School
             </label>
-            <select
+            <Select<SelectOption>
               id="destinationSchool"
-              value={selectedDestinationSchool}
-              onChange={(e) => setSelectedDestinationSchool(e.target.value)}
-              className="block w-full h-12 pl-3 pr-10 py-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              <option value="" className="text-lg ">
-                Select Destination School
-              </option>
-              {schools?.map((school) => (
-                <option key={school._id} value={school._id} className="text-lg">
-                  {school.nameOfSchool} ({school.category})
-                </option>
-              ))}
-            </select>
+              options={schoolOptions}
+              value={
+                schoolOptions.find(
+                  (option) => option.value === selectedDestinationSchool
+                ) ?? null
+              }
+              onChange={handleSelectChange(setSelectedDestinationSchool)}
+              className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Select Destination School"
+              isSearchable
+              isClearable
+            />
           </div>
 
           {/* Principal Selection */}
           <div className="mb-6">
-            <label htmlFor="principal" className="block text-lg font-medium text-black mb-2">
+            <label
+              htmlFor="principal"
+              className="block text-lg font-medium text-black mb-2"
+            >
               Principal
             </label>
-            <select
+            <Select<SelectOption>
               id="principal"
-              value={selectedPrincipal}
-              onChange={(e) => setSelectedPrincipal(e.target.value)}
-              className="block w-full h-12 pl-3 pr-10 py-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              <option value="" className="text-lg">
-                Select Principal
-              </option>
-              {staff?.map((user) => (
-                <option key={user?._id} value={user?._id} className="text-lg">
-                  {user?.staffName?.firstName} {user?.staffName?.lastName} - {user?.position}
-                </option>
-              ))}
-            </select>
+              options={staffOptions}
+              value={
+                staffOptions.find((option) => option.value === selectedPrincipal) ?? null
+              }
+              onChange={handleSelectChange(setSelectedPrincipal)}
+              className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Select Principal"
+              isSearchable
+              isClearable
+            />
           </div>
 
           {/* Vice Principal (Admin) Selection */}
           <div className="mb-6">
-            <label htmlFor="vicePrincipalAdmin" className="block text-lg font-medium text-black mb-2">
+            <label
+              htmlFor="vicePrincipalAdmin"
+              className="block text-lg font-medium text-black mb-2"
+            >
               Vice Principal (Admin)
             </label>
-            <select
+            <Select<SelectOption>
               id="vicePrincipalAdmin"
-              value={selectedVicePrincipalAdmin}
-              onChange={(e) => setSelectedVicePrincipalAdmin(e.target.value)}
-              className="block w-full h-12 pl-3 pr-10 py-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              <option value="" className="text-lg text-white">
-                Select Vice Principal (Admin)
-              </option>
-              {staff?.map((user) => (
-                <option key={user._id} value={user._id} className="text-lg">
-                  {user?.staffName?.firstName} {user?.staffName?.lastName} - {user?.position}
-                </option>
-              ))}
-            </select>
+              options={staffOptions}
+              value={
+                staffOptions.find(
+                  (option) => option.value === selectedVicePrincipalAdmin
+                ) ?? null
+              }
+              onChange={handleSelectChange(setSelectedVicePrincipalAdmin)}
+              className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Select Vice Principal (Admin)"
+              isSearchable
+              isClearable
+            />
           </div>
 
           {/* Vice Principal (Academics) Selection */}
           <div className="mb-6">
-            <label htmlFor="vicePrincipalAcademics" className="block text-lg font-medium text-black mb-2">
+            <label
+              htmlFor="vicePrincipalAcademics"
+              className="block text-lg font-medium text-black mb-2"
+            >
               Vice Principal (Academics)
             </label>
-            <select
+            <Select<SelectOption>
               id="vicePrincipalAcademics"
-              value={selectedVicePrincipalAcademics}
-              onChange={(e) => setSelectedVicePrincipalAcademics(e.target.value)}
-              className="block w-full h-12 pl-3 pr-10 py-2 text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              <option value="" className="text-lg text-white">
-                Select Vice Principal (Academics)
-              </option>
-              {staff?.map((user) => (
-                <option key={user._id} value={user._id} className="text-lg">
-                  {user?.staffName?.firstName} {user?.staffName?.lastName}
-                </option>
-              ))}
-            </select>
+              options={staffOptions}
+              value={
+                staffOptions.find(
+                  (option) => option.value === selectedVicePrincipalAcademics
+                ) ?? null
+              }
+              onChange={handleSelectChange(setSelectedVicePrincipalAcademics)}
+              className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Select Vice Principal (Academics)"
+              isSearchable
+              isClearable
+            />
           </div>
 
           {/* Submit Button */}
           <div className="flex justify-end">
             <button
-              onClick={() => {
-                void handleSubmit();
-              }}
+              onClick={handleSubmit}
               className="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
             >
               Post Staff
@@ -163,8 +265,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({ sc
           </div>
         </div>
 
-        {/* Right Div: Display School Details */}
-<div className="flex-1 p-6 bg-black rounded-lg shadow-lg mt-16 overflow-auto max-h-[550px]">
+        <div className="flex-1 p-6 bg-black rounded-lg shadow-lg mt-16 overflow-auto max-h-[550px]">
   <div className="flex flex-col items-center">
   <h2 className="text-xl font-bold mb-6 text-yellow-300  justify-center">
     {destinationSchoolDetails ? `${destinationSchoolDetails.nameOfSchool}` : "Select a school"}
@@ -238,4 +339,4 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({ sc
       </div>
     </>
   );
-};
+}
