@@ -21,6 +21,5 @@ export const PUBLIC_REQUEST_KEY = "public-request";
 export const RESPONSE_SUCCESS = "SUCCESS";
 export const RESPONSE_ERROR = "FAILURE";
 
-
-export const UPLOAD_IMAGE = "/upload/upload-image"
+export const UPLOAD_IMAGE = "/upload/upload-image";
 export const IMAGE_TAG = "user-image";

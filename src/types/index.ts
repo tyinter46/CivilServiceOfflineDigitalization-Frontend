@@ -5,9 +5,9 @@ export type AppDispatch = typeof store.dispatch;
 
 export interface UserDetails {
   _id: string;
-  letters:string;
+  letters: string;
   staffName: string;
-  phoneNumber: string
+  phoneNumber: string;
   tscFileNumber: string;
   dateOfBirth: string;
   dateOfFirstAppointment: string;
@@ -87,7 +87,7 @@ export interface IUser {
   phoneNumber?: string;
   confirmPhoneNumber?: string;
   tscFileNumber?: string;
-  schoolOfPresentPosting?: ISchools;
+  schoolOfPresentPosting?: ISchools | null;
   zone?: string;
   division?: string;
   nationality?: string;
@@ -130,11 +130,9 @@ export interface IUser {
   staffType?: string;
   remark?: string;
   lastVisited?: Date;
- 
+
   // staffDetailsFromCaps? :
-
 }
-
 
 export interface Settings {
   tscFileNumber: string;

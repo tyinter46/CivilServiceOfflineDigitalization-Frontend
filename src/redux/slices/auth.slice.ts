@@ -36,7 +36,7 @@ export const signup = createAsyncThunk(
       });
       toast.success(MESSAGE);
 
-      console.log(DATA)
+      console.log(DATA);
 
       return { userId: DATA.id, name: DATA.user?.staffName?.firstName };
     } catch (error) {
@@ -73,8 +73,6 @@ export const login = createAsyncThunk(
         ogNumber: DATA.user.ogNumber,
         firstName: DATA.user._doc.staffName.firstName
       };
-
- 
     } catch (error) {
       const message = formatErrorResponse(error);
       toast.error(message);

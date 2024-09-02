@@ -10,7 +10,6 @@ const protectedRoute = ({ navigate }: INavigate) => {
   return isLoggedIn ? <Outlet /> : <Navigate to={navigate} replace />;
 };
 
-
 //  const protectedAdminRoute = ({navigate}: INavigate) =>{
 //       const {isLoggedIn, isAdmin }
 //  }

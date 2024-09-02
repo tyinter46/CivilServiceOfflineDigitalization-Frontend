@@ -59,10 +59,10 @@ export const SignupContainer = () => {
       )
         .unwrap()
         .then((res) => {
-          console.log(res)
+          console.log(res);
           const phoneNumber = maskPhoneNumber(details.phoneNumber);
           // console.log(res.newUser.staffName.firstName)
-          console.log(phoneNumber)
+          console.log(phoneNumber);
           setTimeout(() => {
             toast.success(
               `${res.name} Verification code has been sent to this phone number "${phoneNumber}", kindly input the code for verification`
@@ -72,7 +72,7 @@ export const SignupContainer = () => {
           navigate(CONFIRM_ACCOUNT);
         })
         .catch((error: any) => {
-          console.log(error.message)
+          console.log(error.message);
           if (
             error.message ===
               "An Account Already Exist with this details kindly verify your account" ||

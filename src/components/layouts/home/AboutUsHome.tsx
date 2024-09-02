@@ -5,7 +5,7 @@ import { SIGNUP } from "routes/CONSTANTS";
 const AboutUsHome = () => {
   return (
     <div className="flex flex-row h-screen w-screen mt-2">
-        <div className="flex flex-col w-3/4 p-10 bg-white text-black overflow-auto">
+      <div className="flex flex-col w-3/4 p-10 bg-white text-black overflow-auto">
         <section className="mb-8">
           <h2 className="text-2xl font-bold text-green-700">
             Welcome to Ogun State Teaching Service Commission Portal

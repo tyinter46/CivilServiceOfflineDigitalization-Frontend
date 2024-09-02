@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import PinInput from "react-pin-input";
 import Navbar from "components/modules/navbar/Navbar";
 import { useAppDispatch, useAppSelector } from "hooks";
