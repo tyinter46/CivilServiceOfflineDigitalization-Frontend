@@ -83,9 +83,8 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
             </div>
           </Formik>
           <div className="flex flex-col h-full p-4 bg-green-800 border-color-white border-2 rounded-md shadow-md mb-6">
-            
             <div className="relative flex flex-col justify-center items-center">
-            <h5 className="text-red-100">Click Here to Download Your Posting Letter</h5>
+              <h5 className="text-red-100">Click Here to Download Your Posting Letter</h5>
 
               {postingLetterUrl ? (
                 <a href={postingLetterUrl} download>
@@ -96,30 +95,29 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
               ) : (
                 "No posting letter available"
               )}
-             
             </div>
 
-          
-<div className="flex flex-col md:flex-row justify-between gap-4">
-  <div className="p-2 flex-1">
-    <div className="text-md font-semibold text-yellow-500">Full Name</div>
-    <span className="text-lg">{userDetails.staffName}</span>
-  </div>
-  <div className="p-2 flex-1">
-    <div className="text-md font-semibold text-yellow-500">Date of First Appointment</div>
-    <span className="text-lg">{userDetails.dateOfFirstAppointment}</span>
-  </div>
-  <div className="p-2 flex-1">
-    <div className="text-md font-semibold text-yellow-500">Phone Number</div>
-    <span className="text-lg">{userDetails?.phoneNumber || "-"}</span>
-  </div>
-  <div className="p-2 flex-1">
-    <div className="text-md font-semibold text-yellow-500">OG Number</div>
-    <span className="text-lg">{userDetails?.ogNumber}</span>
-  </div>
-</div>
+            <div className="flex flex-col md:flex-row justify-between gap-4">
+              <div className="p-2 flex-1">
+                <div className="text-md font-semibold text-yellow-500">Full Name</div>
+                <span className="text-lg">{userDetails.staffName}</span>
+              </div>
+              <div className="p-2 flex-1">
+                <div className="text-md font-semibold text-yellow-500">
+                  Date of First Appointment
+                </div>
+                <span className="text-lg">{userDetails.dateOfFirstAppointment}</span>
+              </div>
+              <div className="p-2 flex-1">
+                <div className="text-md font-semibold text-yellow-500">Phone Number</div>
+                <span className="text-lg">{userDetails?.phoneNumber || "-"}</span>
+              </div>
+              <div className="p-2 flex-1">
+                <div className="text-md font-semibold text-yellow-500">OG Number</div>
+                <span className="text-lg">{userDetails?.ogNumber}</span>
+              </div>
+            </div>
 
-     
             {/* </div>
           <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6">
             <div className="flex flex-col sm:flex-row">

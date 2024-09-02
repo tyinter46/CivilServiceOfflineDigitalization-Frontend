@@ -1,9 +1,10 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 import { PrincipalsAndVicePrincipalsView } from "./PrincipalsAndVicePrincipalsView";
 import { fetchSchools } from "../../services/schools.service";
 import { fetchUsers } from "../../services/users.service";
 import { ISchools, IUser } from "types";
 import { toast } from "react-toastify";
+import LogoLoader from "../../components/widgets/loader/Loader";
 
 export const PrincipalsAndVicePrincipalsContainer: FC = () => {
   const [schools, setSchools] = useState<ISchools[]>([]);
@@ -31,22 +32,25 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      await Promise.all([loadSchools(), loadUsers()]);
-      setLoading(false);
-    };
-    void fetchData();
+  const refreshData = useCallback(async () => {
+    setLoading(true);
+    await Promise.all([loadSchools(), loadUsers()]);
+    setLoading(false);
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  useEffect(() => {
+    void refreshData();
+  }, [refreshData]);
+
+  if (loading)
+    return (
+      <div>
+        <LogoLoader />
+      </div>
+    );
   if (error) return <div>{error}</div>;
 
   return (
-    <PrincipalsAndVicePrincipalsView
-      schools={schools}
-      staff={users}
-    />
+    <PrincipalsAndVicePrincipalsView schools={schools} staff={users} refreshData={refreshData} />
   );
 };

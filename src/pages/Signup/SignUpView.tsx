@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
+/* eslint-disable no-undef */
 import { Button, FormInput, Loader } from "components/widgets";
 import { LOGIN } from "routes/CONSTANTS";
 import { Link } from "react-router-dom";

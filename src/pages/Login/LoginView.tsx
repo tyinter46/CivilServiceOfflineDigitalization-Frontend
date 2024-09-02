@@ -17,7 +17,7 @@ interface Props {
 
 const LoginView = ({ loading, formik }: Props) => {
   return (
-   <>
+    <>
       <Navbar />
       <div className="sm: justify-self-center w-full mt-40 h-80 ">
         <form
@@ -61,23 +61,23 @@ const LoginView = ({ loading, formik }: Props) => {
               {loading ? <Loader /> : "Login Account"}
             </Button>
             <div className="flex flex-row justify-center gap-x-2">
-            <p className="my-5 text-lg text-yellow text-center">
-            Forgot Password? 
-              {/* <Link to={}>
+              <p className="my-5 text-lg text-yellow text-center">
+                Forgot Password?
+                {/* <Link to={}>
                 <span className="text-green"> Click here </span>
               </Link> */}
-            </p>
-            <p className="my-5 text-lg text-white text-center">
+              </p>
+              <p className="my-5 text-lg text-white text-center">
                 Unverified Account? click here to
-              <Link to={CONFIRM_ACCOUNT}>
-                <span className="text-green"> Verify account</span>
-              </Link>
-            </p>
+                <Link to={CONFIRM_ACCOUNT}>
+                  <span className="text-green"> Verify account</span>
+                </Link>
+              </p>
             </div>
           </div>
         </form>
       </div>
-      </>
+    </>
   );
 };
 

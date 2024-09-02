@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   // settings,
   //   [meetingApi.reducerPath]: meetingApi.reducer,
   //   [userApi.reducerPath]: userApi.reducer,
-     [imageApi.reducerPath]: imageApi.reducer
+  [imageApi.reducerPath]: imageApi.reducer
 });
 
 export default rootReducer;

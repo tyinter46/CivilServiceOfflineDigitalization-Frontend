@@ -51,7 +51,6 @@
 //     }
 //   }, [selectedDestinationSchool, schools, staff]);
 
-  
 //   const handleSubmit = async () => {
 //     if (!selectedDestinationSchool) {
 //       toast.error("Please select a destination school.");
@@ -105,7 +104,7 @@
 //     .filter((member) => member._id) // Ensure _id exists
 //     .map((member) => (
 //       {
-     
+
 //       value: member._id ?? "", // Provide a fallback empty string if _id is undefined
 //       label: `${member?.staffName?.firstName} ` ,
 //     }));
@@ -162,7 +161,7 @@
 //               placeholder="Select Destination School"
 //               isSearchable
 //               isClearable // Allows clearing the selection
-               
+
 //             />
 //           </div>
 
@@ -248,7 +247,6 @@
 //           </div>
 //         </div>
 
-      
 //         {/* Right Div: Display School Details */}
 //         <div className="flex-1 p-6 bg-black rounded-lg shadow-lg mt-16 overflow-auto max-h-[550px]">
 //   <div className="flex flex-col items-center">
@@ -263,7 +261,7 @@
 //         <p><strong className="text-green-400">Zone: </strong> {destinationSchoolDetails.zone }</p>
 //         <p><strong className="text-green-400">Location: </strong> {destinationSchoolDetails.location}</p>
 //       </div>
-        
+
 //       {destinationSchoolDetails.principal ? (
 //         <div className="text-white mt-4">
 //           <h3 className="text-xl font-semibold text-yellow-300">Principal Details:</h3>

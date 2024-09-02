@@ -6,37 +6,36 @@ import { getLongDate } from "utils";
 import { loginSuccess } from "services/auth.service";
 // import { loginSuccess } from "../../../../redux/slices/auth.slice";
 import { useEffect } from "react";
-// import {toast} from "react-toastify" 
+// import {toast} from "react-toastify"
 // import FormData from "form-data"
 // import axios from "axios";
 // import env from "configs";
 
 export const ProfileContainer = () => {
   // const dispatch = useAppDispatch()
-  const {user} = useAppSelector((state)=> state.auth)
-  
+  const { user } = useAppSelector((state) => state.auth);
+
   useEffect(() => {
-    loginSuccess().then(()=>{
-      console.log("user login successful auth service")
-    }).catch((err)=>{
-      console.error(err)
-    })
-    
+    loginSuccess()
+      .then(() => {
+        console.log("user login successful auth service");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
-  
 
-console.log(user)
-const dateOfBirth = getLongDate(user?.user?._doc?.dateOfBirth)
-const dateOfFirstAppointment = getLongDate(user?.user?._doc?.dateOfFirstAppointment)
-const dateOfRetirement = getLongDate(user?.user?._doc?.dateOfRetirement)
-
+  console.log(user);
+  const dateOfBirth = getLongDate(user?.user?._doc?.dateOfBirth);
+  const dateOfFirstAppointment = getLongDate(user?.user?._doc?.dateOfFirstAppointment);
+  const dateOfRetirement = getLongDate(user?.user?._doc?.dateOfRetirement);
 
   const userDetails: UserDetails = {
     _id: user?.user?._doc.id,
-    staffName: user?.user?._doc?.staffName?.firstName,  
-    dateOfBirth: dateOfBirth,
-    dateOfFirstAppointment: dateOfFirstAppointment,
-    dateOfRetirement: dateOfRetirement ,
+    staffName: user?.user?._doc?.staffName?.firstName,
+     dateOfBirth,
+     dateOfFirstAppointment,
+     dateOfRetirement,
     ogNumber: user?.user?._doc?.ogNumber,
     phoneNumber: user?.user?._doc.phoneNumber,
     letters: user?.user?._doc.letters.postingLetter,
@@ -72,23 +71,23 @@ const dateOfRetirement = getLongDate(user?.user?._doc?.dateOfRetirement)
     gradeLevel: "",
     pfa: "",
     pensionNumber: "",
-     // dateOfRetirement?: Date;
+    // dateOfRetirement?: Date;
     professionalStatus: "",
     email: ""
   };
   // console.log(userDetails.letters.postingLetter)
 
-// const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>)=>{
-// const files = event.target.files
-// if(files){
-//   const formData = new FormData ()
-//   formData.append('file', files[0])
+  // const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>)=>{
+  // const files = event.target.files
+  // if(files){
+  //   const formData = new FormData ()
+  //   formData.append('file', files[0])
 
-//   const response = await axios.post("",{
+  //   const response = await axios.post("",{
 
-//   })
-// }  
-// }
+  //   })
+  // }
+  // }
 
   return (
     <>

@@ -4,9 +4,8 @@ type Props = {
   size?: number;
   color?: string;
   className?: string;
- 
 } & SVGProps<SVGSVGElement>;
-const SvgTesLogout = ({ size, color,  className, ...props }: Props) => {
+const SvgTesLogout = ({ size, color, className, ...props }: Props) => {
   return (
     <svg
       width={size}

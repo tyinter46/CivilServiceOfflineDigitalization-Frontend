@@ -31,7 +31,7 @@ module.exports = {
       GilroyUltraLightItalic: "GilroyUltraLightItalic"
     },
     fontSize: {
-      xl:["20px"],
+      xl: ["20px"],
       lg: ["16px"],
       base: ["12px"],
       sm: [

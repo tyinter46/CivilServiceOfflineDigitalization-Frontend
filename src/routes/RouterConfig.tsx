@@ -1,8 +1,28 @@
 import { Routes, Route } from "react-router-dom";
 
-import { Home, Signup, AboutUs, Login, Profile, Dashboard, ConfirmAccount, School, PrincipalsAndVicePrincipals } from "pages";
+import {
+  Home,
+  Signup,
+  AboutUs,
+  Login,
+  Profile,
+  Dashboard,
+  ConfirmAccount,
+  School,
+  PrincipalsAndVicePrincipals
+} from "pages";
 
-import { HOME, SIGNUP, ABOUT, LOGIN, ABOUT_ME, DASHBOARD, CONFIRM_ACCOUNT, SCHOOL, PRINCIPALSANDVICEPRINCIPALS} from "./CONSTANTS";
+import {
+  HOME,
+  SIGNUP,
+  ABOUT,
+  LOGIN,
+  ABOUT_ME,
+  DASHBOARD,
+  CONFIRM_ACCOUNT,
+  SCHOOL,
+  PRINCIPALSANDVICEPRINCIPALS
+} from "./CONSTANTS";
 
 import type { FC } from "react";
 import { PublicRoute, ProtectedRoute } from "components/gaurds";
@@ -21,14 +41,14 @@ const RouterConfig: FC = () => {
 
         <Route path="/" element={<PublicRoute />}>
           <Route path={CONFIRM_ACCOUNT} element={<ConfirmAccount />} />
-          <Route path = {SCHOOL} element = {<School />} />
-          <Route path = {PRINCIPALSANDVICEPRINCIPALS} element = {<PrincipalsAndVicePrincipals />} />
+          <Route path={SCHOOL} element={<School />} />
+          <Route path={PRINCIPALSANDVICEPRINCIPALS} element={<PrincipalsAndVicePrincipals />} />
           {/* <Route /> */}
         </Route>
 
         {/* Auth pages */}
         <Route path="/" element={<ProtectedRoute navigate={LOGIN} />}>
-        {/* <Route path = {SCHOOL} element = {<School />} /> */}
+          {/* <Route path = {SCHOOL} element = {<School />} /> */}
           <Route path={ABOUT_ME} element={<Profile />} />
         </Route>
         {/* Protected routes should be placed in here */}

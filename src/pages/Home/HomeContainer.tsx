@@ -3,7 +3,7 @@ import HomeView from "./HomeView";
 
 export const HomeContainer = () => {
   return (
-    <Landing >
+    <Landing>
       <HomeView />
     </Landing>
   );

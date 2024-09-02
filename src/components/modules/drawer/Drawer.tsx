@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from "hooks";
 import { logout } from "../../../redux/slices/auth.slice";
 import { TesDown, TesLogout } from "components/icons";
 import { Button, Dropdown } from "components/widgets";
-import { ABOUT, CONTACT, LOGIN,  SIGNUP } from "routes/CONSTANTS";
+import { ABOUT, CONTACT, LOGIN, SIGNUP } from "routes/CONSTANTS";
 
 interface Props {
   open: boolean;

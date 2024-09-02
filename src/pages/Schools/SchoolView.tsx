@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { Navbar, TesSearch, Input } from "components";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -5,7 +6,6 @@ import { fetchSchools } from "../../services/schools.service";
 import { getLongDate } from "utils";
 import LogoLoader from "components/widgets/loader/LogoLoader";
 import { ISchools } from "types";
-
 
 const ITEMS_PER_PAGE = 9;
 
@@ -66,7 +66,7 @@ export const SchoolView: React.FC = () => {
       setOpenSchoolId(openSchoolId === _id ? null : _id);
       setShowPrevNext(openSchoolId !== _id);
       if (openSchoolId !== _id) {
-        const index = filteredSchools.findIndex(school => school._id === _id);
+        const index = filteredSchools.findIndex((school) => school._id === _id);
         setCurrentSchoolIndex(index);
         const newPage = Math.floor(index / ITEMS_PER_PAGE) + 1;
         setCurrentPage(newPage);
@@ -79,10 +79,11 @@ export const SchoolView: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const filteredSchools = schools.filter((school) =>
-    school.nameOfSchool.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    school.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    school.location.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredSchools = schools.filter(
+    (school) =>
+      school.nameOfSchool.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      school.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      school.location.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) return <LogoLoader />;
@@ -138,218 +139,217 @@ export const SchoolView: React.FC = () => {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden bg-[#b8a188] text-[#60cd84] w-full p-4 rounded-lg shadow-lg mt-2"
                   >
-                     <div className="bg-white p-4 rounded-lg shadow-md max-h-[500px] overflow-auto">
-  <div className="flex flex-row justify-center">
-    <h2 className="text-[30px] font-bold mb-2 text-[#1b733f]">
-      {school?.nameOfSchool}
-    </h2>
-  </div>
-  <div className="flex flex-row justify-space-around mb-4 gap-4 justify-center">
-    <p className="text-gray-700 mb-1">
-      <strong>Category:</strong> {school?.category}
-    </p>
-    <p className="text-gray-700 mb-1">
-      <strong>Address:</strong> {school?.address}
-    </p>
-    <p className="text-gray-700 mb-1">
-      <strong>Division:</strong> {school?.division}
-    </p>
-    <p className="text-gray-700 mb-1">
-      <strong>Location:</strong> {school?.location}
-    </p>
-  </div>
+                    <div className="bg-white p-4 rounded-lg shadow-md max-h-[500px] overflow-auto">
+                      <div className="flex flex-row justify-center">
+                        <h2 className="text-[30px] font-bold mb-2 text-[#1b733f]">
+                          {school?.nameOfSchool}
+                        </h2>
+                      </div>
+                      <div className="flex flex-row justify-space-around mb-4 gap-4 justify-center">
+                        <p className="text-gray-700 mb-1">
+                          <strong>Category:</strong> {school?.category}
+                        </p>
+                        <p className="text-gray-700 mb-1">
+                          <strong>Address:</strong> {school?.address}
+                        </p>
+                        <p className="text-gray-700 mb-1">
+                          <strong>Division:</strong> {school?.division}
+                        </p>
+                        <p className="text-gray-700 mb-1">
+                          <strong>Location:</strong> {school?.location}
+                        </p>
+                      </div>
 
-  <div className="flex flex-col space-y-4">
-    <div className="flex flex-wrap gap-4">
-      <div className="flex-1 bg-gray-50 p-4 rounded-lg shadow-sm">
-        <h3 className="text-lg font-semibold mb-2 text-black">Principal</h3>
-        {school.principal ? (
-          <div className="text-black">
-            <p>
-              <strong>Name:</strong> {school?.principal?.staffName?.firstName}
-            </p>
-            <p>
-              <strong>Position:</strong> {school.principal?.position}
-            </p>
-            <p>
-              <strong>Gender:</strong> {school.principal?.gender}
-            </p>
-            <p>
-              <strong>Phone:</strong> {school.principal?.phoneNumber}
-            </p>
-            <p>
-              <strong>OG Number:</strong> {school.principal?.ogNumber}
-            </p>
-            <p>
-              <strong>TSC File Number:</strong> {school.principal?.tscFileNumber}
-            </p>
-            <p>
-              <strong>Date of Present Posting:</strong>{" "}
-              {school?.principal?.dateOfPresentPosting}
-            </p>
-            <p>
-              <strong>Date of First Appointment:</strong>{" "}
-              {getLongDate(school?.principal?.dateOfFirstAppointment)}
-            </p>
-            <p>
-              <strong>Date of Birth:</strong>{" "}
-              {getLongDate(school?.principal?.dateOfBirth)}
-            </p>
-            <p>
-              <strong>Date of Retirement:</strong>{" "}
-              {getLongDate(school?.principal?.dateOfRetirement)}
-            </p>
-            <p>
-              <strong>Grade Level:</strong> {school?.principal?.gradeLevel}
-            </p>
-          </div>
-        ) : (
-          <p className="text-gray-500">Vacant</p>
-        )}
-      </div>
+                      <div className="flex flex-col space-y-4">
+                        <div className="flex flex-wrap gap-4">
+                          <div className="flex-1 bg-gray-50 p-4 rounded-lg shadow-sm">
+                            <h3 className="text-lg font-semibold mb-2 text-black">Principal</h3>
+                            {school.principal ? (
+                              <div className="text-black">
+                                <p>
+                                  <strong>Name:</strong> {school?.principal?.staffName?.firstName}
+                                </p>
+                                <p>
+                                  <strong>Position:</strong> {school.principal?.position}
+                                </p>
+                                <p>
+                                  <strong>Gender:</strong> {school.principal?.gender}
+                                </p>
+                                <p>
+                                  <strong>Phone:</strong> {school.principal?.phoneNumber}
+                                </p>
+                                <p>
+                                  <strong>OG Number:</strong> {school.principal?.ogNumber}
+                                </p>
+                                <p>
+                                  <strong>TSC File Number:</strong>{" "}
+                                  {school.principal?.tscFileNumber}
+                                </p>
+                                <p>
+                                  <strong>Date of Present Posting:</strong>{" "}
+                                  {school?.principal?.dateOfPresentPosting}
+                                </p>
+                                <p>
+                                  <strong>Date of First Appointment:</strong>{" "}
+                                  {getLongDate(school?.principal?.dateOfFirstAppointment)}
+                                </p>
+                                <p>
+                                  <strong>Date of Birth:</strong>{" "}
+                                  {getLongDate(school?.principal?.dateOfBirth)}
+                                </p>
+                                <p>
+                                  <strong>Date of Retirement:</strong>{" "}
+                                  {getLongDate(school?.principal?.dateOfRetirement)}
+                                </p>
+                                <p>
+                                  <strong>Grade Level:</strong> {school?.principal?.gradeLevel}
+                                </p>
+                              </div>
+                            ) : (
+                              <p className="text-gray-500">Vacant</p>
+                            )}
+                          </div>
 
-      <div className="flex-1 bg-gray-50 p-4 rounded-lg shadow-sm">
-        <h3 className="text-lg font-semibold mb-2 text-black">
-          Vice Principal Admin
-        </h3>
-        {school.vicePrincipalAdmin ? (
-          <div className="text-black">
-            <p>
-              <strong>Name:</strong>{" "}
-              {school?.vicePrincipalAdmin?.staffName.firstName}
-            </p>
-            <p>
-              <strong>Position:</strong> {school?.vicePrincipalAdmin?.position}
-            </p>
-            <p>
-              <strong>Gender:</strong> {school?.vicePrincipalAdmin?.gender}
-            </p>
-            <p>
-              <strong>Phone:</strong> {school?.vicePrincipalAdmin?.phoneNumber}
-            </p>
-            <p>
-              <strong>OG Number:</strong> {school?.vicePrincipalAdmin?.ogNumber}
-            </p>
-            <p>
-              <strong>TSC File Number:</strong>{" "}
-              {school?.vicePrincipalAdmin?.tscFileNumber}
-            </p>
-            <p>
-              <strong>Date of Present Posting:</strong>{" "}
-              {school?.vicePrincipalAdmin?.dateOfPresentPosting}
-            </p>
-            <p>
-              <strong>Date of First Appointment:</strong>{" "}
-              {getLongDate(school?.vicePrincipalAdmin?.dateOfFirstAppointment)}
-            </p>
-            <p>
-              <strong>Date of Birth:</strong>{" "}
-              {getLongDate(school?.vicePrincipalAdmin?.dateOfBirth)}
-            </p>
-            <p>
-              <strong>Date of Retirement:</strong>{" "}
-              {getLongDate(school?.vicePrincipalAdmin?.dateOfRetirement)}
-            </p>
-            <p>
-              <strong>Grade Level:</strong>{" "}
-              {school?.vicePrincipalAdmin?.gradeLevel}
-            </p>
-          </div>
-        ) : (
-          <p className="text-gray-500">Vacant</p>
-        )}
-      </div>
+                          <div className="flex-1 bg-gray-50 p-4 rounded-lg shadow-sm">
+                            <h3 className="text-lg font-semibold mb-2 text-black">
+                              Vice Principal Admin
+                            </h3>
+                            {school.vicePrincipalAdmin ? (
+                              <div className="text-black">
+                                <p>
+                                  <strong>Name:</strong>{" "}
+                                  {school?.vicePrincipalAdmin?.staffName.firstName}
+                                </p>
+                                <p>
+                                  <strong>Position:</strong> {school?.vicePrincipalAdmin?.position}
+                                </p>
+                                <p>
+                                  <strong>Gender:</strong> {school?.vicePrincipalAdmin?.gender}
+                                </p>
+                                <p>
+                                  <strong>Phone:</strong> {school?.vicePrincipalAdmin?.phoneNumber}
+                                </p>
+                                <p>
+                                  <strong>OG Number:</strong> {school?.vicePrincipalAdmin?.ogNumber}
+                                </p>
+                                <p>
+                                  <strong>TSC File Number:</strong>{" "}
+                                  {school?.vicePrincipalAdmin?.tscFileNumber}
+                                </p>
+                                <p>
+                                  <strong>Date of Present Posting:</strong>{" "}
+                                  {school?.vicePrincipalAdmin?.dateOfPresentPosting}
+                                </p>
+                                <p>
+                                  <strong>Date of First Appointment:</strong>{" "}
+                                  {getLongDate(school?.vicePrincipalAdmin?.dateOfFirstAppointment)}
+                                </p>
+                                <p>
+                                  <strong>Date of Birth:</strong>{" "}
+                                  {getLongDate(school?.vicePrincipalAdmin?.dateOfBirth)}
+                                </p>
+                                <p>
+                                  <strong>Date of Retirement:</strong>{" "}
+                                  {getLongDate(school?.vicePrincipalAdmin?.dateOfRetirement)}
+                                </p>
+                                <p>
+                                  <strong>Grade Level:</strong>{" "}
+                                  {school?.vicePrincipalAdmin?.gradeLevel}
+                                </p>
+                              </div>
+                            ) : (
+                              <p className="text-gray-500">Vacant</p>
+                            )}
+                          </div>
 
-      <div className="flex-1 bg-gray-50 p-4 rounded-lg shadow-sm">
-        <h3 className="text-lg font-semibold mb-2 text-black">
-          Vice Principal Academics
-        </h3>
-        {school?.vicePrincipalAcademics ? (
-          <div className="text-black">
-            <p>
-              <strong>Name:</strong>{" "}
-              {school?.vicePrincipalAcademics?.staffName.firstName}
-            </p>
-            <p>
-              <strong>Position:</strong> {school.vicePrincipalAcademics?.position}
-            </p>
-            <p>
-              <strong>Gender:</strong> {school?.vicePrincipalAcademics?.gender}
-            </p>
-            <p>
-              <strong>Phone:</strong>{" "}
-              {school?.vicePrincipalAcademics?.phoneNumber}
-            </p>
-            <p>
-              <strong>OG Number:</strong>{" "}
-              {school?.vicePrincipalAcademics?.ogNumber}
-            </p>
-            <p>
-              <strong>TSC File Number:</strong>{" "}
-              {school?.vicePrincipalAcademics?.tscFileNumber}
-            </p>
-            <p>
-              <strong>Date of Present Posting:</strong>{" "}
-              {school?.vicePrincipalAcademics?.dateOfPresentPosting}
-            </p>
-            <p>
-              <strong>Date of First Appointment:</strong>{" "}
-              {getLongDate(
-                school?.vicePrincipalAcademics?.dateOfFirstAppointment
-              )}
-            </p>
-            <p>
-              <strong>Date of Birth:</strong>{" "}
-              {getLongDate(school?.vicePrincipalAcademics?.dateOfBirth)}
-            </p>
-            <p>
-              <strong>Date of Retirement:</strong>{" "}
-              {getLongDate(school?.vicePrincipalAcademics?.dateOfRetirement)}
-            </p>
-            <p>
-              <strong>Grade Level:</strong>{" "}
-              {school?.vicePrincipalAcademics?.gradeLevel}
-            </p>
-          </div>
-        ) : (
-          <p className="text-gray-500">Vacant</p>
-        )}
-      </div>
-    </div>
-  </div>
-</div>
+                          <div className="flex-1 bg-gray-50 p-4 rounded-lg shadow-sm">
+                            <h3 className="text-lg font-semibold mb-2 text-black">
+                              Vice Principal Academics
+                            </h3>
+                            {school?.vicePrincipalAcademics ? (
+                              <div className="text-black">
+                                <p>
+                                  <strong>Name:</strong>{" "}
+                                  {school?.vicePrincipalAcademics?.staffName.firstName}
+                                </p>
+                                <p>
+                                  <strong>Position:</strong>{" "}
+                                  {school.vicePrincipalAcademics?.position}
+                                </p>
+                                <p>
+                                  <strong>Gender:</strong> {school?.vicePrincipalAcademics?.gender}
+                                </p>
+                                <p>
+                                  <strong>Phone:</strong>{" "}
+                                  {school?.vicePrincipalAcademics?.phoneNumber}
+                                </p>
+                                <p>
+                                  <strong>OG Number:</strong>{" "}
+                                  {school?.vicePrincipalAcademics?.ogNumber}
+                                </p>
+                                <p>
+                                  <strong>TSC File Number:</strong>{" "}
+                                  {school?.vicePrincipalAcademics?.tscFileNumber}
+                                </p>
+                                <p>
+                                  <strong>Date of Present Posting:</strong>{" "}
+                                  {school?.vicePrincipalAcademics?.dateOfPresentPosting}
+                                </p>
+                                <p>
+                                  <strong>Date of First Appointment:</strong>{" "}
+                                  {getLongDate(
+                                    school?.vicePrincipalAcademics?.dateOfFirstAppointment
+                                  )}
+                                </p>
+                                <p>
+                                  <strong>Date of Birth:</strong>{" "}
+                                  {getLongDate(school?.vicePrincipalAcademics?.dateOfBirth)}
+                                </p>
+                                <p>
+                                  <strong>Date of Retirement:</strong>{" "}
+                                  {getLongDate(school?.vicePrincipalAcademics?.dateOfRetirement)}
+                                </p>
+                                <p>
+                                  <strong>Grade Level:</strong>{" "}
+                                  {school?.vicePrincipalAcademics?.gradeLevel}
+                                </p>
+                              </div>
+                            ) : (
+                              <p className="text-gray-500">Vacant</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-
-  <div className="mt-2 flex-1 bg-gray-50 p-4 rounded-lg shadow-sm">
-    <h5 className="text-lg font-semibold text-black">List of Staff</h5>
-    {school?.listOfStaff?.length > 0 ? (
-      <ul className="list-disc pl-5 space-y-2">
-        {school?.listOfStaff?.map((staff: any) => (
-          <li key={staff?._id} className="text-gray-700">
-            <p>
-              <strong>Staff Name:</strong> {staff?.staffName?.firstName}
-            </p>
-            <p>
-              <strong>Position:</strong> {staff?.position}
-            </p>
-            <p>
-              <strong>Phone:</strong> {staff?.phoneNumber}
-            </p>
-            <p>
-              <strong>OG Number:</strong> {staff?.ogNumber}
-            </p>
-            <p>
-              <strong>TSC File Number:</strong> {staff?.tscFileNumber}
-            </p>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p>No staff members found.</p>
-    )}
-  </div>
-
-              
+                    <div className="mt-2 flex-1 bg-gray-50 p-4 rounded-lg shadow-sm">
+                      <h5 className="text-lg font-semibold text-black">List of Staff</h5>
+                      {school?.listOfStaff?.length > 0 ? (
+                        <ul className="list-disc pl-5 space-y-2">
+                          {school?.listOfStaff?.map((staff: any) => (
+                            <li key={staff?._id} className="text-gray-700">
+                              <p>
+                                <strong>Staff Name:</strong> {staff?.staffName?.firstName}
+                              </p>
+                              <p>
+                                <strong>Position:</strong> {staff?.position}
+                              </p>
+                              <p>
+                                <strong>Phone:</strong> {staff?.phoneNumber}
+                              </p>
+                              <p>
+                                <strong>OG Number:</strong> {staff?.ogNumber}
+                              </p>
+                              <p>
+                                <strong>TSC File Number:</strong> {staff?.tscFileNumber}
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No staff members found.</p>
+                      )}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -1,1 +1,1 @@
-export {PrincipalsAndVicePrincipalsContainer as default} from './PrincipalsAndVicePrincipalsContainer'
+export { PrincipalsAndVicePrincipalsContainer as default } from "./PrincipalsAndVicePrincipalsContainer";
