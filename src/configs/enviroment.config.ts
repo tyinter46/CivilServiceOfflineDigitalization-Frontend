@@ -12,7 +12,6 @@ const dev = {
   REDIRECT_URL: "http://localhost:3000",
   API_BASE_URL: "http://localhost:8001/api"
 };
-
 const getEnv = (): IURL => {
   switch (process.env.NODE_ENV) {
     case "development":

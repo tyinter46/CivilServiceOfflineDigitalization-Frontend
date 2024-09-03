@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
+
 import { store } from "redux/store";
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -78,6 +80,7 @@ export interface IUser {
     middleName?: string;
     lastName: string;
   };
+  letters: Letters;
   coordinates?: {
     latitude: string;
     longitude: string;
@@ -193,5 +196,5 @@ export interface imageResponse {
   MESSAGE: String;
   DATA: any;
 }
-
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ExistingStaffDetails {}

@@ -1,19 +1,21 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 import ProfileView from "./ProfileView";
 import { UserDetails } from "types";
-import { useAppSelector } from "hooks";
+import { useAppSelector, useAppDispatch } from "hooks";
 import { getLongDate } from "utils";
 import { loginSuccess } from "services/auth.service";
-// import { loginSuccess } from "../../../../redux/slices/auth.slice";
-import { useEffect } from "react";
+import { fetchUser } from "../../../../redux/slices/auth.slice";
+import { useEffect, useState } from "react";
 // import {toast} from "react-toastify"
 // import FormData from "form-data"
 // import axios from "axios";
 // import env from "configs";
 
 export const ProfileContainer = () => {
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
+  const [userSaved, setUserSaved] = useState<any>(user);
+  const [postingLetter, setPosttingLetter] = useState<null | string | any>("");
 
   useEffect(() => {
     loginSuccess()
@@ -23,22 +25,35 @@ export const ProfileContainer = () => {
       .catch((err) => {
         console.error(err);
       });
+    setUserSaved(userSaved);
   }, []);
+  useEffect(() => {
+    dispatch(fetchUser(userSaved?.user?._doc._id))
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        setPosttingLetter(res);
+        return console.log(postingLetter);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [dispatch]);
 
-  console.log(user);
-  const dateOfBirth = getLongDate(user?.user?._doc?.dateOfBirth);
-  const dateOfFirstAppointment = getLongDate(user?.user?._doc?.dateOfFirstAppointment);
-  const dateOfRetirement = getLongDate(user?.user?._doc?.dateOfRetirement);
+  // console.log(postingLetter?.staffName?.firstName);
+  const dateOfBirth = getLongDate(userSaved?.user?._doc?.dateOfBirth);
+  const dateOfFirstAppointment = getLongDate(userSaved?.user?._doc?.dateOfFirstAppointment);
+  const dateOfRetirement = getLongDate(userSaved?.user?._doc?.dateOfRetirement);
 
   const userDetails: UserDetails = {
-    _id: user?.user?._doc.id,
-    staffName: user?.user?._doc?.staffName?.firstName,
-     dateOfBirth,
-     dateOfFirstAppointment,
-     dateOfRetirement,
-    ogNumber: user?.user?._doc?.ogNumber,
-    phoneNumber: user?.user?._doc.phoneNumber,
-    letters: user?.user?._doc.letters.postingLetter,
+    _id: userSaved?.user?._doc._id,
+    staffName: userSaved?.user?._doc?.staffName?.firstName,
+    dateOfBirth,
+    dateOfFirstAppointment,
+    dateOfRetirement,
+    ogNumber: userSaved?.user?._doc?.ogNumber,
+    phoneNumber: userSaved?.user?._doc.phoneNumber,
+    letters: postingLetter?.letters?.postingLetter,
     tscFileNumber: "",
     schoolOfPresentPosting: "",
     zone: "",
