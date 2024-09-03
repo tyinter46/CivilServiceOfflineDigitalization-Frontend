@@ -21,6 +21,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier", "promise"],
   "rules": {
+    "@typescript-eslint/no-empty-interface": ["off"],
     "@typescript-eslint/no-confusing-void-expression": ["off"],
     "@typescript-eslint/no-misused-promises": ["off"],
     "react/react-in-jsx-scope": ["off"],

@@ -2,7 +2,7 @@
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AuthService } from "services";
+import { AuthService, UserService } from "services";
 import { formatErrorResponse } from "utils";
 
 import { toast } from "react-toastify";
@@ -138,6 +138,23 @@ export const forgotPassword = createAsyncThunk(
   }
 );
 
+export const fetchUser = createAsyncThunk("auth/fethUser", async (id: string, thunkAPI) => {
+  try {
+    const response = await UserService.fetchUser(id);
+    // const fetchedData = response
+    console.log(response);
+    const user = response;
+
+    if (!response) {
+      throw new Error("Network response was not ok");
+    }
+    return user;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    const message = formatErrorResponse(error);
+    return thunkAPI.rejectWithValue(message);
+  }
+});
 export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
   async (
@@ -155,6 +172,7 @@ export const resetPassword = createAsyncThunk(
     }
   }
 );
+
 // Change Password slice
 export const changePassword = createAsyncThunk(
   "auth/changePassword",
@@ -289,6 +307,16 @@ const authSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(logout.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(fetchUser.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    });
+    builder.addCase(fetchUser.rejected, (state) => {
       state.isLoading = false;
     });
   }
