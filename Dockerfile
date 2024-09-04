@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:18
+FROM node:18 AS build
 
 # Set the working directory in the container
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY yarn.lock ./
 RUN ["yarn", "install"]
 
 # Copy the rest of the application code to the container
-COPY . .
+COPY build .
 
 
 RUN ["yarn", "build"]
