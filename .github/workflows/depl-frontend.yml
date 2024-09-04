@@ -1,0 +1,28 @@
+name: deploy-tescom-frontend
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: docker build -t teewhy/tescomfrontend .
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker push teewhy/tescomfrontend
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save k8s-1-30-4-do-0-lon1-1725067463420
+      - name: Copy deployment and ingress YAML files
+        run: cp -r infra/* $GITHUB_WORKSPACE
+      - name: Apply or create deployment and ingress
+        run: |
+          kubectl apply -f frontend-depl.yml -n backend
+      - run: kubectl rollout restart deployment tescom-frontend-depl -n backend

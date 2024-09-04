@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tescom-frontend-depl
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tescom-frontend
+  template:
+    metadata:
+      labels:
+        app: tescom-frontend
+    spec:
+      containers:
+        - name: testcom-frontend
+          image: teewhy/tescomfrontend:latest
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tescom-frontend-srv
+  namespace: backend
+spec:
+  selector:
+    app: tescom-frontend
+  ports:
+    - name: tescom-frontend
+      protocol: TCP
+      port: 80
+      targetPort: 3000
