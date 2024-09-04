@@ -103,5 +103,6 @@
   "main": ".svgrrc.js",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": "https://github.com/tyinter46/TescomDigitalizationFrontend.git"
 }
