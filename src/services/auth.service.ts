@@ -78,7 +78,7 @@ export const register = async (details: {
 };
 
 export const confirmAccount = async (code: string, ogNumber: string) => {
-  const respone = await axios.patch(env.API_BASE_URL + `/auth/local/account-activation`, {
+  const respone = await axios.patch(env.API_BASE_URL + `auth/local/account-activation`, {
     code,
     ogNumber
   });
