@@ -1,13 +1,13 @@
 // Auth routes
-export const LOG_OUT = "auth/logout";
-export const LOGIN = "auth/local/signin";
-export const SIGNUP = "auth/local/signup";
-export const LOGIN_SUCCESS_URL = "auth/login/success";
+export const LOG_OUT = "/auth/logout";
+export const LOGIN = "/auth/local/signin";
+export const SIGNUP = "/auth/local/signup";
+export const LOGIN_SUCCESS_URL = "/auth/login/success";
 
 export const GET_USER = "/users";
 export const FORGOT_PASSWORD = "/forgotPassword";
 export const RESET_PASSWORD = "/resetPassword";
-export const UPDATE_PASSWORD = "users/:id/password-update";
+export const UPDATE_PASSWORD = "/users/:id/password-update";
 /**
  * Settings
  */
