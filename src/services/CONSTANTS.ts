@@ -1,8 +1,8 @@
 // Auth routes
-export const LOG_OUT = "/auth/logout";
-export const LOGIN = "/auth/local/signin";
-export const SIGNUP = "/auth/local/signup";
-export const LOGIN_SUCCESS_URL = "/auth/login/success";
+export const LOG_OUT = "auth/logout";
+export const LOGIN = "auth/local/signin";
+export const SIGNUP = "auth/local/signup";
+export const LOGIN_SUCCESS_URL = "auth/login/success";
 
 export const GET_USER = "/users";
 export const FORGOT_PASSWORD = "/forgotPassword";
@@ -21,5 +21,5 @@ export const PUBLIC_REQUEST_KEY = "public-request";
 export const RESPONSE_SUCCESS = "SUCCESS";
 export const RESPONSE_ERROR = "FAILURE";
 
-export const UPLOAD_IMAGE = "/upload/upload-image";
+export const UPLOAD_IMAGE = "upload/upload-image";
 export const IMAGE_TAG = "user-image";
