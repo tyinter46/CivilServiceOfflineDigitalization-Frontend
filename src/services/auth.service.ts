@@ -9,7 +9,7 @@ import {
   FORGOT_PASSWORD,
   RESET_PASSWORD,
   LOG_OUT,
-  SIGNUP,
+  // SIGNUP,
   UPDATE_PASSWORD
 } from "./CONSTANTS";
 
@@ -73,12 +73,12 @@ export const register = async (details: {
   confirmPhoneNumber: string;
 }) => {
   console.log(details.confirmPhoneNumber);
-  const response = await axios.post(`${env.API_BASE_URL}/${SIGNUP}`, details);
+  const response = await axios.post(env.API_BASE_URL + `/auth/local/signup`, details);
   return response.data;
 };
 
 export const confirmAccount = async (code: string, ogNumber: string) => {
-  const respone = await axios.patch(env.API_BASE_URL + `auth/local/account-activation`, {
+  const respone = await axios.patch(env.API_BASE_URL + `/auth/local/account-activation`, {
     code,
     ogNumber
   });
