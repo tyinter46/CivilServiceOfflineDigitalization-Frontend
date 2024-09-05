@@ -19,7 +19,7 @@ jobs:
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
-      - run: doctl kubernetes cluster kubeconfig save k8s-1-30-4-do-0-lon1-1725067463420
+      - run: doctl kubernetes cluster kubeconfig save k8s-1-30-4-do-0-nyc3-1725475291164
       - name: Copy deployment and ingress YAML files
         run: cp -r infra/* $GITHUB_WORKSPACE
       - name: Apply or create deployment and ingress
