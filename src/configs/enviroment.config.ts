@@ -5,7 +5,7 @@ interface IURL {
 
 const prod = {
   REDIRECT_URL: `${window.location.origin}/`,
-  API_BASE_URL: "https://oguntescom.gov.ng/api"
+  API_BASE_URL: "https://oguntescom.com"
 };
 
 const dev = {
