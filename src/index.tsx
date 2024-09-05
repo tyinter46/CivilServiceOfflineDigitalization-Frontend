@@ -5,9 +5,7 @@ import ReactDOM from "react-dom/client";
 import "./styles/index.css";
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 import App from "./App";
-
 import reportWebVitals from "./reportWebVitals";
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
 // eslint-disable-next-line
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(<App />);

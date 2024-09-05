@@ -11,22 +11,22 @@ COPY yarn.lock ./
 # Install the app dependencies inside the container
 RUN yarn install
 
-# Copy the rest of the application source code
+# Copy the application source code
 COPY . .
 
 # Build the application
 RUN yarn build
 
-# Use a smaller, final image for production
 FROM node:18-slim
 
 # Set the working directory in the final container
 WORKDIR /app
 
-# Copy built assets from the previous stage
+# Copy only necessary files for production
 COPY --from=build /app/build ./build
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./
+COPY --from=build /app/yarn.lock ./
 
 # Expose the port the app runs on
 EXPOSE 3000
