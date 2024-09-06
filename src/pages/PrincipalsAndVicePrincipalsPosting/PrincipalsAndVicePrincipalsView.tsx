@@ -22,7 +22,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
   refreshData
 }) => {
   const [selectedStaleOrNew, setSelectedStaleOrNew] = useState<string | null>(null);
-  const [selectedpreviousSchool, setSelecetdpreviousSchool] = useState< string | null>(null);
+  const [selectedpreviousSchool, setSelecetdpreviousSchool] = useState<string | null>(null);
   const [selectedDestinationSchool, setSelectedDestinationSchool] = useState<string | null>(null);
   const [selectedPrincipal, setSelectedPrincipal] = useState<string | null>(null);
   const [selectedVicePrincipalAdmin, setSelectedVicePrincipalAdmin] = useState<string | null>(null);
@@ -43,23 +43,21 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
         (user) => user.schoolOfPresentPosting?._id === selectedDestinationSchool
       );
       setDestinationSchoolStaff(schoolStaff);
-    
     } else {
       setDestinationSchoolDetails(null);
       setDestinationSchoolStaff([]);
-      setSelecetdpreviousSchool(null)
-      setSelectedStaleOrNew(null)
+      setSelecetdpreviousSchool(null);
+      setSelectedStaleOrNew(null);
     }
   }, [selectedDestinationSchool, schools, staff]);
 
-
-  useEffect(()=>{
-    
-     if (selectedStaleOrNew){
-      const staleOrNewOptions = ["Stale", "New"].find((option)=> option === selectedStaleOrNew) ?? null
-      setSelectedStaleOrNew(staleOrNewOptions) 
-     }
-  },[selectedpreviousSchool, ])
+  useEffect(() => {
+    if (selectedStaleOrNew) {
+      const staleOrNewOptions =
+        ["Stale", "New"].find((option) => option === selectedStaleOrNew) ?? null;
+      setSelectedStaleOrNew(staleOrNewOptions);
+    }
+  }, [selectedpreviousSchool]);
 
   const handleSubmit = async () => {
     console.log(destinationSchoolStaff);
@@ -122,8 +120,8 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
       toast.success("Staff posted successfully!");
 
       // Reset selection states
-      setSelectedStaleOrNew(null)
-      setSelecetdpreviousSchool(null)
+      setSelectedStaleOrNew(null);
+      setSelecetdpreviousSchool(null);
       setSelectedPrincipal(null);
       setSelectedVicePrincipalAdmin(null);
       setSelectedVicePrincipalAcademics(null);
@@ -134,12 +132,13 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
       );
     }
   };
-  const staleOrNewOptions  : SelectOption[] = ["Stale", "New"].filter((option, index)=> option[index]).map((option, index)=>({
-    value: option[index] ?? "" ,
-    label: `${option}`
-  }))
+  const staleOrNewOptions: SelectOption[] = ["Stale", "New"]
+    .filter((option, index) => option[index])
+    .map((option, index) => ({
+      value: option[index] ?? "",
+      label: `${option}`
+    }));
 
-  
   const schoolOptions: SelectOption[] = schools
     .filter((school) => school._id) // Ensure _id exists
     .map((school) => ({
@@ -154,14 +153,12 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
       label: `${member?.staffName?.firstName}`
     }));
 
-
   const handleSelectChange =
     (setter: React.Dispatch<React.SetStateAction<string | null>>) =>
     async (selectedOption: SingleValue<SelectOption>) => {
       const newValue = selectedOption ? selectedOption.value : null;
       setter(newValue);
     };
-
 
   const selectedSchoolDetails = selectedDestinationSchool
     ? schools.find((school) => school._id === selectedDestinationSchool)
@@ -179,21 +176,15 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
         <div className="flex-1 p-6 bg-green-500 rounded-lg shadow-lg mt-16">
           <h2 className="text-xl font-bold mb-6 text-black">Post Principals & Vice Principals</h2>
 
-
-      {/* stale OR new selection */}
-      <div className="mb-6">
-            <label
-              htmlFor="staleOrNew"
-              className="block text-lg font-medium text-black mb-2"
-            >
+          {/* stale OR new selection */}
+          <div className="mb-6">
+            <label htmlFor="staleOrNew" className="block text-lg font-medium text-black mb-2">
               Stale or New
             </label>
             <Select<SelectOption>
               id="staleOrNew"
               options={staleOrNewOptions}
-              value={
-                staleOrNewOptions.find((option)=> option.value === selectedStaleOrNew)
-              }
+              value={staleOrNewOptions.find((option) => option.value === selectedStaleOrNew)}
               onChange={handleSelectChange(setSelectedDestinationSchool)}
               className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Select Destination School"
@@ -202,19 +193,16 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
             />
           </div>
 
-{/* Destination School Selection */}
-<div className="mb-6">
-            <label
-              htmlFor="previousSchool"
-              className="block text-lg font-medium text-black mb-2"
-            >
+          {/* Previous School Selection */}
+          <div className="mb-6">
+            <label htmlFor="previousSchool" className="block text-lg font-medium text-black mb-2">
               Previous School
             </label>
             <Select<SelectOption>
               id="previousSchool"
               options={schoolOptions}
               value={
-                schoolOptions.find((option) => option.value === selectedDestinationSchool) ?? null
+                schoolOptions.find((option) => option.value === selectedpreviousSchool) ?? null
               }
               onChange={handleSelectChange(setSelecetdpreviousSchool)}
               className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -223,9 +211,6 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
               isClearable
             />
           </div>
-
-
-
 
           {/* Destination School Selection */}
           <div className="mb-6">
