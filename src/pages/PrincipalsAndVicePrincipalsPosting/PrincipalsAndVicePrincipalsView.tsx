@@ -107,7 +107,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
         schoolId: selectedDestinationSchool
       });
 
-      await refreshData();
+
 
       // Update the local state to reflect the changes
       const updatedSchoolDetails =
@@ -122,7 +122,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
       // setSelectedStaleOrNew(updatedSaleOrNew as any)
       setLoading(false);
       toast.success("Staff posted successfully!");
-
+      await refreshData();
       // Reset selection states
       setSelectedStaleOrNew(null);
       setSelecetdpreviousSchool(null);
@@ -136,7 +136,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
       );
     }
   };
-  const staleOrNewOptions: SelectOption[] = ["Stale", "New"]
+  const staleOrNewOptions: SelectOption[] = ["New", "Stale"]
     .filter((option, index) => option[index])
     .map((option) => ({
       value: option ?? "",
@@ -192,7 +192,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
               value={staleOrNewOptions.find((option) => option.value === selectedStaleOrNew)}
               onChange={handleSelectChange(setSelectedStaleOrNew)}
               className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Select Destination School"
+              placeholder="Stale or New"
               isSearchable
               isClearable
             />
