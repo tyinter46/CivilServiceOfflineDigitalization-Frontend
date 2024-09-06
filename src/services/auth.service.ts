@@ -73,7 +73,7 @@ export const register = async (details: {
   confirmPhoneNumber: string;
 }) => {
   console.log(details.confirmPhoneNumber);
-  const response = await axios.post(env.API_BASE_URL + `b/auth/local/signup`, details);
+  const response = await axios.post(env.API_BASE_URL + `/auth/local/signup`, details);
   return response.data;
 };
 
