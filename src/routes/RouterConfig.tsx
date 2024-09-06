@@ -41,15 +41,17 @@ const RouterConfig: FC = () => {
 
         <Route path="/" element={<PublicRoute />}>
           <Route path={CONFIRM_ACCOUNT} element={<ConfirmAccount />} />
-          <Route path={SCHOOL} element={<School />} />
-          <Route path={PRINCIPALSANDVICEPRINCIPALS} element={<PrincipalsAndVicePrincipals />} />
+       
+        
           {/* <Route /> */}
         </Route>
 
         {/* Auth pages */}
         <Route path="/" element={<ProtectedRoute navigate={LOGIN} />}>
           {/* <Route path = {SCHOOL} element = {<School />} /> */}
+          <Route path={SCHOOL} element={<School />} />
           <Route path={ABOUT_ME} element={<Profile />} />
+          <Route path={PRINCIPALSANDVICEPRINCIPALS} element={<PrincipalsAndVicePrincipals />} />
         </Route>
         {/* Protected routes should be placed in here */}
 
