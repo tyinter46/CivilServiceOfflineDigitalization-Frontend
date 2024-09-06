@@ -6,7 +6,9 @@ import { ProfileViewModal } from "components/modules/modals";
 import { useState } from "react";
 import { UserDetails, Settings } from "types";
 import { Formik } from "formik";
-import { downloadLogo } from "assets/logos";
+// import { downloadLogo } from "assets/logos";
+import DownloadPDFButton from "./DownloadButton"
+
 // import { Link } from "react-router-dom";
 
 type ModalId = string | null;
@@ -86,7 +88,7 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
             <div className="relative flex flex-col justify-center items-center">
               <h5 className="text-red-100">Click Here to Download Your Posting Letter</h5>
 
-              {postingLetterUrl ? (
+              {/* {postingLetterUrl ? (
                 <a href={postingLetterUrl} download>
                   <div className=" flex justify-center items-center shadow rounded-full w-[80px] h-[80px] bg-green">
                     <img src={downloadLogo} alt="Click Here To Download" className="h-10 w-10" />
@@ -94,7 +96,9 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
                 </a>
               ) : (
                 "No posting letter available"
-              )}
+              )} */}
+
+              <DownloadPDFButton {...{userId:userDetails._id}} />
             </div>
 
             <div className="flex flex-col md:flex-row justify-between gap-4">
