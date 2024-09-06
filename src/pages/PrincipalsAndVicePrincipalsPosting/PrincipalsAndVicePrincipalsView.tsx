@@ -51,13 +51,14 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
     }
   }, [selectedDestinationSchool, schools, staff]);
 
-  useEffect(() => {
-    if (selectedStaleOrNew) {
-      const staleOrNewOptions =
-        ["Stale", "New"].find((option) => option === selectedStaleOrNew) ?? null;
-      setSelectedStaleOrNew(staleOrNewOptions);
-    }
-  }, [selectedpreviousSchool]);
+ 
+    // if (selectedStaleOrNew) {
+    //   const staleOrNewOptions =
+    //     ["Stale", "New"].find((option) => option === selectedStaleOrNew) ?? null;
+    //     console.log(staleOrNewOptions)
+    //   setSelectedStaleOrNew(staleOrNewOptions);
+    // }
+
 
   const handleSubmit = async () => {
     console.log(destinationSchoolStaff);
@@ -71,6 +72,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
       return;
     }
     if (!selectedStaleOrNew) {
+      console.log(selectedStaleOrNew)
       toast.error("Please select Stale or New");
       return;
     }
@@ -115,7 +117,9 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
         (user) => user.schoolOfPresentPosting?._id === selectedDestinationSchool
       );
       setDestinationSchoolStaff(updatedSchoolStaff);
-
+      // const updatedSaleOrNew = ["New", "Stale"].filter((option)=> option === selectedStaleOrNew)
+      // console.log(updatedSaleOrNew)
+      // setSelectedStaleOrNew(updatedSaleOrNew as any)
       setLoading(false);
       toast.success("Staff posted successfully!");
 
@@ -134,8 +138,8 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
   };
   const staleOrNewOptions: SelectOption[] = ["Stale", "New"]
     .filter((option, index) => option[index])
-    .map((option, index) => ({
-      value: option[index] ?? "",
+    .map((option) => ({
+      value: option ?? "",
       label: `${option}`
     }));
 
@@ -158,6 +162,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
     async (selectedOption: SingleValue<SelectOption>) => {
       const newValue = selectedOption ? selectedOption.value : null;
       setter(newValue);
+      console.log(newValue);
     };
 
   const selectedSchoolDetails = selectedDestinationSchool
@@ -185,7 +190,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
               id="staleOrNew"
               options={staleOrNewOptions}
               value={staleOrNewOptions.find((option) => option.value === selectedStaleOrNew)}
-              onChange={handleSelectChange(setSelectedDestinationSchool)}
+              onChange={handleSelectChange(setSelectedStaleOrNew)}
               className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Select Destination School"
               isSearchable
@@ -307,7 +312,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
           </div>
         </div>
 
-        <div className="flex-1 p-6 bg-black rounded-lg shadow-lg mt-16 overflow-auto max-h-[550px]">
+        <div className="flex-1 p-6 bg-black rounded-lg shadow-lg mt-16 overflow-auto">
           <div className="flex flex-col items-center">
             <h2 className="text-xl font-bold mb-6 text-yellow-300  justify-center">
               {selectedSchoolDetails ? `${selectedSchoolDetails.nameOfSchool}` : "Select a school"}
