@@ -34,11 +34,15 @@ export const fetchUsersFromAparticularSchool = async (id: string) => {
   }
 };
 export const postPrincipalsAndVicePrincipals = async ({
+  previousSchool,
+  staleOrNew,
   principal,
   vicePrincipalAdmin,
   vicePrincipalAcademics,
   schoolId
 }: {
+  previousSchool: string;
+  staleOrNew: string;
   principal: string;
   vicePrincipalAdmin: string;
   vicePrincipalAcademics: string;
@@ -57,6 +61,8 @@ export const postPrincipalsAndVicePrincipals = async ({
 
   // Ensure IDs are strings
   const payload = {
+    previousSchool: previousSchool.toString(),
+    staleOrNew: staleOrNew.toString(),
     principal: principal.toString(),
     vicePrincipalAdmin: vicePrincipalAdmin.toString(),
     vicePrincipalAcademics: vicePrincipalAcademics.toString()
