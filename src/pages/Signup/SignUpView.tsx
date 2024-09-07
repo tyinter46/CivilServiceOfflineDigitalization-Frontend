@@ -55,7 +55,7 @@ const SignupView: React.FC<Props> = ({ loading, formik }) => {
               name="password"
               maxLength={15}
               label="Create password"
-              placeholder="Enter password"
+              placeholder="Enter password (Please write down your password)"
               errors={formik.errors.password}
               touched={formik.touched.password}
               onChange={formik.handleChange}

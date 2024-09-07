@@ -47,7 +47,7 @@ const LoginView = ({ loading, formik }: Props) => {
               id="password"
               name="password"
               label="Enter password"
-              placeholder="Enter password (Please write down your password)"
+              placeholder="Enter password"
               errors={formik.errors.password}
               touched={formik.touched.password}
               onChange={formik.handleChange}

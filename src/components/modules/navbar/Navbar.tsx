@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { HOME, LOGIN, SIGNUP } from "routes/CONSTANTS";
+import { HOME, LOGIN, SIGNUP, ABOUT_ME } from "routes/CONSTANTS";
 import { Button } from "components/widgets/button";
 import { useAppSelector, useAppDispatch } from "hooks";
 import { logout } from "../../../redux/slices/auth.slice";
@@ -7,6 +7,7 @@ import { motion, useCycle, AnimatePresence } from "framer-motion";
 import { Drawer } from "../drawer";
 import { Menu } from "components/widgets";
 import { TesLogout } from "components/icons";
+import { user } from "assets/images";
 
 // interface Props {
 //     transparent?: boolean;
@@ -55,7 +56,7 @@ const Navbar = () => {
       >
         <div className="flex flex-row justify-start">
           <Link to={HOME}>
-            <motion.img src={ogLogo} alt="logo here" animate={rollAnimation} />
+            <motion.img src={ogLogo}  alt="logo here" animate={rollAnimation} />
           </Link>
         </div>
         {!isLoggedIn ? (
@@ -88,12 +89,22 @@ const Navbar = () => {
                 !isLoggedIn ? "display-hidden" : "color-white text-white mt-2 hover:text-red"
               }
             >
+              <div className="flex flex-row justify-between gap-8">
+              <Link to={ABOUT_ME}>
+                {" "}
+                <img
+                  src={user}
+                  alt="Profile"
+               className="shadow rounded-full w-[40px] h-[40px] border-2 border-yellow-500"
+                />
+              </Link>
               <TesLogout
                 size={32}
                 color="white"
                 onClick={handleLogout}
                 className="hidden md:block color-white"
               />
+              </div>
             </div>
           </>
         )}
