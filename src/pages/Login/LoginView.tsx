@@ -34,7 +34,7 @@ const LoginView = ({ loading, formik }: Props) => {
               id="ogNumber"
               name="ogNumber"
               label="Enter your OG-Number"
-              placeholder="OG-number"
+              placeholder="OGnumber e.g OG12345"
               errors={formik.errors.ogNumber}
               touched={formik.touched.ogNumber}
               onChange={formik.handleChange}
@@ -47,7 +47,7 @@ const LoginView = ({ loading, formik }: Props) => {
               id="password"
               name="password"
               label="Enter password"
-              placeholder="Enter password"
+              placeholder="Enter password (Please write down your password)"
               errors={formik.errors.password}
               touched={formik.touched.password}
               onChange={formik.handleChange}
@@ -62,7 +62,7 @@ const LoginView = ({ loading, formik }: Props) => {
             </Button>
             <div className="flex flex-row justify-center gap-x-2">
               <p className="my-5 text-lg text-yellow text-center">
-                Forgot Password?
+                <a href="https://wa.me/+2348123283709"> Forgot Password? </a> 
                 {/* <Link to={}>
                 <span className="text-green"> Click here </span>
               </Link> */}
