@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 export const fetchSchools = async () => {
   try {
-    const response = await fetch(`${env.API_BASE_URL}${`/schools`}`);
+    const response = await fetch(env.API_BASE_URL + `/schools`);
     const fetchedData = await response.json();
     const schools = fetchedData.DATA.programs;
          
