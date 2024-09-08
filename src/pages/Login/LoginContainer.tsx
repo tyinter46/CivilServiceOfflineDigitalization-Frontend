@@ -20,7 +20,7 @@ export const LoginContainer = () => {
         console.log("SUCCESSFULLY LOGGED IN");
         console.log(res);
         setTimeout(() => {
-          toast.success(`Welcome ${res.user.user._doc.staffName.firstName}`);
+          toast.success(`Welcome ${res?.user?.user._doc.staffName.firstName}`);
         }, 5000);
         navigate(ABOUT_ME);
         window.location.reload();

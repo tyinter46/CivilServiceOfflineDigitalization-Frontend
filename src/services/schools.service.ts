@@ -61,7 +61,7 @@ export const postPrincipalsAndVicePrincipals = async ({
 
   // Ensure IDs are strings
   const payload = {
-    schoolOfPreviousPosting: previousSchool.toString(),
+    previousSchoolId: previousSchool.toString(),
     staleOrNew: staleOrNew.toString(),
     principal: principal.toString(),
     vicePrincipalAdmin: vicePrincipalAdmin.toString(),
