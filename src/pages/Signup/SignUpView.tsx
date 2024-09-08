@@ -69,7 +69,7 @@ const SignupView: React.FC<Props> = ({ loading, formik }) => {
               name="phoneNumber"
               label="Phone Number"
               errors={formik.errors.phoneNumber}
-              // touched={formik.touched.phoneNumber}
+               touched={formik.touched.phoneNumber}
               onChange={formik.handleChange}
               className="text-white text-lg bg-gray"
             />
@@ -81,7 +81,7 @@ const SignupView: React.FC<Props> = ({ loading, formik }) => {
               name="confirmPhoneNumber"
               label="Confirm Phone Number"
               errors={formik.errors.confirmPhoneNumber}
-              // touched={formik.touched.confirmPhoneNumber}
+               touched={formik.touched.confirmPhoneNumber}
               onChange={formik.handleChange}
               className="text-white text-lg bg-gray"
             />

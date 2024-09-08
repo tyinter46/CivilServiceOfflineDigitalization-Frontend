@@ -40,7 +40,7 @@ export const SignupContainer = () => {
         ),
       phoneNumber: Yup.string()
         .required("Phone Number is Required")
-        .min(17, "Phone Number Length Incomplete"),
+        .min(18, "Phone Number Length Incomplete"),
       confirmPhoneNumber: Yup.string()
         .oneOf([Yup.ref("phoneNumber")], "Does not match with the phone number")
         .required("Confirm Phone Number is Required")

@@ -19,6 +19,7 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
     } catch (error) {
       toast.error("Failed to fetch schools");
       setError("Failed to fetch schools");
+      console.log(error)
     }
   };
 
@@ -29,6 +30,7 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
     } catch (error) {
       toast.error("Failed to fetch users");
       setError("Failed to fetch users");
+      console.log(error)
     }
   };
 
