@@ -41,7 +41,7 @@ export const signup = createAsyncThunk(
       return { userId: DATA.id, name: DATA.user?.staffName?.firstName };
     } catch (error) {
       const message = formatErrorResponse(error);
-      toast.error(message);
+      // toast.error(message);
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -102,7 +102,7 @@ export const confirmAccount = createAsyncThunk(
       return { userId: DATA.id, ogNumber: DATA.ogNumber, firstName: DATA.staffName.firstName };
     } catch (error) {
       const message = formatErrorResponse(error);
-      toast.error(message);
+      // toast.error(message);
       return thunkAPI.rejectWithValue(message);
     }
   }

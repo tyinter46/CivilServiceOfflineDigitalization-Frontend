@@ -19,7 +19,7 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
     } catch (error) {
       toast.error("Failed to fetch schools");
       setError("Failed to fetch schools");
-      console.log(error)
+      
     }
   };
 
