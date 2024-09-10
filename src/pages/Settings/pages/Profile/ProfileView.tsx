@@ -7,6 +7,7 @@ import { useState } from "react";
 import { UserDetails, Settings } from "types";
 import { Formik } from "formik";
 import { downloadLogo } from "assets/logos";
+import LogoLoader from "components/widgets/loader/LogoLoader";
 
 // import { Link } from "react-router-dom";
 
@@ -40,9 +41,7 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
       <Navbar />
 
       {loading ? (
-        <p className="flex justify-center text-lg font-semibold text-yellow-500">
-          Loading Profile View...
-        </p>
+        <LogoLoader />
       ) : (
         <div className="mt-6 p-6 bg-white-700 rounded-lg shadow-md">
           <Formik
@@ -88,7 +87,7 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
              
 
               {postingLetterUrl ? (<>
-                 <h5 className="text-red-100">Click Here to Download Your Posting Letter</h5>
+                 <h5 className="text-red-100">Click Here to Download Your Letter</h5>
                 <a href={postingLetterUrl} download>
                   <div className=" flex justify-center items-center shadow rounded-full w-[80px] h-[80px] bg-green">
                     <img src={downloadLogo} alt="Click Here To Download" className="h-10 w-10" />
@@ -96,7 +95,7 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
                 </a>
                 </>
               ) : (
-                "No posting letter available"
+                "No posting letter available yet"
               )}
 
         

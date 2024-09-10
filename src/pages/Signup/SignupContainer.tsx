@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 // import { useState } from "react";
 import { toast } from "react-toastify";
 import { setOgNumber } from "../../redux/slices/ogNumber.slice";
-import { CONFIRM_ACCOUNT, SIGNUP } from "routes/CONSTANTS";
+import { SIGNUP, LOGIN } from "routes/CONSTANTS";
 import { Auth } from "components";
 import { signup } from "../../redux/slices/auth.slice";
 import { useAppDispatch, useAppSelector } from "hooks";
@@ -69,7 +69,7 @@ export const SignupContainer = () => {
             );
           }, 5000);
           // isVerifying = true;
-          navigate(CONFIRM_ACCOUNT);
+          navigate(LOGIN);
         })
         .catch((error: any) => {
           console.log(error.message);
