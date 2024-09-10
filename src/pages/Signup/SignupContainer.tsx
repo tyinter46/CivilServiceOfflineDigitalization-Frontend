@@ -63,11 +63,11 @@ export const SignupContainer = () => {
           const phoneNumber = maskPhoneNumber(details.phoneNumber);
           // console.log(res.newUser.staffName.firstName)
           console.log(phoneNumber);
-          setTimeout(() => {
-            toast.success(
-              `${res.name} Verification code has been sent to this phone number "${phoneNumber}", kindly input the code for verification`
-            );
-          }, 5000);
+          // setTimeout(() => {
+          //   toast.success(
+          //     `${res.name} Verification code has been sent to this phone number "${phoneNumber}", kindly input the code for verification`
+          //   );
+          // }, 5000);
           // isVerifying = true;
           navigate(LOGIN);
         })
