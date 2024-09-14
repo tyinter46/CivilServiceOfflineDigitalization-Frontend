@@ -37,7 +37,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
     console.log(destinationSchoolDetails);
     if (selectedDestinationSchool) {
       const schoolDetails =
-        schools.find((school) => school._id === selectedDestinationSchool) ?? null;
+      schools.find((school) => school._id === selectedDestinationSchool) ?? null;
       setDestinationSchoolDetails(schoolDetails);
       const schoolStaff = staff.filter(
         (user) => user.schoolOfPresentPosting?._id === selectedDestinationSchool
