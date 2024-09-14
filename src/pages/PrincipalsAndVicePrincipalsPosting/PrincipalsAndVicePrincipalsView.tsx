@@ -4,6 +4,8 @@ import { ISchools, IUser } from "types";
 import { postPrincipalsAndVicePrincipals } from "../../services/schools.service";
 import { toast } from "react-toastify";
 import { Navbar, Loader } from "components";
+import LogoLoader from "../../components/widgets/loader/LogoLoader";
+
 
 type PostingFormProps = {
   schools: ISchools[];
@@ -178,7 +180,8 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
   return (
     <>
       <Navbar />
-      <div className="flex flex-row pt-6 gap-4 px-4">
+      {!loading ? 
+      (<div className="flex flex-row pt-6 gap-4 px-4">
         {/* Form Container */}
         <div className="flex-1 p-6 bg-green-500 rounded-lg shadow-lg mt-16">
           <h2 className="text-xl font-bold mb-6 text-black">Post Principals & Vice Principals</h2>
@@ -457,7 +460,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
             <p className="text-white">Select a destination school to view principal details.</p>
           )}
         </div>
-      </div>
+      </div>) : <LogoLoader /> }
     </>
   );
 };
