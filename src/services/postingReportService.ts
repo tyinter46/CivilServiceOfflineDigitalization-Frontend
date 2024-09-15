@@ -11,7 +11,7 @@ export const fetchPostingReport = async () => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    toast.success("Posting reporting fetched successfully");
+    toast.success("Posting report fetched successfully");
     return schools;
   } catch (error) {
     console.error("Error fetching schools:", error);

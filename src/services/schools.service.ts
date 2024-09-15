@@ -5,11 +5,12 @@ import { toast } from "react-toastify";
 
 export const fetchSchools = async () => {
   try {
-    const response = await fetch(`${env.API_BASE_URL}${`/schools`}`);
-    const fetchedData = await response.json();
-    const schools = fetchedData.DATA.programs;
-
-    if (!response.ok) {
+    const response = await axios.get(`${env.API_BASE_URL}${`/schools`}`);
+    console.log(response);
+    const fetchedData = response.data.DATA.programs;
+    const schools = fetchedData;
+    console.log(fetchedData);
+    if (!response) {
       throw new Error("Network response was not ok");
     }
     return schools;
@@ -59,7 +60,6 @@ export const postPrincipalsAndVicePrincipals = async ({
     withCredentials: true
   };
 
-  // Ensure IDs are strings
   const payload = {
     previousSchoolId: previousSchool.toString(),
     staleOrNew: staleOrNew.toString(),

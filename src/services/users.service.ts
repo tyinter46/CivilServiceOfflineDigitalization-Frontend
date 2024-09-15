@@ -1,14 +1,16 @@
 import env from "configs";
+import axios from "axios";
 export const fetchUsers = async () => {
   try {
-    const response = await fetch(`${env.API_BASE_URL}${`/users`}`);
-    const fetchedData = await response.json();
-    const users = fetchedData.DATA.users.users;
-
-    if (!response.ok) {
+    const response = await axios.get(`${env.API_BASE_URL}${`/users`}`);
+    console.log(response)
+    const fetchedData = response.data.DATA.users.users
+    // const users = fetchedData.DATA.users.users;
+    console.log(response)
+    if (!response) {
       throw new Error("Network response was not ok");
     }
-    return users;
+    return fetchedData;
   } catch (error) {
     console.error("Error fetching users:", error);
     throw error;

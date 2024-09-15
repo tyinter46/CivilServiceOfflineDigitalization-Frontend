@@ -124,7 +124,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
       // setSelectedStaleOrNew(updatedSaleOrNew as any)
       setLoading(false);
       setTimeout(() => {
-        toast.success(`Staff posted successfully}`);
+        toast.success(`Staff posted successfully`);
       }, 2000);
       await refreshData();
       // Reset selection states
