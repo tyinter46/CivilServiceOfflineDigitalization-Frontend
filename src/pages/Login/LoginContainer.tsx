@@ -43,7 +43,8 @@ export const LoginContainer = () => {
     initialValues: {
       ogNumber: "",
       phoneNumber: "",
-      password: ""
+      password: "",
+      confirmPassword:""
     },
     validationSchema: Yup.object().shape({
       ogNumber: Yup.string().required("OG-Number is required"),
@@ -52,7 +53,8 @@ export const LoginContainer = () => {
         .matches(
           /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
           "kindly check the validity of your ogNumber and password again"
-        )
+        ), 
+     
     }),
     onSubmit: (details) => {
       dispatch(login({ ogNumber: details.ogNumber, password: details.password }))

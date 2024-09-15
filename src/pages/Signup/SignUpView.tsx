@@ -15,6 +15,7 @@ interface Props {
     ogNumber: string;
     phoneNumber: string;
     password: string;
+    confirmPassword: string;
     confirmPhoneNumber: string;
   }>;
 }
@@ -60,6 +61,19 @@ const SignupView: React.FC<Props> = ({ loading, formik }) => {
               touched={formik.touched.password}
               onChange={formik.handleChange}
               className="text-white text-lg bg-gray"
+            />
+             <FormInput
+              required
+              size="lg"
+              type="password"
+              id="password"
+              name="confirmPassword"
+              label="Confirm password"
+              placeholder="Confirm password"
+              errors={formik.errors.confirmPassword}
+              touched={formik.touched.confirmPassword}
+              onChange={formik.handleChange}
+              className="text-black bg-white"
             />
             <FormInput
               required

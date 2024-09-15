@@ -12,6 +12,7 @@ interface Props {
     ogNumber: string;
     phoneNumber: string;
     password: string;
+    confirmPassword: string;
   }>;
 }
 
@@ -53,6 +54,7 @@ const LoginView = ({ loading, formik }: Props) => {
               onChange={formik.handleChange}
               className="text-black bg-white"
             />
+             
             <Button
               size="lg"
               type="submit"

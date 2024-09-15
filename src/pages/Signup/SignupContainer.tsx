@@ -24,8 +24,9 @@ export const SignupContainer = () => {
     initialValues: {
       ogNumber: "",
       password: "",
+      confirmPassword:"",
       phoneNumber: "",
-      confirmPhoneNumber: ""
+       confirmPhoneNumber: ""
     },
     validationSchema: Yup.object().shape({
       ogNumber: Yup.string()
@@ -38,6 +39,9 @@ export const SignupContainer = () => {
           /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
           "Weak Password. Password must have at least: 1 upper case, 1 digit, 1 special character, Minimum eight in length"
         ),
+        confirmPassword: Yup.string()
+        .required("Confirm Password is required")
+        .oneOf([Yup.ref('password')], 'Passwords must match'),
       phoneNumber: Yup.string()
         .required("Phone Number is Required")
         .min(18, "Phone Number Length Incomplete"),
