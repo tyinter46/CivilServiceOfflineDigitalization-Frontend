@@ -1,12 +1,78 @@
-// import { ogLogo } from "assets/logos";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
 const RightContent = () => {
-  return (
-    // <div className="h-full w-50 flex flex-col justify-end items-right bg-green-100 p-10 mt-20 overflow-hidden">
-    // <div className="flex justify-right items-right mt-40 mr-20 h-80 w-80">
+  // Array of text objects to animate
+  const texts = [
     {
-      /* <img src={ogLogo}  width="auto" height="auto" alt="Logo" /> */
-    }
-    //  </div>
+      title1: "Simplified.",
+      title2: "Secure.",
+      description: "Analytical Staff Data Management",
+    },
+    {
+      title1: "Efficient.",
+      title2: "Reliable.",
+      description: "Comprehensive HR Solutions for School Teachers",
+    },
+    {
+      title1: "Dynamic.",
+      title2: "Scalable.",
+      description: "Tailored Solutions for Educational Institutions",
+    },
+    {
+      title1: "Innovative.",
+      title2: "Flexible.",
+      description: "Empowering Administrators with Technology",
+    },
+ {
+  title1:    "Innovating" ,
+  title2: "Education",
+  description:" Management"
+},
+
+  {
+  title1: "Simplified",
+  title2: "Staff",
+  description: " Data Handling" 
+  }
+  , 
+{
+       title1:"Optimizing HR",
+       title2:   "for Educational Institutions",
+       description: "Empowering Schools Through Technology",
+}
+  ];
+
+  // State to track the index of the current text
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+  useEffect(() => {
+    // Set interval to change text every 3 seconds
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+    }, 4000);
+
+    // Cleanup interval on unmount
+    return () => clearInterval(interval);
+  }, [texts.length]);
+
+  const currentText = texts[currentTextIndex]; // Get the current text
+
+  return (
+    <div className="flex justify-center items-center w-1/3 bg-inherit">
+      <motion.div
+        key={currentTextIndex} // Use key to trigger re-animation
+        initial={{ opacity: 0, y: 20 }} // Start off invisible and slightly down
+        animate={{ opacity: 1, y: 0 }} // Animate to visible and its original position
+        exit={{ opacity: 0, y: -20 }} // Animate out by fading out and moving up
+        transition={{ duration: 1 }} // Control animation duration
+        className="text-center mt-20"
+      >
+        <h4 className="text-white text-4xl font-bold">{currentText.title1}</h4>
+        <h4 className="text-yellow-400 text-4xl font-bold">{currentText.title2}</h4>
+        <h5 className="text-white text-xl mt-4">{currentText.description}</h5>
+      </motion.div>
+    </div>
   );
 };
 
