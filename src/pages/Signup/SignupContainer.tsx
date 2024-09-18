@@ -78,19 +78,20 @@ export const SignupContainer = () => {
           navigate(LOGIN);
         })
         .catch((error: any) => {
-          console.log(error.message);
+          console.log(error);
           if (
-            error.message ===
+            error ===
               "An Account Already Exist with this details kindly verify your account" ||
-            error.message ===
-              " You previously created an account, kindly login or Reset your password"
+            error ===
+              "You previously created an account, kindly login"
           ) {
+            setTimeout(() => {
+              toast.error(` "${error}",  `);
+            }, 5000);
             navigate(SIGNUP);
-            window.location.reload();
+            // window.location.reload();
           }
-          setTimeout(() => {
-            toast.error(` "${error.message}",  `);
-          }, 5000);
+      
         });
     }
   });
