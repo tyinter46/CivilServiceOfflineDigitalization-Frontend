@@ -19,7 +19,6 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
     } catch (error) {
       toast.error("Failed to fetch schools");
       setError("Failed to fetch schools");
-      
     }
   };
 
@@ -30,7 +29,7 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
     } catch (error) {
       toast.error("Failed to fetch users");
       setError("Failed to fetch users");
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -41,7 +40,7 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
   }, []);
 
   useEffect(() => {
-    void refreshData();
+    refreshData().then(() => {});
   }, [refreshData]);
 
   if (loading)
