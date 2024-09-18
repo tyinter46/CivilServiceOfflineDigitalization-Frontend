@@ -47,7 +47,12 @@ export const LoginContainer = () => {
       confirmPassword:""
     },
     validationSchema: Yup.object().shape({
-      ogNumber: Yup.string().required("OG-Number is required"),
+      ogNumber: Yup.string()
+    .required("OG-Number is required").min(7, "OG Number must be 7 characters in length")
+    .matches(
+      /^(OG|og)[0-9]{1,5}$/,
+      "OG-Number must start with OG or og along with 5 digits"
+    ),
       password: Yup.string()
         .required("Password is required")
         .matches(
