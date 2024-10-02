@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import Item from "./Item";
 import { useAppSelector, useAppDispatch } from "hooks";
 import { logout } from "../../../redux/slices/auth.slice";
-import { TesDown, TesLogout } from "components/icons";
-import { Button, Dropdown } from "components/widgets";
-import { ABOUT, CONTACT, LOGIN, SIGNUP } from "routes/CONSTANTS";
+import { TesLogout } from "components/icons";
+import { Button} from "components/widgets";
+import {  CONTACT, LOGIN, SIGNUP } from "routes/CONSTANTS";
 
 interface Props {
   open: boolean;
@@ -40,10 +40,8 @@ const items = {
   }
 };
 
-const Drawer = ({ open }: Props) => {
+const Drawer = ({ open}: Props) => {
   const dispatch = useAppDispatch();
-
-  // const [open, toggle] = useCycle(false, true);
 
   const handleLogout = () => {
     void dispatch(logout());
@@ -60,35 +58,26 @@ const Drawer = ({ open }: Props) => {
         open ? "block lg:hidden" : "hidden"
       } fixed w-full pt-[10vh] top-0 left-0 bottom-0 px-5 bg-black-100 text-white z-30`}
     >
-      <motion.ul
-        initial="closed"
-        animate="open"
-        exit="closed"
-        variants={variants}
-        className="pt-5 pb-20 w-full h-full flex flex-col justify-between items-center"
-      >
-        <motion.div
-          variants={items}
-          className="w-full h-full flex flex-col justify-center items-center text-[24px] gap-5"
-        >
-          <Dropdown
-            button={
-              <div className="flex items-center gap-2 cursor-pointer">
-                <p>Products</p>
-                <TesDown size={10} />
-              </div>
-            }
-          >
-            <div></div>
-          </Dropdown>
-          <Item to={CONTACT}>Contact Us</Item>
-          {/* <Item to={PRICING}>Pricing</Item> */}
-          <Item to="#">Services</Item>
-          <Item to={ABOUT}>About Us</Item>
-        </motion.div>
 
+    <motion.ul
+    initial="closed"
+    animate="open"
+    exit="closed"
+    variants={variants}
+    className="pt-5 pb-20 w-full h-full flex flex-col justify-between items-center"
+  >
+    <motion.div
+      variants={items}
+      className="w-full h-full flex flex-col justify-center items-center text-[24px] gap-5"
+    >
+
+          
+          <Item to={CONTACT}>Contact Us</Item>
+           <Item to="#">Services</Item>
+          <Item to="#">About Us</Item>
+        </motion.div>
         {!isLoggedIn ? (
-          <motion.div variants={items} className="w-full flex flex-col gap-5">
+          <motion.div className="w-full flex flex-col gap-5">
             <Button to={LOGIN} variant="outline" className="w-full">
               Sign In
             </Button>
@@ -97,15 +86,13 @@ const Drawer = ({ open }: Props) => {
             </Button>
           </motion.div>
         ) : (
-          <>
-            <button
-              onClick={handleLogout}
-              className="flex items-center justify-center w-full gap-3 hover:bg-red-500/20 p-4 bg-red-600 rounded-lg"
-            >
-              <TesLogout className="text-white" />
-              <p className="text-[1rem] text-white">Logout</p>
-            </button>
-          </>
+          <button
+            onClick={handleLogout}
+            className="flex items-center justify-center w-full gap-3 hover:bg-red-500/20 p-4 bg-red-600 rounded-lg"
+          >
+            <TesLogout className="text-white" />
+            <p className="text-[1rem] text-white">Logout</p>
+          </button>
         )}
       </motion.ul>
     </motion.aside>

@@ -32,6 +32,7 @@ const Navbar = () => {
   const location = useLocation();
   const [open, toggle] = useCycle(false, true);
 
+
   const handleLogout = () => {
     try {
       void dispatch(logout());
@@ -43,9 +44,7 @@ const Navbar = () => {
     <motion.div
       initial={false}
       animate={open ? "open" : "closed"}
-      // className={`${
-      //   transparent && y <= 40 ? "hidden" : "bg-inherit"
-      // } fixed lg:relative top-0 left-0 right-0 text-black z-50`}
+       className={`z-50`}
     >
       <div
         className={
