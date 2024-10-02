@@ -125,7 +125,12 @@ export const resendConfirmAccountTokenSlice = createAsyncThunk(
 
 export const forgotPassword = createAsyncThunk(
   "auth/forgotPassword",
-  async ({ ogNumber }: { ogNumber: string }, thunkAPI) => {
+  async (
+    {
+      ogNumber
+    }: { ogNumber: string },
+    thunkAPI
+  ) => {
     try {
       const { DATA, MESSAGE } = await AuthService.forgotPassword(ogNumber);
       toast.success(MESSAGE);
@@ -158,15 +163,20 @@ export const fetchUser = createAsyncThunk("auth/fethUser", async (id: string, th
 export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
   async (
-    { password, token, ogNumber }: { password: string; token: string; ogNumber: string },
+    {
+      password,
+      ogNumber,
+      phoneNumber
+    }: { password: string; ogNumber: string; phoneNumber: string },
     thunkAPI
   ) => {
     try {
-      const { DATA, MESSAGE } = await AuthService.resetPassword(password, token, ogNumber);
+      const { DATA, MESSAGE } = await AuthService.resetPassword(password, phoneNumber, ogNumber);
       toast.success(MESSAGE);
-      return { userId: DATA.id, ogNumber: DATA.ogNumber };
+      return { userId: DATA.id, ogNumber: DATA.ogNumber, name: DATA.name };
     } catch (error) {
       const message = formatErrorResponse(error);
+      console.log(error, message)
       toast.error(message);
       return thunkAPI.rejectWithValue(message);
     }
@@ -210,7 +220,14 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 });
 
 const initialState = user
-  ? { isLoggedIn: true, user, isLoading: false, passwordReset: false, isVerifying: false }
+  ? {
+      isLoggedIn: true,
+      user,
+      isLoading: false,
+      isAdmin: user.isAdmin,
+      passwordReset: false,
+      isVerifying: false
+    }
   : { isLoggedIn: false, user: null, isLoading: false, passwordReset: false, isVerifying: false };
 
 const authSlice = createSlice({
@@ -265,6 +282,7 @@ const authSlice = createSlice({
     });
     builder.addCase(loginSuccess.fulfilled, (state, action) => {
       state.isLoggedIn = true;
+      state.isAdmin = action.payload.user.isAdmin;
       state.user = action.payload.user;
       state.isLoading = false;
     });

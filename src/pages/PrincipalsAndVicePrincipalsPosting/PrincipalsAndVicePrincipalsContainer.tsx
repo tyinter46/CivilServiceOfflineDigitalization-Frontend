@@ -40,7 +40,7 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
   }, []);
 
   useEffect(() => {
-  void  refreshData().then(() => {});
+  void  refreshData()
   }, [refreshData]);
 
   if (loading)

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 import { Button, FormInput, Loader, Navbar } from "components";
-import { CONFIRM_ACCOUNT } from "routes/CONSTANTS";
 import { Link } from "react-router-dom";
 import { FormikProps } from "formik";
+import { FORGOT_PASSWORD } from "services/CONSTANTS";
 
 // import { Landing } from "components/layouts";
 
@@ -63,18 +63,12 @@ const LoginView = ({ loading, formik }: Props) => {
               {loading ? <Loader /> : "Login Account"}
             </Button>
             <div className="flex flex-row justify-center gap-x-2">
-              <p className="my-5 text-lg text-yellow text-center">
-                <a href="https://wa.me/+2348123283709"> Forgot Password? </a> 
-                {/* <Link to={}>
-                <span className="text-green"> Click here </span>
-              </Link> */}
-              </p>
-              <p className="my-5 text-lg text-white text-center">
-                Unverified Account? click here to
-                <Link to={CONFIRM_ACCOUNT}>
-                  <span className="text-green"> Verify account</span>
-                </Link>
-              </p>
+            
+                <Link to={FORGOT_PASSWORD}>
+                  <span className="text-green"> Forgot Password</span>
+                </Link>    
+                  <a href="https://wa.me/+2348123283709" > <span className="text-white">Click here for complaints</span> </a> 
+            
             </div>
           </div>
         </form>

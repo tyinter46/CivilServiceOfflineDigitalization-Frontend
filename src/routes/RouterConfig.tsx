@@ -9,7 +9,8 @@ import {
   Dashboard,
   ConfirmAccount,
   School,
-  PrincipalsAndVicePrincipals
+  PrincipalsAndVicePrincipals,
+  ForgotPassword
 } from "pages";
 
 import {
@@ -21,11 +22,12 @@ import {
   DASHBOARD,
   CONFIRM_ACCOUNT,
   SCHOOL,
-  PRINCIPALSANDVICEPRINCIPALS
+  PRINCIPALSANDVICEPRINCIPALS,
+   FORGOT_PASSWORD
 } from "./CONSTANTS";
 
 import type { FC } from "react";
-import { PublicRoute, ProtectedRoute } from "components/gaurds";
+import { PublicRoute, ProtectedRoute, ProtectedAdminRoute } from "components/gaurds";
 
 const RouterConfig: FC = () => {
   return (
@@ -41,17 +43,29 @@ const RouterConfig: FC = () => {
 
         <Route path="/" element={<PublicRoute />}>
           <Route path={CONFIRM_ACCOUNT} element={<ConfirmAccount />} />
-       
+          <Route path={FORGOT_PASSWORD} element={< ForgotPassword/>} />
         
           {/* <Route /> */}
         </Route>
 
+
+
+
         {/* Auth pages */}
-        <Route path="/" element={<ProtectedRoute navigate={LOGIN} />}>
+        <Route path="/" element={<ProtectedAdminRoute navigate={LOGIN} />}>
           {/* <Route path = {SCHOOL} element = {<School />} /> */}
           <Route path={SCHOOL} element={<School />} />
-          <Route path={ABOUT_ME} element={<Profile />} />
+        
+        
+        </Route>
+
+
+
+        <Route path="/" element={<ProtectedRoute navigate={LOGIN} />}>
+          {/* <Route path = {SCHOOL} element = {<School />} /> */}
           <Route path={PRINCIPALSANDVICEPRINCIPALS} element={<PrincipalsAndVicePrincipals />} />
+          <Route path={ABOUT_ME} element={<Profile />} />
+
         </Route>
         {/* Protected routes should be placed in here */}
 

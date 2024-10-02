@@ -115,10 +115,10 @@ export const forgotPassword = async (ogNumber: string) => {
   return response.data;
 };
 
-export const resetPassword = async (password: string, token: string, ogNumber: string) => {
-  const response = await axios.patch(`${env.API_BASE_URL}/${RESET_PASSWORD}`, {
+export const resetPassword = async (password: string, phoneNumber: string, ogNumber: string) => {
+  const response = await axios.patch(`${env.API_BASE_URL}${RESET_PASSWORD}`, {
     password,
-    token,
+    phoneNumber,
     ogNumber
   });
   return response.data;

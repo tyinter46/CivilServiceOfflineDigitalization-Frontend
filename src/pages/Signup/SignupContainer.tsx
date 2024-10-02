@@ -85,9 +85,9 @@ export const SignupContainer = () => {
             error ===
               "You previously created an account, kindly login"
           ) {
-            setTimeout(() => {
+      
               toast.error(` "${error}",  `);
-            }, 5000);
+   
             navigate(SIGNUP);
             // window.location.reload();
           }
