@@ -10,7 +10,7 @@ import LogoLoader from "../../components/widgets/loader/LogoLoader";
 type PostingFormProps = {
   schools: ISchools[];
   staff: IUser[];
-  refreshData: () => Promise<void>;
+  // refreshData: () => Promise<void>;
 };
 
 interface SelectOption {
@@ -21,7 +21,7 @@ interface SelectOption {
 export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
   schools,
   staff,
-  refreshData
+  // refreshData
 }) => {
   const [selectedStaleOrNew, setSelectedStaleOrNew] = useState<string | null>(null);
   const [selectedpreviousSchool, setSelecetdpreviousSchool] = useState<string | null>(null);
@@ -126,7 +126,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
       setTimeout(() => {
         toast.success(`Staff posted successfully`);
       }, 2000);
-      await refreshData();
+      // await refreshData();
       // Reset selection states
       setSelectedStaleOrNew(null);
       setSelecetdpreviousSchool(null);

@@ -36,9 +36,10 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
   const refreshData = useCallback(async () => {
     setLoading(true);
     try {
-      // Load both schools and users concurrently, and handle any errors
-      await loadSchools()
-      await loadUsers();
+      // Load both schools and users concurrently, and handle any 
+      await Promise.all([loadSchools(), loadUsers()])
+      // await loadSchools()
+      // await loadUsers();
     } catch (error) {
       console.error("Error loading data:", error); // Log error for production debugging
       // Optionally set an error state here if you have one, e.g., setError(true)
@@ -62,6 +63,6 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <PrincipalsAndVicePrincipalsView schools={schools} staff={users} refreshData={refreshData} />
+    <PrincipalsAndVicePrincipalsView schools={schools} staff={users}  />
   );
 };
