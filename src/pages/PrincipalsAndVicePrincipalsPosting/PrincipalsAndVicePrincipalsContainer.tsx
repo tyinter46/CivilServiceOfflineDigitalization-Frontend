@@ -35,12 +35,22 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
 
   const refreshData = useCallback(async () => {
     setLoading(true);
-    await Promise.all([loadSchools(), loadUsers()]);
-    setLoading(false);
+    try {
+      // Load both schools and users concurrently, and handle any errors
+      await loadSchools()
+      await loadUsers();
+    } catch (error) {
+      console.error("Error loading data:", error); // Log error for production debugging
+      // Optionally set an error state here if you have one, e.g., setError(true)
+    } finally {
+      // Ensure loading state is reset, even if an error occurs
+      setLoading(false);
+    }
   }, []);
-
+  
+  // useEffect will trigger the data refresh when the component mounts
   useEffect(() => {
-  void  refreshData()
+    void refreshData(); // Immediately invoke the refresh function
   }, [refreshData]);
 
   if (loading)

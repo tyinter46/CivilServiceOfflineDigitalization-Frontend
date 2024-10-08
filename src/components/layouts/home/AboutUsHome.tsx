@@ -88,14 +88,14 @@ const AboutUsHome = () => {
           <Button
             to="#"
             size="sm"
-            className="bg-green-500 text-white text-[12px] rounded-full px-8 py-2 hover:bg-black-700 hover:text-white"
+            className="bg-green-500 text-white text-[12px] rounded-full px-8 py-2 hover:bg-black-700 hover:bg-black hover:text-white"
           >
             Contact Us
           </Button>
           <Button
             to="#"
             size="sm"
-            className="bg-green-500 text-white text-[12px] rounded-full px-8 py-2 hover:bg-black-700 hover:text-white"
+            className="bg-green-500 text-white text-[12px] rounded-full px-8 py-2 hover:bg-black-700 hover:bg-black hover:text-white"
           >
             Learn More
           </Button>
