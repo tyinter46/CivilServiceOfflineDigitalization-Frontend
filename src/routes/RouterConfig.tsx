@@ -10,7 +10,8 @@ import {
   ConfirmAccount,
   School,
   PrincipalsAndVicePrincipals,
-  ForgotPassword
+  ForgotPassword,
+  User
 } from "pages";
 
 import {
@@ -23,7 +24,8 @@ import {
   CONFIRM_ACCOUNT,
   SCHOOL,
   PRINCIPALSANDVICEPRINCIPALS,
-   FORGOT_PASSWORD
+   FORGOT_PASSWORD,
+   USER
 } from "./CONSTANTS";
 
 import type { FC } from "react";
@@ -55,6 +57,7 @@ const RouterConfig: FC = () => {
         <Route path="/" element={<ProtectedAdminRoute navigate={LOGIN} />}>
           {/* <Route path = {SCHOOL} element = {<School />} /> */}
           <Route path={SCHOOL} element={<School />} />
+ 
         
         
         </Route>
@@ -65,6 +68,7 @@ const RouterConfig: FC = () => {
           {/* <Route path = {SCHOOL} element = {<School />} /> */}
           <Route path={PRINCIPALSANDVICEPRINCIPALS} element={<PrincipalsAndVicePrincipals />} />
           <Route path={ABOUT_ME} element={<Profile />} />
+          <Route path= {USER} element= {<User />} />
 
         </Route>
         {/* Protected routes should be placed in here */}

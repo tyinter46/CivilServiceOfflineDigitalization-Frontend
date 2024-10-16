@@ -14,4 +14,5 @@ export const FORGOT_PASSWORD = "/forgotPassword";
 
 export const DASHBOARD = "/dashboard";
 export const SCHOOL = "/schools";
+export const USER = "/users";
 export const PRINCIPALSANDVICEPRINCIPALS = "/principalsAndViceprincipals";

@@ -72,8 +72,9 @@ export const postPrincipalsAndVicePrincipals = async ({
 
   try {
     const response = await axios.patch(`${env.API_BASE_URL}/schools/${schoolId}`, payload, configs);
-    toast.success(response.data.message);
-    return response.data.message;
+    console.log(response);
+    return toast.success(response.data.message);
+    // return response.data.message;
   } catch (error: any) {
     console.error("Error posting staff:", error);
     toast.error(error.message || "An error occurred while posting staff.");
