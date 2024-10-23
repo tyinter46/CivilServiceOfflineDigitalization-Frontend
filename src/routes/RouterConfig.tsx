@@ -11,7 +11,8 @@ import {
   School,
   PrincipalsAndVicePrincipals,
   ForgotPassword,
-  User
+  User,
+  UpdateProfilePage
 } from "pages";
 
 import {
@@ -25,7 +26,8 @@ import {
   SCHOOL,
   PRINCIPALSANDVICEPRINCIPALS,
    FORGOT_PASSWORD,
-   USER
+   USER,
+   UPDATE_PROFILE
 } from "./CONSTANTS";
 
 import type { FC } from "react";
@@ -68,6 +70,7 @@ const RouterConfig: FC = () => {
           {/* <Route path = {SCHOOL} element = {<School />} /> */}
           <Route path={PRINCIPALSANDVICEPRINCIPALS} element={<PrincipalsAndVicePrincipals />} />
           <Route path={ABOUT_ME} element={<Profile />} />
+          <Route path = {UPDATE_PROFILE} element = {<UpdateProfilePage />} />
           <Route path= {USER} element= {<User />} />
 
         </Route>

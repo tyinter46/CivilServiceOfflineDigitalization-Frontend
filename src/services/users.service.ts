@@ -1,12 +1,13 @@
 import env from "configs";
 import axios from "axios";
+import { toast } from "react-toastify";
 export const fetchUsers = async () => {
   try {
     const response = await axios.get(`${env.API_BASE_URL}${`/users`}`);
-    console.log(response)
-    const fetchedData = response.data.DATA.users.users
+    console.log(response);
+    const fetchedData = response.data.DATA.users.users;
     // const users = fetchedData.DATA.users.users;
-    console.log(response)
+    console.log(response);
     if (!response) {
       throw new Error("Network response was not ok");
     }
@@ -31,5 +32,110 @@ export const fetchUser = async (id: any) => {
   } catch (error) {
     console.error("Error fetching users:", error);
     throw error;
+  }
+};
+
+// gender,
+// phoneNumber,
+// tscFileNumber,
+// schoolOfPresentPosting,
+// schoolOfPreviousPosting,
+// zone,
+// nationality,
+// stateOfOrigin,
+// lgOfOrigin,
+// ward,
+// qualifications: { ...rest },
+// subjectsTaught: { ...subjectsTaughtRest },
+// dateOfPresentSchoolPosting,
+// cadre,
+// dateOfLastPromotion,
+// pfa,
+// pensionNumber,
+// staffType,
+export const updateUser = async ({
+  userId,
+  gender,
+  phoneNumber,
+  tscFileNumber,
+  schoolOfPresentPosting,
+  schoolOfPreviousPosting,
+  zone,
+  nationality,
+  stateOfOrigin,
+  lgOfOrigin,
+  ward,
+  qualifications,
+  subjectsTaught,
+  dateOfPresentSchoolPosting,
+  cadre,
+  dateOfLastPromotion,
+  pfa,
+  pensionNumber,
+  staffType
+}: {
+  userId: string;
+  gender: string;
+  phoneNumber: string;
+  tscFileNumber: string;
+  schoolOfPresentPosting: string;
+  schoolOfPreviousPosting: string;
+  zone: string;
+  nationality: string;
+  stateOfOrigin: string;
+  lgOfOrigin: string;
+  ward: string;
+  qualifications: Array<string>;
+  subjectsTaught: Array<string>;
+  dateOfPresentSchoolPosting: string;
+  cadre: string;
+  dateOfLastPromotion: string;
+  pfa: string;
+  pensionNumber: string;
+  staffType: string;
+}) => {
+  const headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Credentials": true
+  };
+
+  const configs = {
+    headers,
+    withCredentials: true
+  };
+
+  const payload = {
+    gender,
+    phoneNumber,
+    tscFileNumber,
+    schoolOfPresentPosting,
+    schoolOfPreviousPosting,
+    zone,
+    nationality,
+    stateOfOrigin,
+    lgOfOrigin,
+    ward,
+    qualifications,
+    subjectsTaught,
+    dateOfPresentSchoolPosting,
+    cadre,
+    dateOfLastPromotion,
+    pfa,
+    pensionNumber,
+    staffType
+  };
+
+  console.log("Payload:", payload);
+
+  try {
+    const response = await axios.patch(`${env.API_BASE_URL}/api/user/${userId}`, payload, configs);
+    console.log(response);
+    return toast.success(response.data.message);
+    // return response.data.message;
+  } catch (error: any) {
+    console.error("Error posting staff:", error);
+    toast.error(error.message || "An error occurred while posting staff.");
+    throw error; // Ensure any errors are thrown for proper handling
   }
 };

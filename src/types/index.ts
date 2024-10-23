@@ -15,6 +15,7 @@ export interface UserDetails {
   dateOfFirstAppointment: string;
   dateOfRetirement: string;
   schoolOfPresentPosting: string;
+  schoolOfPreviousPosting: string;
   zone: string;
   division: string;
   nationality: string;
@@ -24,8 +25,9 @@ export interface UserDetails {
   qualifications: Qualifications[];
   dateOfPresentSchoolPosting: string;
   cadre: string;
+  staffType: string;
   // dateOfFirstAppointment?: Date;
-  // dateOfLastPromotion?: Date;
+  dateOfLastPromotion?: Date;
   // dateOfBirth?: Date;
   gradeLevel: string;
   pfa: string;
@@ -34,6 +36,7 @@ export interface UserDetails {
   professionalStatus: string;
   email: string;
   ogNumber: string;
+  residentialAddress: string;
   // password: string;
   // confirmationCode: string;
   // profilePhoto: string;
@@ -140,6 +143,7 @@ export interface IUser {
 export interface Settings {
   tscFileNumber: string;
   schoolOfPresentPosting: string;
+  schoolOfPreviousPosting: string;
   zone: string;
   division: string;
   nationality: string;

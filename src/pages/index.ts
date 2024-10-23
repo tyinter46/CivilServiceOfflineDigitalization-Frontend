@@ -8,6 +8,7 @@ export { default as ConfirmAccount } from "./ConfirmAccount";
 export { default as School } from "./Schools";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as PrincipalsAndVicePrincipals } from "./PrincipalsAndVicePrincipalsPosting";
-export {default as User} from "./Users"
+export { default as User } from "./Users";
+export { default as UpdateProfilePage } from "./updateProfile";
 // export { default as ProfileView } from "./Profile/ProfileView";
 // export {default as NotfoundPage} from "./404Page"

@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
-import { Button, Input, Loader, Navbar } from "components";
+import { Input, Loader, Navbar } from "components";
 import { SvgTesMessageSquareEdit, TesCheckedboxMarkedCircle } from "components/icons";
 import { user } from "assets/images";
-import { ProfileViewModal } from "components/modules/modals";
-import { useState } from "react";
-import { UserDetails, Settings } from "types";
+import { Link } from "react-router-dom";
+import { UPDATE_PROFILE } from "routes/CONSTANTS";
+
+import { UserDetails } from "types";
 import { Formik } from "formik";
 import { downloadLogo } from "assets/logos";
 import LogoLoader from "components/widgets/loader/LogoLoader";
 
 // import { Link } from "react-router-dom";
 
-type ModalId = string | null;
+// type ModalId = string | null;
 interface Props {
   loading: boolean;
   create: Function;
@@ -20,12 +21,12 @@ interface Props {
   pictureUpload: Function;
 }
 
-function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
-  const [openModal, setOpenModal] = useState<ModalId>(null);
+function ProfileView({ loading, userDetails, pictureUpload }: Props) {
 
-  const onsubmit = (updatedProfile: Settings) => {
-    create(updatedProfile);
-  };
+
+  // const onsubmit = (updatedProfile: Settings) => {
+  //   create(updatedProfile);
+  // };
 
   const handlePhotoUpload = (event: any) => {
     const file = event.currentTarget.files[0];
@@ -164,28 +165,13 @@ function ProfileView({ loading, create, userDetails, pictureUpload }: Props) {
             </div> */}
           </div>
           <div className="flex justify-end">
-            <Button
-              onClick={() => {
-                setOpenModal("form");
-              }}
-              size="sm"
-              type="submit"
-              className="w-20 h-12 bg-yellow-500 text-black hover:bg-yellow-600"
-              disabled
-            >
-              {loading ? <Loader /> : "Edit"}
-            </Button>
+           
+             <Link to={UPDATE_PROFILE}>{loading ? <Loader /> : "Edit"}</Link> 
+          
           </div>
         </div>
       )}
-      {openModal === "form" && (
-        <ProfileViewModal
-          title="Edit Profile"
-          onSubmit={onsubmit}
-          userDetails={userDetails}
-          setOpenModal={setOpenModal}
-        />
-      )}
+   
     </div>
   );
 }
