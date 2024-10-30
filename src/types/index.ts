@@ -26,6 +26,7 @@ export interface UserDetails {
   dateOfPresentSchoolPosting: string;
   cadre: string;
   staffType: string;
+  subjectsTaught: string[];
   // dateOfFirstAppointment?: Date;
   dateOfLastPromotion?: Date;
   // dateOfBirth?: Date;
@@ -151,6 +152,7 @@ export interface Settings {
   lgOgOrigin: string;
   ward: string;
   qualifications: Qualifications[];
+  subjectsTaught: string[];
   dateOfPresentSchoolPosting: string;
   cadre: string;
   // dateOfFirstAppointment?: Date;

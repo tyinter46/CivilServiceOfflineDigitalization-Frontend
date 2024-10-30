@@ -46,6 +46,7 @@ export const ProfileContainer = () => {
   const dateOfRetirement = getLongDate(userSaved?.user?._doc?.dateOfRetirement);
 
   const userDetails: UserDetails = {
+    subjectsTaught: userSaved?.user?._doc?.subjectsTaught,
     _id: userSaved?.user?._doc._id,
     staffName: userSaved?.user?._doc?.staffName?.firstName,
     dateOfBirth,

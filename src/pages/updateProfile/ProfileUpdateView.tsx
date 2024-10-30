@@ -1,12 +1,12 @@
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
-import { UserDetails, Settings, ISchools } from "types"; // Assuming types are defined elsewhere
+import { UserDetails, Settings, ISchools } from "types"; 
 import CreatableSelect from "react-select/creatable"; 
 import Select, { SingleValue } from "react-select";
-import LogoLoader from "../../components/widgets/loader/LogoLoader";
+// import LogoLoader from "../../components/widgets/loader/LogoLoader";
 import { Navbar } from "components";
-import { institutions, Years } from "./DropDownOptions";
+import { institutions, Years, subjectsTaught, specializations } from "./DropDownOptions";
 interface PageProps {
   schools: ISchools[];
 
@@ -45,7 +45,8 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
     dateOfFirstAppointment: "",
     dateOfRetirement: "",
     ogNumber: "",
-    residentialAddress: ""
+    residentialAddress: "",
+    subjectsTaught: []
   };
   const [selectedSchoolOfPresentPosting, setSelectedSchoolOfPresentPosting] = useState<
     string | null
@@ -53,12 +54,14 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
   const [selectedSchoolOfPreviousPosting, setSelectedSchoolOfPreviousPosting] = useState<
     string | null
   >(null);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [selectedQualification, setSelectedQualification] = useState<string | null>(null);
   const [selectedDivision, setSelectedDivision] = useState<string | null>(null);
   const [selectedInstitution, setSelectedInstitution]= useState<string | null>(null);
   const [selectedStartYear, setSelectedStartYear] = useState<string | null>(null);
   const [selectedEndYear, setSelectedEndYear] = useState<string | null>(null);
+  const [selectedSpecialization, setSelectedSpecialization] = useState<string | null>(null)
+  const [selectedSubjectTaught, setSelectedSubjectsTaught] = useState<string | null>(null)
   // const [selectedZone, setSelectedZone] =  useState<string | null>(null);
 
 
@@ -96,6 +99,7 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
   });
 
   const initialValues: Settings = {
+    subjectsTaught: userDetails?.subjectsTaught || "",
     tscFileNumber: userDetails?.tscFileNumber || "",
     schoolOfPresentPosting: userDetails?.schoolOfPresentPosting || "",
     schoolOfPreviousPosting: userDetails?.schoolOfPreviousPosting || "",
@@ -117,8 +121,7 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
   };
 
   const schoolOptions: SelectOption[] = schools
-    .filter((school) => school._id)
-    .map((school) => ({
+        .map((school) => ({
       value: school._id ?? "",
       label: `${school?.nameOfSchool} ${school?.category} ${school?.location}`
     }));
@@ -141,26 +144,41 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
     "SSCE",
     "NCE",
     "Bsc.",
+    "Bed.",
+    "B.A",
+    "PGD",
     "ND",
     "HND",
     "Phd",
     "Able Bodied"
   ]
-    .filter((option, index) => option[index])
+ 
     .map((option) => ({
       value: option ?? "",
       label: `${option}`
     }));
 
   const divisionOptions: SelectOption[] = ["YEWA", "EGBA", "IJEBU", "REMO"]
-    .filter((option, index) => option[index])
     .map((option) => ({
       value: option ?? "",
       label: `${option}`
     }));
 
+    const subjectsTaughtOptions: SelectOption[] = subjectsTaught.map((option) => ({
+      value: option,
+      label: option,
+    }));
+    
+const specializationOptions : SelectOption[] = specializations
+.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+
+
     const institutionNameOptions: SelectOption[] = institutions
-    .filter((option, index) => option[index])
+  
     .map((option) => ({
       value: option ?? "",
       label: `${option}`
@@ -185,7 +203,7 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
   return (
     <>
       <Navbar />
-      {!loading ? (
+      {/* {!loading ? ( */}
         <div className="w-full max-w-4xl mx-auto my-2 bg-white p-6 rounded-lg shadow-md mt-10 min-h-screen">
           <div className="py-8">
           <h2 className="text-lg font-medium text-gray-900">Update Profile Details</h2>
@@ -291,6 +309,66 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
                     
                   </div>
 
+                  
+                  <FieldArray name="subjectsTaught">
+  {({ remove, push }) => (
+    <>
+      {values.subjectsTaught.length > 0 &&
+        values.subjectsTaught.map((_, index) => (
+          <div key={index} className="subjectsTaught-field-group">
+            <div>
+              <label
+                htmlFor={`subjectsTaught.${index}`}
+                className="block text-l font-medium text-gray-900"
+              >
+                Subject Taught
+              </label>
+              <CreatableSelect<SelectOption | string>
+                name={`subjectsTaught.${index}`}
+                id="subjectsTaught"
+                options={subjectsTaughtOptions}
+                value={subjectsTaughtOptions.find(
+                  (option) => option.value === selectedSubjectTaught
+                )}
+                onCreateOption={(inputValue) => {
+                  const newOption = { value: inputValue, label: inputValue };
+                  setSelectedSubjectsTaught(inputValue);
+                  subjectsTaught.push(newOption.value);
+                }}
+                className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Search or Select Subject Taught"
+                isSearchable
+                isClearable
+              />
+            </div>
+
+            {/* Remove button */}
+            <button
+              type="button"
+              onClick={() => remove(index)}
+              className="bg-red-500 text-white px-1 py-1 rounded-md mt-2"
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+
+      <button
+        type="button"
+        onClick={() =>
+          push({subjectsTaught: ""})
+        }
+        className="bg-indigo-500 text-white px-1 py-1 rounded-md"
+      >
+        Add Subjects Taught
+      </button>
+    </>
+  )}
+</FieldArray>
+
+                
+
+
                   {/* Qualifications Field Array */}
                   <FieldArray name="qualifications">
   {({ remove, push }) => (
@@ -318,7 +396,7 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
                   institutions.push(newOption.value);
                 }}
                 className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                placeholder="Stale or New"
+                placeholder="Search or Select Institution Name"
                 isSearchable
                 isClearable
               />
@@ -340,7 +418,7 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
                 )}
                 onChange={handleSelectChange(setSelectedQualification)}
                 className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                placeholder="Stale or New"
+                placeholder="Search or Select Qualification"
                 isSearchable
                 isClearable
               />
@@ -356,14 +434,18 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
               <CreatableSelect<SelectOption>
                 name={`qualifications.${index}.specialization`}
                 id="specialization"
+                options={specializationOptions}
+                value={specializationOptions.find(
+                  (option: any) => option.value === selectedSpecialization
+                )}
                 onCreateOption={(inputValue) => {
                   const newOption = { value: inputValue, label: inputValue };
-                  setSelectedInstitution(inputValue);
-                  institutionNameOptions.push(newOption);
+                  setSelectedSpecialization(inputValue);
+                  specializationOptions.push(newOption);
                 }}
-                onChange={handleSelectChange(setSelectedQualification)}
+                onChange={handleSelectChange(setSelectedSpecialization)}
                 className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                placeholder="Stale or New"
+                placeholder="Search or Select Specialization"
                 isSearchable
                 isClearable
               />
@@ -458,9 +540,9 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
           </Formik>
           </div>
         </div>
-      ) : (
+      {/* ) : (
         <LogoLoader />
-      )}
+      )} */}
     </>
   );
 };

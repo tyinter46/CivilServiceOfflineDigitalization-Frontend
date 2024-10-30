@@ -155,7 +155,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
     }));
 
   const staffOptions: SelectOption[] = staff
-    .filter((member) => member._id) // Ensure _id exists
+    .filter((member) => member._id) 
     .map((member) => ({
       value: member._id ?? "", // Provide a fallback empty string if _id is undefined
       label: `${member?.staffName?.firstName}`

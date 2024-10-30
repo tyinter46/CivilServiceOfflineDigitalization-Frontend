@@ -85,8 +85,8 @@ export const updateUser = async ({
   stateOfOrigin: string;
   lgOfOrigin: string;
   ward: string;
-  qualifications: Array<string>;
-  subjectsTaught: Array<string>;
+  qualifications: string[];
+  subjectsTaught: string[];
   dateOfPresentSchoolPosting: string;
   cadre: string;
   dateOfLastPromotion: string;
