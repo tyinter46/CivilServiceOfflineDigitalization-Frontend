@@ -6,7 +6,7 @@ import CreatableSelect from "react-select/creatable";
 import Select, { SingleValue } from "react-select";
 // import LogoLoader from "../../components/widgets/loader/LogoLoader";
 import { Navbar } from "components";
-import { institutions, Years, subjectsTaught, specializations } from "./DropDownOptions";
+import { institutions, Years, subjectsTaught, specializations, zones , states, PFA} from "./DropDownOptions";
 interface PageProps {
   schools: ISchools[];
 
@@ -62,8 +62,9 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
   const [selectedEndYear, setSelectedEndYear] = useState<string | null>(null);
   const [selectedSpecialization, setSelectedSpecialization] = useState<string | null>(null)
   const [selectedSubjectTaught, setSelectedSubjectsTaught] = useState<string | null>(null)
-  // const [selectedZone, setSelectedZone] =  useState<string | null>(null);
-
+   const [selectedZone, setSelectedZone] =  useState<string | null>(null);
+const [selectedState, setSelectedState] = useState<string | null>(null);
+const [selectedPFA, setSelectedPFA] = useState<string | null>(null);
 
   const ProfileViewSchema = Yup.object().shape({
     tscFileNumber: Yup.string().min(9, "Too Short").max(16, "Too Long!").required("Required"),
@@ -126,6 +127,23 @@ const ProfileUpdatePage: React.FC<PageProps> = ({ schools}) => {
       label: `${school?.nameOfSchool} ${school?.category} ${school?.location}`
     }));
 
+    const stateOptions: SelectOption[] = states
+    .map((option) => ({
+     value: option ?? "",
+      label: `${option}`
+}));
+
+    const zoneOptions: SelectOption[] = zones
+    .map((option) => ({
+     value: option ?? "",
+      label: `${option}`
+}));
+
+const pfaOptions : SelectOption[] = PFA
+.map((option) => ({
+ value: option ?? "",
+  label: `${option}`
+}));
   const startYearOptions: SelectOption[] = Years.filter((year) => year)
   .map((year) => ({
     value: year ?? "",
@@ -204,7 +222,7 @@ const specializationOptions : SelectOption[] = specializations
     <>
       <Navbar />
       {/* {!loading ? ( */}
-        <div className="w-full max-w-4xl mx-auto my-2 bg-white p-6 rounded-lg shadow-md mt-10 min-h-screen">
+        <div className="w-full max-w-4xl mx-auto my-2 bg-white p-6 rounded-lg shadow-md mt-20 min-h-screen">
           <div className="py-8">
           <h2 className="text-lg font-medium text-gray-900">Update Profile Details</h2>
           <Formik
@@ -256,6 +274,7 @@ const specializationOptions : SelectOption[] = specializations
                       placeholder="Select School of Previous Posting"
                       isSearchable
                       isClearable
+                      required
                     />
                   </div>
 
@@ -279,6 +298,7 @@ const specializationOptions : SelectOption[] = specializations
                       placeholder="Select School of Present Posting"
                       isSearchable
                       isClearable
+                      required
                     />
                   </div>
 
@@ -287,8 +307,20 @@ const specializationOptions : SelectOption[] = specializations
                     <label htmlFor="zone" className="block text-l font-medium text-gray-900">
                       Zone
                     </label>
-                    <Field id="zone" name="zone" placeholder="Enter Zone" className="input-field" />
-                    <ErrorMessage name="zone" component="div" className="text-red-500 text-sm" />
+                    <Select<SelectOption>
+                      name="zones"
+                      id="zones"
+                      options={zoneOptions}
+                      value={zoneOptions.find(
+                        (option) => option.value === selectedZone
+                      )}
+                      onChange={handleSelectChange(setSelectedZone)}
+                      className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Select Zone of Present School Posting"
+                      isSearchable
+                      isClearable
+                      required
+                    />
                   </div>
 
                   <div>
@@ -305,8 +337,31 @@ const specializationOptions : SelectOption[] = specializations
                       placeholder="Enter Division"
                       isSearchable
                       isClearable
+                      required
                     />
                     
+                  </div>
+
+
+ {/* Additional Fields */}
+ <div>
+                    <label htmlFor="stateOfOrigin" className="block text-l font-medium text-gray-900">
+                      State of Origin
+                    </label>
+                    <Select<SelectOption>
+                      name="stateOfOrigin"
+                      id="stateOfOrigin"
+                      options={stateOptions}
+                      value={stateOptions.find(
+                        (option) => option.value === selectedState
+                      )}
+                      onChange={handleSelectChange(setSelectedState)}
+                      className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Select Zone of Present School Posting"
+                      isSearchable
+                      isClearable
+                      required
+                    />
                   </div>
 
                   
@@ -339,6 +394,7 @@ const specializationOptions : SelectOption[] = specializations
                 placeholder="Search or Select Subject Taught"
                 isSearchable
                 isClearable
+                required
               />
             </div>
 
@@ -399,6 +455,7 @@ const specializationOptions : SelectOption[] = specializations
                 placeholder="Search or Select Institution Name"
                 isSearchable
                 isClearable
+                required
               />
             </div>
 
@@ -421,6 +478,7 @@ const specializationOptions : SelectOption[] = specializations
                 placeholder="Search or Select Qualification"
                 isSearchable
                 isClearable
+                required
               />
             </div>
 
@@ -448,6 +506,7 @@ const specializationOptions : SelectOption[] = specializations
                 placeholder="Search or Select Specialization"
                 isSearchable
                 isClearable
+                required
               />
             </div>
 
@@ -472,6 +531,7 @@ const specializationOptions : SelectOption[] = specializations
                 placeholder="Select Start Year"
                 isSearchable
                 isClearable
+                required
               />
 
               <label
@@ -492,6 +552,7 @@ const specializationOptions : SelectOption[] = specializations
                 placeholder="Select End Year"
                 isSearchable
                 isClearable
+                required
               />
             </div>
 
@@ -525,8 +586,53 @@ const specializationOptions : SelectOption[] = specializations
   )}
 </FieldArray>
 
+{/* PFA */}
+        <div>
+                    <label htmlFor="pfa" className="block text-l font-medium text-gray-900">
+                      Pension Fund Administrator
+                    </label>
+                    <Select<SelectOption>
+                      name="pfa"
+                      id="pfa"
+                      options={pfaOptions}
+                      value={pfaOptions.find(
+                        (option) => option.value === selectedPFA
+                      )}
+                      onChange={handleSelectChange(setSelectedPFA)}
+                      className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Select Pension Fund Administrator"
+                      isSearchable
+                      isClearable
+                      required
+                    />
+                  </div>
+
+
+
 
                   {/* More fields go here... */}
+                  {/* PFA Number */}
+                  <div>
+                    <label
+                      htmlFor="pfaNumber"
+                      className="block text-l font-medium text-gray-900"
+                    >
+                      PFA Number
+                    </label>
+                    <Field
+                      id="pfaNumber"
+                      name="pfaNumber"
+                      placeholder="Enter PFA Number"
+                      className="input-field"
+                      required
+                    />
+                    <ErrorMessage
+                      name="pfaNumber"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+
 
                   {/* Submit Button */}
                   <div className="flex justify-end mt-4">
