@@ -151,7 +151,7 @@ export interface Settings {
   stateOfOrigin: string;
   lgOgOrigin: string;
   ward: string;
-  qualifications: Qualifications[];
+  qualifications: string[];
   subjectsTaught: string[];
   dateOfPresentSchoolPosting: string;
   cadre: string;
