@@ -166,7 +166,6 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
     async (selectedOption: SingleValue<SelectOption>) => {
       const newValue = selectedOption ? selectedOption.value : null;
       setter(newValue);
-
     };
 
   const selectedSchoolDetails = selectedDestinationSchool

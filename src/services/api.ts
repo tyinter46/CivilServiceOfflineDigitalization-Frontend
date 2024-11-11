@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import env from "configs";
-import { IMAGE_TAG } from "./CONSTANTS";
+import { IMAGE_TAG, USER_PROFILE_TAG } from "./CONSTANTS";
 import type { RootState } from "redux/store";
 
 const baseQuery = fetchBaseQuery({
@@ -12,6 +12,13 @@ const baseQuery = fetchBaseQuery({
     }
     return headers;
   }
+});
+
+export const baseUserApi = createApi({
+  reducerPath: "userApi",
+  baseQuery,
+  tagTypes: [USER_PROFILE_TAG],
+  endpoints: () => ({})
 });
 
 // will need it later

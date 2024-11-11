@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 import ProfileView from "./ProfileView";
 import { UserDetails } from "types";
+
 import { useAppSelector, useAppDispatch } from "hooks";
 import { getLongDate } from "utils";
 import { loginSuccess } from "services/auth.service";
 import { fetchUser } from "../../../../redux/slices/auth.slice";
 import { useEffect, useState } from "react";
+
+
+
 // import {toast} from "react-toastify"
 // import FormData from "form-data"
 // import axios from "axios";
@@ -39,6 +43,9 @@ export const ProfileContainer = () => {
         console.log(err);
       });
   }, [dispatch]);
+
+
+  
 
   // console.log(postingLetter?.staffName?.firstName);
   const dateOfBirth = getLongDate(userSaved?.user?._doc?.dateOfBirth);
@@ -94,6 +101,8 @@ export const ProfileContainer = () => {
     professionalStatus: "",
     email: ""
   };
+
+ 
   // console.log(userDetails.letters.postingLetter)
 
   // const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>)=>{
@@ -114,6 +123,7 @@ export const ProfileContainer = () => {
         loading={false}
         create={() => {
           console.log("create");
+        
         }}
         userDetails={userDetails}
         image={"imageUrl"}

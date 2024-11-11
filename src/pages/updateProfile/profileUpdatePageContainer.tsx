@@ -1,15 +1,44 @@
 import { FC, useState, useEffect } from "react";
 import { fetchSchools } from "../../services/schools.service";
-import { ISchools } from "types";
+import { ISchools, Settings } from "types";
+
+
 import { toast } from "react-toastify";
 import LogoLoader from "../../components/widgets/loader/Loader";
 import ProfileUpdatePage from "./ProfileUpdateView";
-
+import { useUpdateUserProfileMutation } from "../../services/users.service";
+import { fetchUser } from "../../redux/slices/auth.slice";
+import { useAppSelector, useAppDispatch } from "hooks";
 
 export const ProfileUpdateViewContainer: FC = () => {
   const [schools, setSchools] = useState<ISchools[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [updateUser, result] = useUpdateUserProfileMutation();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
+  console.log(user)
+  const [userSaved, setUserSaved] = useState<any>(user);
+
+  useEffect(() => {
+    toast.success(result.data?.MESSAGE);
+    toast.error(result.isError && "Something Went Wrong");
+    // setLoading(result.isLoading);
+  }, [result]);
+
+  useEffect(() => {
+    dispatch(fetchUser(user.user._doc._id))
+      .unwrap()
+      .then((res: any) => {
+        console.log(res);
+        console.log(user.user._doc._id)
+        console.log(userSaved.user._doc._id)
+        setUserSaved(user);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }, [dispatch]);
 
   const loadSchools = async () => {
     try {
@@ -24,8 +53,8 @@ export const ProfileUpdateViewContainer: FC = () => {
   };
 
   useEffect(() => {
-   void  loadSchools();
-  }, []); // Removed loadSchools from dependency to avoid endless loop
+    void loadSchools();
+  }, []); 
 
   if (loading) {
     return (
@@ -34,8 +63,14 @@ export const ProfileUpdateViewContainer: FC = () => {
       </div>
     );
   }
+  const onSubmit = (details: Settings) => {
+    console.log(details)
+    console.log(user.user._doc._id)
+     void updateUser({ id: user.user._doc._id, details });
+  };
 
   if (error) return <div>{error}</div>;
- 
-  return <ProfileUpdatePage schools={schools}  />;
+
+  return <ProfileUpdatePage onSubmit={onSubmit} userDetails = {user} schools = {schools} />;
+  // return <ProfileUpdatePage schools={schools} create={create} />;
 };

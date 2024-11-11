@@ -1,9 +1,9 @@
 import axios from "axios";
 import env from "configs";
-import { logout } from "redux/slices/auth.slice";
-import { store } from "redux/store";
+import { logout } from "../../redux/slices/auth.slice";
+import { store } from "../../redux/store";
 import { LOGIN } from "routes/CONSTANTS";
-import authHeader from "services/auth-headers";
+import authHeader from "services/auth-headers"
 import { PUBLIC_REQUEST_KEY } from "services/CONSTANTS";
 import { toast } from "react-toastify";
 

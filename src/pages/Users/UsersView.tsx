@@ -81,8 +81,9 @@ export const UsersView: React.FC = () => {
   };
 
   const filteredUsers = users.filter(
-    (user)=>        user.staffName?.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    user.position?.toLowerCase().includes(searchTerm.toLowerCase())
+    (user)=>        user.staffName?.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ??
+                    user.position?.toLowerCase().includes(searchTerm.toLowerCase()) ??
+                    user.schoolOfPresentPosting?.nameOfSchool?.toLowerCase().includes(searchTerm.toLowerCase())
     // (school) =>
     //   school.nameOfSchool.toLowerCase().includes(searchTerm.toLowerCase()) ||
     //   school.category.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -172,9 +172,16 @@ export interface Settings {
   lastPromotionLetter?: string;
   birthCertificate?: string;
   staffType?: string;
+  residentialAddress?:string
   // remark?: string;
 }
 
+
+export interface settingsResponse {
+  STATUS: String;
+  MESSAGE: String;
+  DATA: Settings[];
+}
 // export interface UserDetails {
 //     country: string;
 //     email: string;

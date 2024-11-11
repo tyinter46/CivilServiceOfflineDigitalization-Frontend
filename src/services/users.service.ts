@@ -1,6 +1,11 @@
 import env from "configs";
 import axios from "axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { GET_USER, UPDATE_USER_PROFILE, USER_PROFILE_TAG } from "./CONSTANTS";
+import fetch from "./utils/FetchInterceptor";
+import { baseUserApi } from "./api";
+import { settingsResponse, Settings } from "types";
+
 export const fetchUsers = async () => {
   try {
     const response = await axios.get(`${env.API_BASE_URL}${`/users`}`);
@@ -21,7 +26,7 @@ export const fetchUsers = async () => {
 export const fetchUser = async (id: any) => {
   try {
     const response = await fetch(`${env.API_BASE_URL}${`/user/${id}`}`);
-    const fetchedData = await response.json();
+    const fetchedData = await response.data;
     // console.log(fetchedData);
     const user = fetchedData?.DATA?.user;
     console.log(user);
@@ -35,6 +40,29 @@ export const fetchUser = async (id: any) => {
   }
 };
 
+export const userApi = baseUserApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getUserDetails: builder.query<settingsResponse, string>({
+      providesTags: [USER_PROFILE_TAG],
+      query: (id) => `${GET_USER}/${id}`
+    }),
+    updateUserProfile: builder.mutation<settingsResponse, { id: string; details: Settings }>({
+      query: ({ id, details }) => ({
+        url: `${UPDATE_USER_PROFILE}/${id}`,
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: details
+      }),
+      invalidatesTags: [USER_PROFILE_TAG]
+    
+    })
+  })
+  
+});
+
+export const { useGetUserDetailsQuery, useUpdateUserProfileMutation } = userApi;
 // gender,
 // phoneNumber,
 // tscFileNumber,
@@ -53,89 +81,89 @@ export const fetchUser = async (id: any) => {
 // pfa,
 // pensionNumber,
 // staffType,
-export const updateUser = async ({
-  userId,
-  gender,
-  phoneNumber,
-  tscFileNumber,
-  schoolOfPresentPosting,
-  schoolOfPreviousPosting,
-  zone,
-  nationality,
-  stateOfOrigin,
-  lgOfOrigin,
-  ward,
-  qualifications,
-  subjectsTaught,
-  dateOfPresentSchoolPosting,
-  cadre,
-  dateOfLastPromotion,
-  pfa,
-  pensionNumber,
-  staffType
-}: {
-  userId: string;
-  gender: string;
-  phoneNumber: string;
-  tscFileNumber: string;
-  schoolOfPresentPosting: string;
-  schoolOfPreviousPosting: string;
-  zone: string;
-  nationality: string;
-  stateOfOrigin: string;
-  lgOfOrigin: string;
-  ward: string;
-  qualifications: string[];
-  subjectsTaught: string[];
-  dateOfPresentSchoolPosting: string;
-  cadre: string;
-  dateOfLastPromotion: string;
-  pfa: string;
-  pensionNumber: string;
-  staffType: string;
-}) => {
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Credentials": true
-  };
+// export const updateUser = async ({
+//   userId,
+//   gender,
+//   phoneNumber,
+//   tscFileNumber,
+//   schoolOfPresentPosting,
+//   schoolOfPreviousPosting,
+//   zone,
+//   nationality,
+//   stateOfOrigin,
+//   lgOfOrigin,
+//   ward,
+//   qualifications,
+//   subjectsTaught,
+//   dateOfPresentSchoolPosting,
+//   cadre,
+//   dateOfLastPromotion,
+//   pfa,
+//   pensionNumber,
+//   staffType
+// }: {
+//   userId: string;
+//   gender: string;
+//   phoneNumber: string;
+//   tscFileNumber: string;
+//   schoolOfPresentPosting: string;
+//   schoolOfPreviousPosting: string;
+//   zone: string;
+//   nationality: string;
+//   stateOfOrigin: string;
+//   lgOfOrigin: string;
+//   ward: string;
+//   qualifications: string[];
+//   subjectsTaught: string[];
+//   dateOfPresentSchoolPosting: string;
+//   cadre: string;
+//   dateOfLastPromotion: string;
+//   pfa: string;
+//   pensionNumber: string;
+//   staffType: string;
+// }) => {
+//   const headers = {
+//     Accept: "application/json",
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Credentials": true
+//   };
 
-  const configs = {
-    headers,
-    withCredentials: true
-  };
+//   const configs = {
+//     headers,
+//     withCredentials: true
+//   };
 
-  const payload = {
-    gender,
-    phoneNumber,
-    tscFileNumber,
-    schoolOfPresentPosting,
-    schoolOfPreviousPosting,
-    zone,
-    nationality,
-    stateOfOrigin,
-    lgOfOrigin,
-    ward,
-    qualifications,
-    subjectsTaught,
-    dateOfPresentSchoolPosting,
-    cadre,
-    dateOfLastPromotion,
-    pfa,
-    pensionNumber,
-    staffType
-  };
+//   const payload = {
+//     gender,
+//     phoneNumber,
+//     tscFileNumber,
+//     schoolOfPresentPosting,
+//     schoolOfPreviousPosting,
+//     zone,
+//     nationality,
+//     stateOfOrigin,
+//     lgOfOrigin,
+//     ward,
+//     qualifications,
+//     subjectsTaught,
+//     dateOfPresentSchoolPosting,
+//     cadre,
+//     dateOfLastPromotion,
+//     pfa,
+//     pensionNumber,
+//     staffType
+//   };
 
-  console.log("Payload:", payload);
+//   console.log("Payload:", payload);
 
-  try {
-    const response = await axios.patch(`${env.API_BASE_URL}/api/user/${userId}`, payload, configs);
-    console.log(response);
-    return toast.success(response.data.message);
-    // return response.data.message;
-  } catch (error: any) {
-    console.error("Error posting staff:", error);
-    toast.error(error.message || "An error occurred while posting staff.");
-    throw error; // Ensure any errors are thrown for proper handling
-  }
-};
+//   try {
+//     const response = await axios.patch(`${env.API_BASE_URL}/api/user/${userId}`, payload, configs);
+//     console.log(response);
+//     return toast.success(response.data.message);
+//     // return response.data.message;
+//   } catch (error: any) {
+//     console.error("Error posting staff:", error);
+//     toast.error(error.message || "An error occurred while posting staff.");
+//     throw error; // Ensure any errors are thrown for proper handling
+//   }
+// };

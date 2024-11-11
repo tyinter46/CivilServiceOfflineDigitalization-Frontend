@@ -4,7 +4,7 @@ export const LOGIN = "auth/local/signin";
 export const SIGNUP = "auth/local/signup";
 export const LOGIN_SUCCESS_URL = "auth/login/success";
 
-export const GET_USER = "/users";
+export const GET_USER = "/user";
 export const FORGOT_PASSWORD = "/forgotPassword";
 export const RESET_PASSWORD = "/resetPassword";
 export const UPDATE_PASSWORD = "/users/:id/password-update";
@@ -13,7 +13,9 @@ export const UPDATE_PASSWORD = "/users/:id/password-update";
  */
 
 export const TESCOM_USER_DATA = "TESCOM_USER_DATA";
-
+export const USER_PROFILE_TAG = "user-profile";
+export const UPDATE_USER = "/update_user";
+export const UPDATE_USER_PROFILE = "/user";
 export const PUBLIC_REQUEST_KEY = "public-request";
 
 // Request Status

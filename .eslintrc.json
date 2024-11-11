@@ -26,6 +26,7 @@
     "@typescript-eslint/no-misused-promises": ["off"],
     "react/react-in-jsx-scope": ["off"],
     "react/jsx-uses-react": ["off"],
+    "@typescript-eslint/no-unused-expressions": ["off"],
     "react/prop-types": ["off"],
     "@typescript-eslint/strict-boolean-expressions": ["off"],
     "react/jsx-props-no-spreading": ["off"],
