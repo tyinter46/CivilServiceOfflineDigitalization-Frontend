@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
+ import Select from "react-select";
 // import LogoLoader from "../../components/widgets/loader/LogoLoader";
 // import { zones, subjectsTaught} from "./DropDownOptions";
- import { institutions, Years, subjectsTaught, specializations, zones } from "./DropDownOptions";
+import { institutions, Years, subjectsTaught, specializations, zones, PFA , states} from "./DropDownOptions";
 
 import { Navbar } from "components";
-import { UserDetails, ISchools} from "types";
+import { UserDetails, ISchools } from "types";
+
 
 // Sample dropdown options
 // const schoolOptions = [
@@ -32,7 +34,7 @@ const divisionOptions = ["YEWA", "EGBA", "IJEBU", "REMO"].map((option) => ({
 
 const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   const [formValues, setFormValues] = useState({
-    dateOfFirstAppointment: userDetails?.dateOfFirstAppointment ,
+    dateOfFirstAppointment: userDetails?.dateOfFirstAppointment,
     tscFileNumber: userDetails?.tscFileNumber || "",
     schoolOfPresentPosting: userDetails?.schoolOfPresentPosting || "",
     schoolOfPreviousPosting: userDetails?.schoolOfPreviousPosting || "",
@@ -59,13 +61,12 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   //       label: option,
   //     }));
 
-  const specializationOptions  = specializations
-  .map((option) => ({
+  const specializationOptions = specializations.map((option) => ({
     value: option ?? "",
     label: `${option}`
   }));
 
-  
+
   const qualificationOptions = [
     "FSLC",
     "SSCE",
@@ -78,14 +79,12 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     "HND",
     "Phd",
     "Able Bodied"
-  ]
+  ];
 
-  const institutionNameOptions= institutions
-
-      .map((option) => ({
-        value: option ?? "",
-        label: `${option}`
-      }));
+  const institutionNameOptions = institutions.map((option) => ({
+    value: option ?? "",
+    label: `${option}`
+  }));
 
   // const schoolOptions = schools
 
@@ -93,26 +92,34 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     value: school._id ?? "",
     label: `${school?.nameOfSchool} ${school?.category} ${school?.location}`
   }));
+  
 
-
-    const startYearOptions = Years.filter((year) => year)
-  .map((year) => ({
+  const startYearOptions = Years.filter((year) => year).map((year) => ({
     value: year ?? "",
     label: `${year}`
   }));
 
-  const endYearOptions = Years.filter((year) => year)
-  .map((year) => ({
+  const endYearOptions = Years.filter((year) => year).map((year) => ({
     value: year ?? "",
     label: `${year}`
   }));
 
+  //   const subjectsTaughtOptions = subjectsTaught.map((option) => ({
+  //   value: option,
+  //   label: option,
+  // }));
 
-    //   const subjectsTaughtOptions = subjectsTaught.map((option) => ({
-    //   value: option,
-    //   label: option,
-    // }));
+    const stateOptions = states
+    .map((option) => ({
+     value: option ?? "",
+      label: `${option}`
+}));
 
+  const pfaOptions = PFA
+.map((option) => ({
+ value: option ?? "",
+  label: `${option}`
+}));
   // Schema validation using Yup
   const ProfileViewSchema = Yup.object().shape({
     tscFileNumber: Yup.string().min(9, "Too Short").max(16, "Too Long!").required("Required"),
@@ -155,6 +162,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     });
   };
 
+ 
   // Handle changes for input fields
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -189,7 +197,6 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
       ]
     });
   };
-  
 
   const removeQualification = (index: number) => {
     const updatedQualifications = formValues.qualifications.filter((_, i) => i !== index);
@@ -250,7 +257,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 >
                   School of Present Posting
                 </label>
-                <CreatableSelect
+                <Select
                   isClearable
                   options={schoolOptions}
                   value={schoolOptions.find(
@@ -261,15 +268,15 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 />
               </div>
 
- {/* School of Previous Posting using CreatableSelect */}
- <div>
+              {/* School of Previous Posting using CreatableSelect */}
+              <div>
                 <label
                   htmlFor="schoolOfPreviousPosting"
                   className="block text-l font-medium text-gray-900"
                 >
                   School of Previous Posting
                 </label>
-                <CreatableSelect
+                <Select
                   isClearable
                   options={schoolOptions}
                   value={schoolOptions.find(
@@ -284,7 +291,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 <label htmlFor="zones" className="block text-l font-medium text-gray-900">
                   Zone
                 </label>
-                <CreatableSelect
+                <Select
                   isClearable
                   options={zoneOptions}
                   value={zoneOptions.find((option) => option.value === formValues.zone)}
@@ -298,7 +305,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 <label htmlFor="division" className="block text-l font-medium text-gray-900">
                   Division
                 </label>
-                <CreatableSelect
+                <Select
                   isClearable
                   options={divisionOptions}
                   value={divisionOptions.find((option) => option.value === formValues.division)}
@@ -306,6 +313,28 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   placeholder="Select or create a division"
                 />
               </div>
+
+       <div>
+                 <label htmlFor="stateOfOrigin" className="block text-l font-medium text-gray-900">
+                   State of Origin
+                   </label>
+                   <CreatableSelect
+                      name="stateOfOrigin"
+                       id="stateOfOrigin"
+                      options={stateOptions}
+                      value={stateOptions.find(
+                        (option) => option.value === formValues.stateOfOrigin
+                      ) ?? { value: formValues.stateOfOrigin, label: formValues.stateOfOrigin }}
+                      onChange={handleSelectChange("stateOfOrigin")}
+                      className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Select State of Origin"
+                      isSearchable
+                      isClearable
+                       required
+                     />
+                   </div> 
+
+
 
               {/* Subject Taught with dynamic CreatableSelect fields */}
               {formValues.subjectsTaught.map((subject, index) => (
@@ -344,6 +373,181 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 Add Subjects Taught
               </button>
 
+              {/* Qualifications with dynamic CreatableSelect fields */}
+              {formValues.qualifications.map((qualification, index) => (
+                <div key={index} className="qualification-field-group">
+                  {/* School Name Field */}
+                  <label
+                    htmlFor={`qualifications-${index}-schoolName`}
+                    className="block text-l font-medium text-gray-900"
+                  >
+                    School Name
+                  </label>
+                  <CreatableSelect
+                    isClearable
+                    value={{ value: qualification.schoolName, label: qualification.schoolName }}
+                    options={institutionNameOptions.map((opt) => ({
+                      value: opt.value,
+                      label: opt.label
+                    }))}
+                    onChange={(selectedOption) => {
+                      const updatedQualifications = [...formValues.qualifications];
+                      updatedQualifications[index].schoolName = selectedOption
+                        ? selectedOption.value
+                        : "";
+                      setFormValues({ ...formValues, qualifications: updatedQualifications });
+                    }}
+                    placeholder="Select or create a school"
+                  />
+
+                  {/* Degree Type Field */}
+                  <label
+                    htmlFor={`qualifications-${index}-degreeType`}
+                    className="block text-l font-medium text-gray-900 mt-2"
+                  >
+                    Degree Type
+                  </label>
+                  <CreatableSelect
+                    isClearable
+                    value={{ value: qualification.degreeType, label: qualification.degreeType }}
+                    options={qualificationOptions.map((opt) => ({ value: opt, label: opt }))}
+                    onChange={(selectedOption) => {
+                      const updatedQualifications = [...formValues.qualifications];
+                      updatedQualifications[index].degreeType = selectedOption
+                        ? selectedOption.value
+                        : "";
+                      setFormValues({ ...formValues, qualifications: updatedQualifications });
+                    }}
+                    placeholder="Select or create a degree type"
+                  />
+
+                  {/* Specialization Field */}
+                  <label
+                    htmlFor={`qualifications-${index}-specialization`}
+                    className="block text-l font-medium text-gray-900 mt-2"
+                  >
+                    Specialization
+                  </label>
+                  <CreatableSelect
+                    isClearable
+                    value={{
+                      value: qualification.specialization,
+                      label: qualification.specialization
+                    }}
+                    options={specializationOptions.map((opt) => ({
+                      value: opt.value,
+                      label: opt.label
+                    }))}
+                    onChange={(selectedOption) => {
+                      const updatedQualifications = [...formValues.qualifications];
+                      updatedQualifications[index].specialization = selectedOption
+                        ? selectedOption.value
+                        : "";
+                      setFormValues({ ...formValues, qualifications: updatedQualifications });
+                    }}
+                    placeholder="Select or create a specialization e.g Course("
+                  />
+
+                  {/* Start Year Field */}
+                  <label
+                    htmlFor={`qualifications-${index}-startYear`}
+                    className="block text-l font-medium text-gray-900 mt-2"
+                  >
+                    Start Year
+                  </label>
+                  <CreatableSelect
+                    isClearable
+                    value={{ value: qualification.startYear, label: qualification.startYear }}
+                    options={startYearOptions.map((opt) => ({
+                      value: opt.value,
+                      label: opt.label
+                    }))}
+                    onChange={(selectedOption) => {
+                      const updatedQualifications = [...formValues.qualifications];
+                      updatedQualifications[index].startYear = selectedOption
+                        ? selectedOption.value
+                        : "";
+                      setFormValues({ ...formValues, qualifications: updatedQualifications });
+                    }}
+                    placeholder="Select or create a start year"
+                  />
+
+                  {/* End Year Field */}
+                  <label
+                    htmlFor={`qualifications-${index}-endYear`}
+                    className="block text-l font-medium text-gray-900 mt-2"
+                  >
+                    End Year
+                  </label>
+                  <CreatableSelect
+                    isClearable
+                    value={{ value: qualification.endYear, label: qualification.endYear }}
+                    options={endYearOptions.map((opt) => ({ value: opt.value, label: opt.label }))}
+                    onChange={(selectedOption) => {
+                      const updatedQualifications = [...formValues.qualifications];
+                      updatedQualifications[index].endYear = selectedOption
+                        ? selectedOption.value
+                        : "";
+                      setFormValues({ ...formValues, qualifications: updatedQualifications });
+                    }}
+                    placeholder="Select or create an end year"
+                  />
+
+                  {/* Remove Button */}
+                  <button
+                    type="button"
+                    onClick={() => removeQualification(index)}
+                    className="bg-red-500 text-white px-1 py-1 rounded-md mt-2"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+
+              {/* Add Qualification Button */}
+              <button
+                type="button"
+                onClick={addQualification}
+                className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
+              >
+                Add Qualification
+              </button>
+              {/* PFA Number  & PFA */}
+                <div>
+                    <label htmlFor="pfa" className="block text-l font-medium text-gray-900">
+                      Pension Fund Administrator
+                    </label>
+                    <CreatableSelect
+                      name="pfa"
+                      id="pfa"
+                      className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Select Pension Fund Administrator"
+                      isSearchable
+                      isClearable
+                      required
+
+                      options={pfaOptions}
+                      value={pfaOptions.find((option) => option.value === formValues.pfa)}
+                      onChange={handleSelectChange("pfa")}
+                 
+                    />
+                  </div>
+              <div>
+                <label htmlFor="pensionNumber" className="block text-l font-medium text-gray-900">
+                  PFA Number
+                </label>
+                <input
+                  id="pensionNumber"
+                  name="pensionNumber"
+                  placeholder="Enter PFA Number"
+                  className="input-field"
+                  value={formValues.pensionNumber}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+            
               {/* Submit Button */}
               <div className="flex justify-end mt-4">
                 <button type="submit" className="bg-indigo-500 text-white px-4 py-2 rounded-md">
@@ -351,111 +555,6 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </button>
               </div>
 
-
-              {/* Qualifications with dynamic CreatableSelect fields */}
-{formValues.qualifications.map((qualification, index) => (
-  <div key={index} className="qualification-field-group">
-    {/* School Name Field */}
-    <label htmlFor={`qualifications-${index}-schoolName`} className="block text-l font-medium text-gray-900">
-      School Name
-    </label>
-    <CreatableSelect
-      isClearable
-      value={{ value: qualification.schoolName, label: qualification.schoolName }}
-      options={institutionNameOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-      onChange={(selectedOption) => {
-        const updatedQualifications = [...formValues.qualifications];
-        updatedQualifications[index].schoolName = selectedOption ? selectedOption.value : '';
-        setFormValues({ ...formValues, qualifications: updatedQualifications });
-      }}
-      placeholder="Select or create a school"
-    />
-
-    {/* Degree Type Field */}
-    <label htmlFor={`qualifications-${index}-degreeType`} className="block text-l font-medium text-gray-900 mt-2">
-      Degree Type
-    </label>
-    <CreatableSelect
-      isClearable
-      value={{ value: qualification.degreeType, label: qualification.degreeType }}
-      options={qualificationOptions.map(opt => ({ value: opt, label: opt }))}
-      onChange={(selectedOption) => {
-        const updatedQualifications = [...formValues.qualifications];
-        updatedQualifications[index].degreeType = selectedOption ? selectedOption.value : '';
-        setFormValues({ ...formValues, qualifications: updatedQualifications });
-      }}
-      placeholder="Select or create a degree type"
-    />
-
-    {/* Specialization Field */}
-    <label htmlFor={`qualifications-${index}-specialization`} className="block text-l font-medium text-gray-900 mt-2">
-      Specialization
-    </label>
-    <CreatableSelect
-      isClearable
-      value={{ value: qualification.specialization, label: qualification.specialization }}
-      options={specializationOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-      onChange={(selectedOption) => {
-        const updatedQualifications = [...formValues.qualifications];
-        updatedQualifications[index].specialization = selectedOption ? selectedOption.value : '';
-        setFormValues({ ...formValues, qualifications: updatedQualifications });
-      }}
-      placeholder="Select or create a specialization"
-    />
-
-    {/* Start Year Field */}
-    <label htmlFor={`qualifications-${index}-startYear`} className="block text-l font-medium text-gray-900 mt-2">
-      Start Year
-    </label>
-    <CreatableSelect
-      isClearable
-      value={{ value: qualification.startYear, label: qualification.startYear }}
-      options={startYearOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-      onChange={(selectedOption) => {
-        const updatedQualifications = [...formValues.qualifications];
-        updatedQualifications[index].startYear = selectedOption ? selectedOption.value : '';
-        setFormValues({ ...formValues, qualifications: updatedQualifications });
-      }}
-      placeholder="Select or create a start year"
-    />
-
-    {/* End Year Field */}
-    <label htmlFor={`qualifications-${index}-endYear`} className="block text-l font-medium text-gray-900 mt-2">
-      End Year
-    </label>
-    <CreatableSelect
-      isClearable
-      value={{ value: qualification.endYear, label: qualification.endYear }}
-      options={endYearOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-      onChange={(selectedOption) => {
-        const updatedQualifications = [...formValues.qualifications];
-        updatedQualifications[index].endYear = selectedOption ? selectedOption.value : '';
-        setFormValues({ ...formValues, qualifications: updatedQualifications });
-      }}
-      placeholder="Select or create an end year"
-    />
-
-    {/* Remove Button */}
-    <button
-      type="button"
-      onClick={() => removeQualification(index)}
-      className="bg-red-500 text-white px-1 py-1 rounded-md mt-2"
-    >
-      Remove
-    </button>
-  </div>
-))}
-
-{/* Add Qualification Button */}
-<button
-  type="button"
-  onClick={addQualification}
-  className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
->
-  Add Qualification
-</button>
-
-            </div>
           </form>
         </div>
       </div>
@@ -602,11 +701,11 @@ export default ProfileUpdatePage;
 //   //     label: `${school?.nameOfSchool} ${school?.category} ${school?.location}`
 //   //   }));
 
-// //     const stateOptions: SelectOption[] = states
-// //     .map((option) => ({
-// //      value: option ?? "",
-// //       label: `${option}`
-// // }));
+//     const stateOptions: SelectOption[] = states
+//     .map((option) => ({
+//      value: option ?? "",
+//       label: `${option}`
+// }));
 
 // //     const zoneOptions: SelectOption[] = zones
 // //     .map((option) => ({
