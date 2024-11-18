@@ -38,6 +38,10 @@ export interface UserDetails {
   email: string;
   ogNumber: string;
   residentialAddress: string;
+  nameOfNextOfKin?: string;
+  nextOfKinAddress?: string;
+  nextOfKinPhoneNumber?: string
+  
   // password: string;
   // confirmationCode: string;
   // profilePhoto: string;

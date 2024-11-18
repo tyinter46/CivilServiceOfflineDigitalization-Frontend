@@ -4,7 +4,7 @@ import CreatableSelect from "react-select/creatable";
  import Select from "react-select";
 // import LogoLoader from "../../components/widgets/loader/LogoLoader";
 // import { zones, subjectsTaught} from "./DropDownOptions";
-import { institutions, Years, subjectsTaught, specializations, zones, PFA , states} from "./DropDownOptions";
+import { institutions, Years, subjectsTaught, specializations, zones, PFA , states, professionalGradeLevel, nonProfessionalGradeLevel} from "./DropDownOptions";
 
 import { Navbar } from "components";
 import { UserDetails, ISchools } from "types";
@@ -51,9 +51,11 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     gradeLevel: userDetails?.gradeLevel || "",
     pfa: userDetails?.pfa || "",
     pensionNumber: userDetails?.pensionNumber || "",
-    professionalStatus: userDetails?.professionalStatus || "",
     staffType: userDetails?.staffType || "",
-    email: userDetails?.email || ""
+    email: userDetails?.email || "",
+    nameOfNextOfKin: userDetails?.nameOfNextOfKin || "",
+    nextOfKinAddress: userDetails?.nextOfKinAddress || "",
+    nextOfKinPhoneNumber:  userDetails?.nextOfKinPhoneNumber || ""
   });
 
   //       const subjectsTaughtOptions = subjectsTaught.map((option) => ({
@@ -334,7 +336,20 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                      />
                    </div> 
 
-
+{/* Email */}
+              <div>
+                <label htmlFor="email" className="block text-l font-medium text-gray-900">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  placeholder="Enter Email"
+                  className="input-field"
+                  value={formValues.email}
+                  onChange={handleInputChange}
+                />
+              </div>
 
               {/* Subject Taught with dynamic CreatableSelect fields */}
               {formValues.subjectsTaught.map((subject, index) => (
