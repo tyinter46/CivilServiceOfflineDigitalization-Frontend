@@ -1356,4 +1356,46 @@ export const Years = [
 
 export const professionalGradeLevel = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"]
 export const nonProfessionalGradeLevel = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"]
-export const teachinhOrNonTeaching = ["TEACHING", ""]
+export const teachingOrNonTeaching = ["TEACHING", "NON-TEACHING"]
+
+
+export const graduateCadre = [
+  "Master II",
+  "Master I",
+  "Senior Master",
+  "Principal Grd.III",
+  "Principal Grd.II",
+  "Principal Grd.I",
+  "Principal Special Grd.II",
+  "Principal Special Grd.I",	
+  "Principal Special Grd.I"	]
+  
+ export  const cadre = [
+    "Master II", "Master I", "Senior Master", "Principal Grd.III", 
+    "Principal Grd.II", "Principal Grd.I", "Principal Special Grd.II", 
+    "Principal Special Grd.I", "Principal Special Grd.I", "Master III", 
+    "Senior Master III", "Senior Master II", "Senior Master I", 
+    "Senior Master Special", "Technical Instructor", "Higher Tech.Instructor", 
+    "Senior Tech.Instructor", "Principal Tech.Instructor II", 
+    "Principal Tech.Instructor I", "Assistant Chief Tech.Instructor", 
+    "Chief Tech.Instructor", "Assistant Executive Officer", "Executive Officer", 
+    "Higher Executive Officer", "Senior Executive Officer", 
+    "Principal Executive Officer Grd.II", "Principal Executive Officer Grd.I", 
+    "Assistant Chief Executive Officer", "Chief Executive Officer", 
+    "Secretarial Assistant IV", "Secretarial Assistant III", 
+    "Secretarial Assistant II", "Secretarial Assistant I", 
+    "Senior Secretarial Assistant II", "Senior Secretarial Assistant I", 
+    "Principal Secretariat Assistant", "Assistant Chief Secretariat Assistant", 
+    "Chief Secretariat Assistant", "Motor Driver", "Heavy Lorry Driver", 
+    "Motor Driver/Mechanic", "Senior Motor Driver/Mechanic Grade II", 
+    "Senior Motor Driver/Mechanic Grade I", "Chief Motor Driver/Mechanic", 
+    "Clerical Assistant", "Clerical Officer Grade II", "Clerical Officer Grade I", 
+    "Senior Clerical Officer", "Chief Clerical Officer", "Store Assistant", 
+    "Storekeeper", "Senior Storekeeper", "Assistant Chief Storekeeper", 
+    "Chief Storekeeper", "Messenger", "Senior Messenger", "Head Messenger", 
+    "Watchman Grade II", "Watchman Grade I", "Senior Watchman", 
+    "Head Watchman", "Cleaner", "Senior Cleaner", "Head Cleaner"
+  ]
+  
+ 
+  

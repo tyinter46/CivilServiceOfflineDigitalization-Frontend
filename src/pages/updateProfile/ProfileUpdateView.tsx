@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
- import Select from "react-select";
+import Select from "react-select";
 // import LogoLoader from "../../components/widgets/loader/LogoLoader";
 // import { zones, subjectsTaught} from "./DropDownOptions";
-import { institutions, Years, subjectsTaught, specializations, zones, PFA , states, professionalGradeLevel, nonProfessionalGradeLevel} from "./DropDownOptions";
+import {
+  institutions,
+  Years,
+  subjectsTaught,
+  specializations,
+  zones,
+  PFA,
+  states,
+  professionalGradeLevel,
+  nonProfessionalGradeLevel,
+  teachingOrNonTeaching,
+  cadre,
+  graduateCadre
+} from "./DropDownOptions";
 
 import { Navbar } from "components";
 import { UserDetails, ISchools } from "types";
-
 
 // Sample dropdown options
 // const schoolOptions = [
@@ -28,6 +40,21 @@ interface PageProps {
   userDetails: UserDetails;
 }
 const divisionOptions = ["YEWA", "EGBA", "IJEBU", "REMO"].map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const CadreOptions = cadre.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const professionalGradeLevelOptions = professionalGradeLevel.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const nonProfessionalGradeLevelOptions = nonProfessionalGradeLevel.map((option) => ({
   value: option ?? "",
   label: `${option}`
 }));
@@ -53,9 +80,9 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     pensionNumber: userDetails?.pensionNumber || "",
     staffType: userDetails?.staffType || "",
     email: userDetails?.email || "",
-    nameOfNextOfKin: userDetails?.nameOfNextOfKin || "",
-    nextOfKinAddress: userDetails?.nextOfKinAddress || "",
-    nextOfKinPhoneNumber:  userDetails?.nextOfKinPhoneNumber || ""
+    nameOfNextOfKin: userDetails?.nameOfNextOfKin ?? "",
+    nextOfKinAddress: userDetails?.nextOfKinAddress ?? "",
+    nextOfKinPhoneNumber: userDetails?.nextOfKinPhoneNumber ?? ""
   });
 
   //       const subjectsTaughtOptions = subjectsTaught.map((option) => ({
@@ -68,6 +95,10 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     label: `${option}`
   }));
 
+  const staffType = teachingOrNonTeaching.map((option) => ({
+    value: option ?? "",
+    label: `${option}`
+  }));
 
   const qualificationOptions = [
     "FSLC",
@@ -94,7 +125,6 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     value: school._id ?? "",
     label: `${school?.nameOfSchool} ${school?.category} ${school?.location}`
   }));
-  
 
   const startYearOptions = Years.filter((year) => year).map((year) => ({
     value: year ?? "",
@@ -111,17 +141,15 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   //   label: option,
   // }));
 
-    const stateOptions = states
-    .map((option) => ({
-     value: option ?? "",
-      label: `${option}`
-}));
+  const stateOptions = states.map((option) => ({
+    value: option ?? "",
+    label: `${option}`
+  }));
 
-  const pfaOptions = PFA
-.map((option) => ({
- value: option ?? "",
-  label: `${option}`
-}));
+  const pfaOptions = PFA.map((option) => ({
+    value: option ?? "",
+    label: `${option}`
+  }));
   // Schema validation using Yup
   const ProfileViewSchema = Yup.object().shape({
     tscFileNumber: Yup.string().min(9, "Too Short").max(16, "Too Long!").required("Required"),
@@ -150,7 +178,16 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     ),
     dateOfPresentSchoolPosting: Yup.date().max(new Date(), "Cannot be in the future"),
     cadre: Yup.string().required("Required"),
-    gradeLevel: Yup.string().required("Required"),
+    gradeLevel: Yup.string().when('cadre', {
+      is: (cadre: any) => !cadre, 
+      then: (schema) => schema.test({
+        name: 'cadre-must-be-filled',
+        exclusive: true,
+        message: 'Please fill Cadre first',
+        test: () => false
+      }),
+      otherwise: (schema) => schema.required("Grade Level is Required")
+    }),
     pfa: Yup.string().required("Required"),
     pensionNumber: Yup.string().required("Required"),
     professionalStatus: Yup.string().required("Required")
@@ -164,7 +201,6 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     });
   };
 
- 
   // Handle changes for input fields
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -251,6 +287,53 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 />
               </div>
 
+              {/* Teaching or Non Teaching */}
+              <div>
+                <label htmlFor="staffType" className="block text-l font-medium text-gray-900">
+                  Teaching or Non-Teaching Staff
+                </label>
+                <Select
+                  isClearable
+                  options={staffType}
+                  value={staffType.find((option) => option.value === formValues.staffType)}
+                  onChange={handleSelectChange("staffType")}
+                  placeholder="Select Teaching or Non-Teaching Staff"
+                />
+              </div>
+
+              {/* Cadre */}
+              <div>
+                <label htmlFor="cadre" className="block text-l font-medium text-gray-900">
+                  Cadre
+                </label>
+                <Select
+                  isClearable
+                  options={CadreOptions}
+                  value={CadreOptions.find((option) => option.value === formValues.cadre)}
+                  onChange={handleSelectChange("cadre")}
+                  placeholder="Select Cadre"
+                />
+              </div>
+
+              {/* Grade Level  */}
+              <div>
+                <label htmlFor="gradeLevel" className="block text-l font-medium text-gray-900">
+                  Grade Level
+                </label>
+                <Select
+                  isClearable
+                  isDisabled={!formValues.cadre}
+                  options={
+                    graduateCadre.includes(formValues.cadre)
+                      ? professionalGradeLevelOptions
+                      : nonProfessionalGradeLevelOptions
+                  }
+                  value={CadreOptions.find((option) => option.value === formValues.gradeLevel)}
+                  onChange={handleSelectChange("gradeLevel")}
+                  placeholder="Select Grade Level"
+                />
+              </div>
+
               {/* School of Present Posting using CreatableSelect */}
               <div>
                 <label
@@ -316,27 +399,30 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 />
               </div>
 
-       <div>
-                 <label htmlFor="stateOfOrigin" className="block text-l font-medium text-gray-900">
-                   State of Origin
-                   </label>
-                   <CreatableSelect
-                      name="stateOfOrigin"
-                       id="stateOfOrigin"
-                      options={stateOptions}
-                      value={stateOptions.find(
-                        (option) => option.value === formValues.stateOfOrigin
-                      ) ?? { value: formValues.stateOfOrigin, label: formValues.stateOfOrigin }}
-                      onChange={handleSelectChange("stateOfOrigin")}
-                      className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="Select State of Origin"
-                      isSearchable
-                      isClearable
-                       required
-                     />
-                   </div> 
+              <div>
+                <label htmlFor="stateOfOrigin" className="block text-l font-medium text-gray-900">
+                  State of Origin
+                </label>
+                <CreatableSelect
+                  name="stateOfOrigin"
+                  id="stateOfOrigin"
+                  options={stateOptions}
+                  value={
+                    stateOptions.find((option) => option.value === formValues.stateOfOrigin) ?? {
+                      value: formValues.stateOfOrigin,
+                      label: formValues.stateOfOrigin
+                    }
+                  }
+                  onChange={handleSelectChange("stateOfOrigin")}
+                  className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Select State of Origin"
+                  isSearchable
+                  isClearable
+                  required
+                />
+              </div>
 
-{/* Email */}
+              {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-l font-medium text-gray-900">
                   Email
@@ -528,25 +614,23 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 Add Qualification
               </button>
               {/* PFA Number  & PFA */}
-                <div>
-                    <label htmlFor="pfa" className="block text-l font-medium text-gray-900">
-                      Pension Fund Administrator
-                    </label>
-                    <CreatableSelect
-                      name="pfa"
-                      id="pfa"
-                      className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="Select Pension Fund Administrator"
-                      isSearchable
-                      isClearable
-                      required
-
-                      options={pfaOptions}
-                      value={pfaOptions.find((option) => option.value === formValues.pfa)}
-                      onChange={handleSelectChange("pfa")}
-                 
-                    />
-                  </div>
+              <div>
+                <label htmlFor="pfa" className="block text-l font-medium text-gray-900">
+                  Pension Fund Administrator
+                </label>
+                <CreatableSelect
+                  name="pfa"
+                  id="pfa"
+                  className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Select Pension Fund Administrator"
+                  isSearchable
+                  isClearable
+                  required
+                  options={pfaOptions}
+                  value={pfaOptions.find((option) => option.value === formValues.pfa)}
+                  onChange={handleSelectChange("pfa")}
+                />
+              </div>
               <div>
                 <label htmlFor="pensionNumber" className="block text-l font-medium text-gray-900">
                   PFA Number
@@ -562,14 +646,13 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 />
               </div>
             </div>
-            
-              {/* Submit Button */}
-              <div className="flex justify-end mt-4">
-                <button type="submit" className="bg-indigo-500 text-white px-4 py-2 rounded-md">
-                  Update Profile
-                </button>
-              </div>
 
+            {/* Submit Button */}
+            <div className="flex justify-end mt-4">
+              <button type="submit" className="bg-indigo-500 text-white px-4 py-2 rounded-md">
+                Update Profile
+              </button>
+            </div>
           </form>
         </div>
       </div>
