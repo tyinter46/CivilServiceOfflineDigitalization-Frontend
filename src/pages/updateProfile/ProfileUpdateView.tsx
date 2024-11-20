@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
+import { toast } from "react-toastify";
 // import LogoLoader from "../../components/widgets/loader/LogoLoader";
 // import { zones, subjectsTaught} from "./DropDownOptions";
 import {
@@ -152,32 +153,32 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   }));
   // Schema validation using Yup
   const ProfileViewSchema = Yup.object().shape({
-    tscFileNumber: Yup.string().min(9, "Too Short").max(16, "Too Long!").required("Required"),
-    schoolOfPresentPosting: Yup.string().required("Required"),
-    schoolOfPreviousPosting: Yup.string().required("Required"),
-    zone: Yup.string().min(4, "Too short!").required("Required"),
-    division: Yup.string().required("Required"),
-    nationality: Yup.string().required("Required"),
-    stateOfOrigin: Yup.string().required("Required"),
-    lgOfOrigin: Yup.string().required("Required"),
-    ward: Yup.string().required("Required"),
+    tscFileNumber: Yup.string().min(8, "tscFileNumber Too Short").max(16, "Too Long!").required("Tsc File Number Required"),
+    schoolOfPresentPosting: Yup.string().required("schoolOfPresentPosting Required"),
+    schoolOfPreviousPosting: Yup.string().required("schoolOfPreviousPosting Required"),
+    zone: Yup.string().min(4, "zone Too short!").required("zone Required"),
+    division: Yup.string().required("Division required"),
+    // nationality: Yup.string().required("Nationality Required"),
+    stateOfOrigin: Yup.string().required("stateOfOrigin Required"),
+    // lgOfOrigin: Yup.string().required("lgOfOrigin Required"),
+    // ward: Yup.string().required("ward Required"),
     qualifications: Yup.array().of(
       Yup.object().shape({
-        degreeType: Yup.string().required("Required"),
-        specialization: Yup.string().required("Required"),
+        degreeType: Yup.string().required("degreeType Required"),
+        specialization: Yup.string().required("specialization Required"),
         startYear: Yup.string()
-          .required("Required")
-          .min(1900, "Invalid year")
-          .max(new Date().getFullYear(), "Invalid year"),
+          .required("startYear Required"),
+          // .min(1900, "Invalid year")
+          // .max(new Date().getFullYear(), "Invalid startYear year"),
         endYear: Yup.string()
-          .required("Required")
-          .min(Yup.ref("startYear"), "Must be after start year")
-          .max(new Date().getFullYear(), "Invalid year"),
-        schoolName: Yup.string().required("Required")
+          .required("Required"),
+          // .min(Yup.ref("startYear"), "Must be after start year")
+          // .max(new Date().getFullYear(), "Invalid endYear year"),
+        schoolName: Yup.string().required("schoolName Required")
       })
     ),
-    dateOfPresentSchoolPosting: Yup.date().max(new Date(), "Cannot be in the future"),
-    cadre: Yup.string().required("Required"),
+    // dateOfPresentSchoolPosting: Yup.date().max(new Date(), "Cannot be in the future"),
+    cadre: Yup.string().required("cadre Required"),
     gradeLevel: Yup.string().when('cadre', {
       is: (cadre: any) => !cadre, 
       then: (schema) => schema.test({
@@ -188,9 +189,9 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
       }),
       otherwise: (schema) => schema.required("Grade Level is Required")
     }),
-    pfa: Yup.string().required("Required"),
-    pensionNumber: Yup.string().required("Required"),
-    professionalStatus: Yup.string().required("Required")
+    pfa: Yup.string().required("pfa Required"),
+    pensionNumber: Yup.string().required("pensionNumber Required"),
+    // professionalStatus: Yup.string().required("professionalStatus Required")
   });
 
   // Handle changes for CreatableSelect dropdowns
@@ -249,7 +250,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   // };
   console.log(formValues);
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log(formValues);
+    // console.log(formValues);
     e.preventDefault();
     console.log(formValues);
     try {
@@ -260,6 +261,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
       console.log("Form submitted with values: ", formValues);
     } catch (validationErrors: any) {
       // Handle validation errors
+      toast.error(validationErrors)
       console.error("Validation errors: ", validationErrors);
     }
   };
@@ -373,14 +375,14 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
               </div>
               {/* Zone using CreatableSelect */}
               <div>
-                <label htmlFor="zones" className="block text-l font-medium text-gray-900">
+                <label htmlFor="zone" className="block text-l font-medium text-gray-900">
                   Zone
                 </label>
                 <Select
                   isClearable
                   options={zoneOptions}
                   value={zoneOptions.find((option) => option.value === formValues.zone)}
-                  onChange={handleSelectChange("zones")}
+                  onChange={handleSelectChange("zone")}
                   placeholder="Select or create a zone"
                 />
               </div>

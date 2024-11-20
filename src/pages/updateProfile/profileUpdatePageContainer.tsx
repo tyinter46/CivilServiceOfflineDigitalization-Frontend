@@ -22,7 +22,8 @@ export const ProfileUpdateViewContainer: FC = () => {
 
   useEffect(() => {
     toast.success(result.data?.MESSAGE);
-    toast.error(result.isError && "Something Went Wrong");
+    console.log(result.data?.MESSAGE)
+    toast.error(result.isError && result.data?.MESSAGE);
     // setLoading(result.isLoading);
   }, [result]);
 
