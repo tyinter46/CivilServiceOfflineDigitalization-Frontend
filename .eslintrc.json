@@ -38,6 +38,7 @@
     "@typescript-eslint/consistent-type-imports": 0,
     "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/non-nullable-type-assertion-style": ["off"],
+    "@typescript-eslint/consistent-indexed-object-style" : ["off"],
     "@typescript-eslint/no-unsafe-argument": ["off"],
     "@typescript-eslint/ban-types": ["off"],
     "@typescript-eslint/consistent-type-definitions": ["off"],

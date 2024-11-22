@@ -61,6 +61,7 @@ const nonProfessionalGradeLevelOptions = nonProfessionalGradeLevel.map((option) 
 }));
 
 const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
+ const [errors, setErrors] = useState<{ [key: string]: string }>({});  // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
   const [formValues, setFormValues] = useState({
     dateOfFirstAppointment: userDetails?.dateOfFirstAppointment,
     tscFileNumber: userDetails?.tscFileNumber || "",
@@ -167,13 +168,17 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
         degreeType: Yup.string().required("degreeType Required"),
         specialization: Yup.string().required("specialization Required"),
         startYear: Yup.string()
-          .required("startYear Required"),
-          // .min(1900, "Invalid year")
-          // .max(new Date().getFullYear(), "Invalid startYear year"),
-        endYear: Yup.string()
-          .required("Required"),
-          // .min(Yup.ref("startYear"), "Must be after start year")
-          // .max(new Date().getFullYear(), "Invalid endYear year"),
+        .required("Start Year is Required")
+        .test("valid-year", "Invalid Year", (value) => {
+          const year = Number(value);
+          return year >= 1900 && year <= new Date().getFullYear();
+        }),
+      endYear: Yup.string()
+        .required("End Year is Required")
+        .test("after-start-year", "End Year must be after Start Year", function (value) {
+          const { startYear } = this.parent;
+          return Number(value) > Number(startYear);
+        }),
         schoolName: Yup.string().required("schoolName Required")
       })
     ),
@@ -255,6 +260,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     console.log(formValues);
     try {
       await ProfileViewSchema.validate(formValues, { abortEarly: true });
+      setErrors({}); 
       console.log(formValues);
       onSubmit(formValues);
       // Perform form submission
@@ -263,6 +269,12 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
       // Handle validation errors
       toast.error(validationErrors)
       console.error("Validation errors: ", validationErrors);
+       // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
+      const errorMessages: { [key: string]: string } = {};  // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
+      validationErrors.inner.forEach((error: any) => {
+        errorMessages[error.path] = error.message;
+      });
+      setErrors(errorMessages);
     }
   };
 
@@ -281,12 +293,18 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </label>
                 <input
                   id="tscFileNumber"
+                  required
                   name="tscFileNumber"
                   placeholder="Enter TSC File Number"
-                  className="input-field"
-                  value={formValues.tscFileNumber}
+                    value={formValues.tscFileNumber}
                   onChange={handleInputChange}
+                  className={`input-field border-gray-300 rounded-md ${
+                    errors.tscFileNumber ? "border-red-500" : ""
+                  }`}
                 />
+                 {errors.tscFileNumber && (
+          <span className="text-red-500 text-sm">{errors.tscFileNumber}</span>
+        )}
               </div>
 
               {/* Teaching or Non Teaching */}
@@ -296,6 +314,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </label>
                 <Select
                   isClearable
+                  required
                   options={staffType}
                   value={staffType.find((option) => option.value === formValues.staffType)}
                   onChange={handleSelectChange("staffType")}
@@ -310,6 +329,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </label>
                 <Select
                   isClearable
+                  required
                   options={CadreOptions}
                   value={CadreOptions.find((option) => option.value === formValues.cadre)}
                   onChange={handleSelectChange("cadre")}
@@ -324,6 +344,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </label>
                 <Select
                   isClearable
+                  required
                   isDisabled={!formValues.cadre}
                   options={
                     graduateCadre.includes(formValues.cadre)
@@ -346,6 +367,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </label>
                 <Select
                   isClearable
+                  required
                   options={schoolOptions}
                   value={schoolOptions.find(
                     (option) => option.value === formValues.schoolOfPresentPosting
@@ -365,6 +387,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </label>
                 <Select
                   isClearable
+                  required
                   options={schoolOptions}
                   value={schoolOptions.find(
                     (option) => option.value === formValues.schoolOfPreviousPosting
@@ -380,6 +403,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </label>
                 <Select
                   isClearable
+                  required
                   options={zoneOptions}
                   value={zoneOptions.find((option) => option.value === formValues.zone)}
                   onChange={handleSelectChange("zone")}
@@ -394,6 +418,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </label>
                 <Select
                   isClearable
+                  required
                   options={divisionOptions}
                   value={divisionOptions.find((option) => option.value === formValues.division)}
                   onChange={handleSelectChange("division")}
