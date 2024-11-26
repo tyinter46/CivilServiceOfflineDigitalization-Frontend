@@ -70,7 +70,7 @@ export const ProfileContainer = () => {
     division: "",
     nationality: "",
     stateOfOrigin: "",
-    lgOgOrigin: "",
+    lgOfOrigin: "",
     ward: "",
     staffType:"",
     qualifications: [

@@ -20,7 +20,7 @@ export interface UserDetails {
   division: string;
   nationality: string;
   stateOfOrigin: string;
-  lgOgOrigin: string;
+  lgOfOrigin: string;
   ward: string;
   qualifications: Qualifications[];
   dateOfPresentSchoolPosting: string;
@@ -40,8 +40,8 @@ export interface UserDetails {
   residentialAddress: string;
   nameOfNextOfKin?: string;
   nextOfKinAddress?: string;
-  nextOfKinPhoneNumber?: string
-  
+  nextOfKinPhoneNumber?: string;
+  gender?: string;
   // password: string;
   // confirmationCode: string;
   // profilePhoto: string;
@@ -159,6 +159,7 @@ export interface Settings {
   subjectsTaught: string[];
   dateOfPresentSchoolPosting: string;
   cadre: string;
+  gender: string;
   // dateOfFirstAppointment?: Date;
   // dateOfLastPromotion?: Date;
   // dateOfBirth?: Date;
@@ -176,10 +177,9 @@ export interface Settings {
   lastPromotionLetter?: string;
   birthCertificate?: string;
   staffType?: string;
-  residentialAddress?:string
+  residentialAddress?: string;
   // remark?: string;
 }
-
 
 export interface settingsResponse {
   STATUS: String;

@@ -17,7 +17,8 @@ import {
   nonProfessionalGradeLevel,
   teachingOrNonTeaching,
   cadre,
-  graduateCadre
+  graduateCadre,
+  localGovernmentOfOrigin
 } from "./DropDownOptions";
 
 import { Navbar } from "components";
@@ -71,7 +72,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     division: userDetails?.division || "",
     nationality: userDetails?.nationality || "",
     stateOfOrigin: userDetails?.stateOfOrigin || "",
-    lgOgOrigin: userDetails?.lgOgOrigin || "",
+    lgOfOrigin: userDetails?.lgOfOrigin || "",
     ward: userDetails?.ward || "",
     qualifications: userDetails?.qualifications || [],
     subjectsTaught: userDetails?.subjectsTaught || [],
@@ -84,7 +85,10 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     email: userDetails?.email || "",
     nameOfNextOfKin: userDetails?.nameOfNextOfKin ?? "",
     nextOfKinAddress: userDetails?.nextOfKinAddress ?? "",
-    nextOfKinPhoneNumber: userDetails?.nextOfKinPhoneNumber ?? ""
+    nextOfKinPhoneNumber: userDetails?.nextOfKinPhoneNumber ?? "",
+    gender: userDetails?.gender ?? "",
+    residentialAddress: userDetails?.residentialAddress ?? ""
+    
   });
 
   //       const subjectsTaughtOptions = subjectsTaught.map((option) => ({
@@ -93,6 +97,11 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   //     }));
 
   const specializationOptions = specializations.map((option) => ({
+    value: option ?? "",
+    label: `${option}`
+  }));
+
+  const localGovernmentOfOriginOptions = localGovernmentOfOrigin.map((option) => ({
     value: option ?? "",
     label: `${option}`
   }));
@@ -115,6 +124,16 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     "Phd",
     "Able Bodied"
   ];
+
+const genderOptions = ["Male", "Female"].map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const nationalityOptions = ["Nigerian"].map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
 
   const institutionNameOptions = institutions.map((option) => ({
     value: option ?? "",
@@ -159,7 +178,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     schoolOfPreviousPosting: Yup.string().required("schoolOfPreviousPosting Required"),
     zone: Yup.string().min(4, "zone Too short!").required("zone Required"),
     division: Yup.string().required("Division required"),
-    // nationality: Yup.string().required("Nationality Required"),
+     nationality: Yup.string().required("Nationality Required"),
     stateOfOrigin: Yup.string().required("stateOfOrigin Required"),
     // lgOfOrigin: Yup.string().required("lgOfOrigin Required"),
     // ward: Yup.string().required("ward Required"),
@@ -196,6 +215,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     }),
     pfa: Yup.string().required("pfa Required"),
     pensionNumber: Yup.string().required("pensionNumber Required"),
+    gender: Yup.string().required("gender Required"),
     // professionalStatus: Yup.string().required("professionalStatus Required")
   });
 
@@ -322,6 +342,22 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 />
               </div>
 
+
+               {/* Gender */}
+               <div>
+                <label htmlFor="cadre" className="block text-l font-medium text-gray-900">
+                 Gender
+                </label>
+                <Select
+                  isClearable
+                  required
+                  options={genderOptions}
+                  value={genderOptions.find((option) => option.value === formValues.gender)}
+                  onChange={handleSelectChange("gender")}
+                  placeholder="Select gender"
+                />
+              </div>
+
               {/* Cadre */}
               <div>
                 <label htmlFor="cadre" className="block text-l font-medium text-gray-900">
@@ -427,6 +463,31 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
               </div>
 
               <div>
+                <label htmlFor="nationality" className="block text-l font-medium text-gray-900">
+                  Nationality
+                </label>
+                <CreatableSelect
+                  name="nationality"
+                  id="nationality"
+                    placeholder="Select or Create Nationality"
+                  options={nationalityOptions}
+                  value={
+                    nationalityOptions.find((option) => option.value === formValues.nationality) ?? {
+                      value: formValues.nationality,
+                      label: formValues.nationality
+                    }
+                  }
+                  onChange={handleSelectChange("nationality")}
+                  className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                
+                  isSearchable
+                  isClearable
+                  required
+                />
+              </div>
+
+
+              <div>
                 <label htmlFor="stateOfOrigin" className="block text-l font-medium text-gray-900">
                   State of Origin
                 </label>
@@ -442,12 +503,36 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   }
                   onChange={handleSelectChange("stateOfOrigin")}
                   className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Select State of Origin"
+                  placeholder="Selec State of Origin"
                   isSearchable
                   isClearable
                   required
                 />
               </div>
+
+              <div>
+                <label htmlFor="localGovernmentOfOrigin" className="block text-l font-medium text-gray-900">
+                  Local Government of Origin
+                </label>
+                <CreatableSelect
+                  name="localGovernmentOfOrigin"
+                  id="localGovernmentOfOrigin"
+                  options={localGovernmentOfOriginOptions}
+                  value={
+                    localGovernmentOfOriginOptions.find((option) => option.value === formValues.lgOfOrigin) ?? {
+                      value: formValues.lgOfOrigin,
+                      label: formValues.lgOfOrigin
+                    }
+                  }
+                  onChange={handleSelectChange("localGovernmentOfOrigin")}
+                  className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Select Local Government of Origin"
+                  isSearchable
+                  isClearable
+                  required
+                />
+              </div>
+
 
               {/* Email */}
               <div>
@@ -668,6 +753,21 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   placeholder="Enter PFA Number"
                   className="input-field"
                   value={formValues.pensionNumber}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="residentialAddress" className="block text-l font-medium text-gray-900">
+                  Residential Address
+                </label>
+                <input
+                  id="residentialAddress"
+                  name="residentialAddress"
+                  placeholder="Enter Residential Address"
+                  className="input-field"
+                  value={formValues.residentialAddress}
                   onChange={handleInputChange}
                   required
                 />
