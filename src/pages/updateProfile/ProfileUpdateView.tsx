@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { toast } from "react-toastify";
+
 // import LogoLoader from "../../components/widgets/loader/LogoLoader";
 // import { zones, subjectsTaught} from "./DropDownOptions";
 import {
@@ -18,10 +19,10 @@ import {
   teachingOrNonTeaching,
   cadre,
   graduateCadre,
-  localGovernmentOfOrigin
+  localGovernmentOfOrigin, wards
 } from "./DropDownOptions";
 
-import { Navbar } from "components";
+import { Navbar, TesCalendar, TesCalenderPlus } from "components";
 import { UserDetails, ISchools } from "types";
 
 // Sample dropdown options
@@ -95,7 +96,10 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   //       value: option,
   //       label: option,
   //     }));
-
+const wardOptions = wards.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
   const specializationOptions = specializations.map((option) => ({
     value: option ?? "",
     label: `${option}`
@@ -106,6 +110,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     label: `${option}`
   }));
 
+  
   const staffType = teachingOrNonTeaching.map((option) => ({
     value: option ?? "",
     label: `${option}`
@@ -116,6 +121,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     "SSCE",
     "NCE",
     "Bsc.",
+    "BTech.",
     "Bed.",
     "B.A",
     "PGD",
@@ -180,8 +186,8 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
     division: Yup.string().required("Division required"),
      nationality: Yup.string().required("Nationality Required"),
     stateOfOrigin: Yup.string().required("stateOfOrigin Required"),
-    // lgOfOrigin: Yup.string().required("lgOfOrigin Required"),
-    // ward: Yup.string().required("ward Required"),
+     lgOfOrigin: Yup.string().required("lgOfOrigin Required"),
+     ward: Yup.string().required("ward Required"),
     qualifications: Yup.array().of(
       Yup.object().shape({
         degreeType: Yup.string().required("degreeType Required"),
@@ -343,6 +349,8 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
               </div>
 
 
+
+
                {/* Gender */}
                <div>
                 <label htmlFor="cadre" className="block text-l font-medium text-gray-900">
@@ -412,7 +420,16 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                   placeholder="Select or create a school"
                 />
               </div>
-
+                  {/* Date of present school posting */}
+                  <div>
+                <label
+                  htmlFor="schoolOfPresentPosting"
+                  className="block text-l font-medium text-gray-900"
+                >
+                  School of Present Posting
+                </label>
+                <TesCalenderPlus></TesCalenderPlus>  <TesCalendar ></TesCalendar>
+                </div>
               {/* School of Previous Posting using CreatableSelect */}
               <div>
                 <label
@@ -511,12 +528,12 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
               </div>
 
               <div>
-                <label htmlFor="localGovernmentOfOrigin" className="block text-l font-medium text-gray-900">
+                <label htmlFor="lgOfOrigin" className="block text-l font-medium text-gray-900">
                   Local Government of Origin
                 </label>
                 <CreatableSelect
-                  name="localGovernmentOfOrigin"
-                  id="localGovernmentOfOrigin"
+                  name="lgOfOrigin"
+                  id="lgOfOrigin"
                   options={localGovernmentOfOriginOptions}
                   value={
                     localGovernmentOfOriginOptions.find((option) => option.value === formValues.lgOfOrigin) ?? {
@@ -524,12 +541,27 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                       label: formValues.lgOfOrigin
                     }
                   }
-                  onChange={handleSelectChange("localGovernmentOfOrigin")}
+                  onChange={handleSelectChange("lgOfOrigin")}
                   className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Select Local Government of Origin"
                   isSearchable
                   isClearable
                   required
+                />
+              </div>
+
+              {/* Cadre */}
+              <div>
+                <label htmlFor="ward" className="block text-l font-medium text-gray-900">
+                  Ward
+                </label>
+                <Select
+                  isClearable
+                  required
+                  options={wardOptions}
+                  value={wardOptions.find((option) => option.value === formValues.ward)}
+                  onChange={handleSelectChange("ward")}
+                  placeholder="Select Ward"
                 />
               </div>
 
