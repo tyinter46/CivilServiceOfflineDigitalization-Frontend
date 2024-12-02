@@ -19,10 +19,11 @@ import {
   teachingOrNonTeaching,
   cadre,
   graduateCadre,
-  localGovernmentOfOrigin, wards
+  localGovernmentOfOrigin,
+  wards
 } from "./DropDownOptions";
 
-import { Navbar, TesCalendar, TesCalenderPlus } from "components";
+import { Calender, Navbar, TesCalendar } from "components";
 import { UserDetails, ISchools } from "types";
 
 // Sample dropdown options
@@ -63,7 +64,22 @@ const nonProfessionalGradeLevelOptions = nonProfessionalGradeLevel.map((option) 
 }));
 
 const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
- const [errors, setErrors] = useState<{ [key: string]: string }>({});  // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
+  const [errors, setErrors] = useState<{ [key: string]: string }>({}); // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
+  const [selectedDateOfPresentPosting, setSelectedDateOfPresentPosting] = useState<Date | null>(
+    null
+  );
+  const [selectedDateOfLastPromotion, setSelectedDateOfLastPromotion] = useState<Date | null>(null);
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDateOfPresentPosting(date);
+    const dateOfPresentSchoolPostingToString = date ? date.toLocaleDateString() : "";
+    formValues.dateOfPresentSchoolPosting = dateOfPresentSchoolPostingToString;
+  };
+  const handleDateofLastPromotionChange = (date: Date | null) => {
+    setSelectedDateOfLastPromotion(date);
+    const dateOfLastPromotionToString = date ? date.toLocaleDateString() : "";
+    formValues.dateOfLastPromotion = dateOfLastPromotionToString;
+  };
   const [formValues, setFormValues] = useState({
     dateOfFirstAppointment: userDetails?.dateOfFirstAppointment,
     tscFileNumber: userDetails?.tscFileNumber || "",
@@ -77,7 +93,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     ward: userDetails?.ward || "",
     qualifications: userDetails?.qualifications || [],
     subjectsTaught: userDetails?.subjectsTaught || [],
-    dateOfPresentSchoolPosting: userDetails?.dateOfPresentSchoolPosting || "",
+    dateOfPresentSchoolPosting: userDetails?.dateOfPresentSchoolPosting ?? "",
     cadre: userDetails?.cadre || "",
     gradeLevel: userDetails?.gradeLevel || "",
     pfa: userDetails?.pfa || "",
@@ -88,18 +104,18 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     nextOfKinAddress: userDetails?.nextOfKinAddress ?? "",
     nextOfKinPhoneNumber: userDetails?.nextOfKinPhoneNumber ?? "",
     gender: userDetails?.gender ?? "",
-    residentialAddress: userDetails?.residentialAddress ?? ""
-    
+    residentialAddress: userDetails?.residentialAddress ?? "",
+    dateOfLastPromotion: userDetails?.dateOfLastPromotion ?? ""
   });
 
   //       const subjectsTaughtOptions = subjectsTaught.map((option) => ({
   //       value: option,
   //       label: option,
   //     }));
-const wardOptions = wards.map((option) => ({
-  value: option ?? "",
-  label: `${option}`
-}));
+  const wardOptions = wards.map((option) => ({
+    value: option ?? "",
+    label: `${option}`
+  }));
   const specializationOptions = specializations.map((option) => ({
     value: option ?? "",
     label: `${option}`
@@ -110,7 +126,6 @@ const wardOptions = wards.map((option) => ({
     label: `${option}`
   }));
 
-  
   const staffType = teachingOrNonTeaching.map((option) => ({
     value: option ?? "",
     label: `${option}`
@@ -131,15 +146,15 @@ const wardOptions = wards.map((option) => ({
     "Able Bodied"
   ];
 
-const genderOptions = ["Male", "Female"].map((option) => ({
-  value: option ?? "",
-  label: `${option}`
-}));
+  const genderOptions = ["Male", "Female"].map((option) => ({
+    value: option ?? "",
+    label: `${option}`
+  }));
 
-const nationalityOptions = ["Nigerian"].map((option) => ({
-  value: option ?? "",
-  label: `${option}`
-}));
+  const nationalityOptions = ["Nigerian"].map((option) => ({
+    value: option ?? "",
+    label: `${option}`
+  }));
 
   const institutionNameOptions = institutions.map((option) => ({
     value: option ?? "",
@@ -179,49 +194,53 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
   }));
   // Schema validation using Yup
   const ProfileViewSchema = Yup.object().shape({
-    tscFileNumber: Yup.string().min(8, "tscFileNumber Too Short").max(16, "Too Long!").required("Tsc File Number Required"),
+    tscFileNumber: Yup.string()
+      .min(8, "tscFileNumber Too Short")
+      .max(16, "Too Long!")
+      .required("Tsc File Number Required"),
     schoolOfPresentPosting: Yup.string().required("schoolOfPresentPosting Required"),
     schoolOfPreviousPosting: Yup.string().required("schoolOfPreviousPosting Required"),
     zone: Yup.string().min(4, "zone Too short!").required("zone Required"),
     division: Yup.string().required("Division required"),
-     nationality: Yup.string().required("Nationality Required"),
+    nationality: Yup.string().required("Nationality Required"),
     stateOfOrigin: Yup.string().required("stateOfOrigin Required"),
-     lgOfOrigin: Yup.string().required("lgOfOrigin Required"),
-     ward: Yup.string().required("ward Required"),
+    lgOfOrigin: Yup.string().required("lgOfOrigin Required"),
+    ward: Yup.string().required("ward Required"),
     qualifications: Yup.array().of(
       Yup.object().shape({
         degreeType: Yup.string().required("degreeType Required"),
         specialization: Yup.string().required("specialization Required"),
         startYear: Yup.string()
-        .required("Start Year is Required")
-        .test("valid-year", "Invalid Year", (value) => {
-          const year = Number(value);
-          return year >= 1900 && year <= new Date().getFullYear();
-        }),
-      endYear: Yup.string()
-        .required("End Year is Required")
-        .test("after-start-year", "End Year must be after Start Year", function (value) {
-          const { startYear } = this.parent;
-          return Number(value) > Number(startYear);
-        }),
+          .required("Start Year is Required")
+          .test("valid-year", "Invalid Year", (value) => {
+            const year = Number(value);
+            return year >= 1900 && year <= new Date().getFullYear();
+          }),
+        endYear: Yup.string()
+          .required("End Year is Required")
+          .test("after-start-year", "End Year must be after Start Year", function (value) {
+            const { startYear } = this.parent;
+            return Number(value) > Number(startYear);
+          }),
         schoolName: Yup.string().required("schoolName Required")
       })
     ),
     // dateOfPresentSchoolPosting: Yup.date().max(new Date(), "Cannot be in the future"),
     cadre: Yup.string().required("cadre Required"),
-    gradeLevel: Yup.string().when('cadre', {
-      is: (cadre: any) => !cadre, 
-      then: (schema) => schema.test({
-        name: 'cadre-must-be-filled',
-        exclusive: true,
-        message: 'Please fill Cadre first',
-        test: () => false
-      }),
+    gradeLevel: Yup.string().when("cadre", {
+      is: (cadre: any) => !cadre,
+      then: (schema) =>
+        schema.test({
+          name: "cadre-must-be-filled",
+          exclusive: true,
+          message: "Please fill Cadre first",
+          test: () => false
+        }),
       otherwise: (schema) => schema.required("Grade Level is Required")
     }),
     pfa: Yup.string().required("pfa Required"),
     pensionNumber: Yup.string().required("pensionNumber Required"),
-    gender: Yup.string().required("gender Required"),
+    gender: Yup.string().required("gender Required")
     // professionalStatus: Yup.string().required("professionalStatus Required")
   });
 
@@ -286,17 +305,17 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
     console.log(formValues);
     try {
       await ProfileViewSchema.validate(formValues, { abortEarly: true });
-      setErrors({}); 
+      setErrors({});
       console.log(formValues);
       onSubmit(formValues);
       // Perform form submission
       console.log("Form submitted with values: ", formValues);
     } catch (validationErrors: any) {
       // Handle validation errors
-      toast.error(validationErrors)
+      toast.error(validationErrors);
       console.error("Validation errors: ", validationErrors);
-       // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
-      const errorMessages: { [key: string]: string } = {};  // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
+      // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
+      const errorMessages: { [key: string]: string } = {}; // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
       validationErrors.inner.forEach((error: any) => {
         errorMessages[error.path] = error.message;
       });
@@ -322,15 +341,15 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                   required
                   name="tscFileNumber"
                   placeholder="Enter TSC File Number"
-                    value={formValues.tscFileNumber}
+                  value={formValues.tscFileNumber}
                   onChange={handleInputChange}
                   className={`input-field border-gray-300 rounded-md ${
                     errors.tscFileNumber ? "border-red-500" : ""
                   }`}
                 />
-                 {errors.tscFileNumber && (
-          <span className="text-red-500 text-sm">{errors.tscFileNumber}</span>
-        )}
+                {errors.tscFileNumber && (
+                  <span className="text-red-500 text-sm">{errors.tscFileNumber}</span>
+                )}
               </div>
 
               {/* Teaching or Non Teaching */}
@@ -348,13 +367,10 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                 />
               </div>
 
-
-
-
-               {/* Gender */}
-               <div>
+              {/* Gender */}
+              <div>
                 <label htmlFor="cadre" className="block text-l font-medium text-gray-900">
-                 Gender
+                  Gender
                 </label>
                 <Select
                   isClearable
@@ -420,16 +436,36 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                   placeholder="Select or create a school"
                 />
               </div>
-                  {/* Date of present school posting */}
-                  <div>
+              {/* Date of present school posting */}
+              <div className="flex flex-row">
                 <label
-                  htmlFor="schoolOfPresentPosting"
+                  htmlFor="dateOfPresentSchoolPosting"
                   className="block text-l font-medium text-gray-900"
                 >
-                  School of Present Posting
+                  Date of Present School Posting
                 </label>
-                <TesCalenderPlus></TesCalenderPlus>  <TesCalendar ></TesCalendar>
-                </div>
+                <TesCalendar></TesCalendar>{" "}
+                <Calender
+                  selectedDate={selectedDateOfPresentPosting}
+                  onDateChange={handleDateChange}
+                />
+              </div>
+
+              {/* Date of last promotion */}
+              <div className="flex flex-row">
+                <label
+                  htmlFor="dateOfLastPromotion"
+                  className="block text-l font-medium text-gray-900"
+                >
+                  Date of Last Promotion
+                </label>
+                <TesCalendar></TesCalendar>{" "}
+                <Calender
+                  selectedDate={selectedDateOfLastPromotion}
+                  onDateChange={handleDateofLastPromotionChange}
+                />
+              </div>
+
               {/* School of Previous Posting using CreatableSelect */}
               <div>
                 <label
@@ -486,23 +522,23 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                 <CreatableSelect
                   name="nationality"
                   id="nationality"
-                    placeholder="Select or Create Nationality"
+                  placeholder="Select or Create Nationality"
                   options={nationalityOptions}
                   value={
-                    nationalityOptions.find((option) => option.value === formValues.nationality) ?? {
+                    nationalityOptions.find(
+                      (option) => option.value === formValues.nationality
+                    ) ?? {
                       value: formValues.nationality,
                       label: formValues.nationality
                     }
                   }
                   onChange={handleSelectChange("nationality")}
                   className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                
                   isSearchable
                   isClearable
                   required
                 />
               </div>
-
 
               <div>
                 <label htmlFor="stateOfOrigin" className="block text-l font-medium text-gray-900">
@@ -536,7 +572,9 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                   id="lgOfOrigin"
                   options={localGovernmentOfOriginOptions}
                   value={
-                    localGovernmentOfOriginOptions.find((option) => option.value === formValues.lgOfOrigin) ?? {
+                    localGovernmentOfOriginOptions.find(
+                      (option) => option.value === formValues.lgOfOrigin
+                    ) ?? {
                       value: formValues.lgOfOrigin,
                       label: formValues.lgOfOrigin
                     }
@@ -564,7 +602,6 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                   placeholder="Select Ward"
                 />
               </div>
-
 
               {/* Email */}
               <div>
@@ -597,7 +634,8 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                     onChange={(selectedOption) => {
                       const updatedSubjects = [...formValues.subjectsTaught];
                       updatedSubjects[index] = selectedOption ? selectedOption.value : "";
-                      setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
+
+                      setFormValues({ ...formValues, subjectsTaught: [JSON.stringify(updatedSubjects) ]});
                     }}
                     placeholder="Select or create a subject"
                   />
@@ -791,7 +829,10 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
               </div>
 
               <div>
-                <label htmlFor="residentialAddress" className="block text-l font-medium text-gray-900">
+                <label
+                  htmlFor="residentialAddress"
+                  className="block text-l font-medium text-gray-900"
+                >
                   Residential Address
                 </label>
                 <input
@@ -804,6 +845,64 @@ const nationalityOptions = ["Nigerian"].map((option) => ({
                   required
                 />
               </div>
+
+              <div>
+                <label
+                  htmlFor="nameOfNextOfKin"
+                  className="block text-l font-medium text-gray-900"
+                >
+                  Name of Next of Kin
+                </label>
+                <input
+                  id="nameOfNextOfKin"
+                  name="nameOfNextOfKin"
+                  placeholder="Enter Name of Next of Kin"
+                  className="input-field"
+                  value={formValues.nameOfNextOfKin}
+                  onChange={handleInputChange}
+                
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="nextOfKinAddress"
+                  className="block text-l font-medium text-gray-900"
+                >
+                  Next of Kin Address
+                </label>
+                <input
+                  id="nextOfKinAddress"
+                  name="nextOfKinAddress"
+                  placeholder="Enter Next of Kin Address"
+                  className="input-field"
+                  value={formValues.nextOfKinAddress}
+                  onChange={handleInputChange}
+                  required
+                
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="nextOfKinPhoneNumber"
+                  className="block text-l font-medium text-gray-900"
+                >
+                  Next of Kin phone number
+                </label>
+                <input
+                  id="nextOfKinPhoneNumber"
+                  name="nextOfKinPhoneNumber"
+                  placeholder="Enter Next of Kin Phone Number"
+                  className="input-field"
+                  value={formValues.nextOfKinPhoneNumber}
+                  onChange={handleInputChange}
+                  type="phone"
+                  required
+                
+                />
+              </div>
+
+  
             </div>
 
             {/* Submit Button */}
