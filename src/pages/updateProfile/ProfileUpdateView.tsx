@@ -632,10 +632,11 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                     value={{ value: subject, label: subject }}
                     options={subjectsTaught.map((sub) => ({ value: sub, label: sub }))}
                     onChange={(selectedOption) => {
+                      console.log(selectedOption)
                       const updatedSubjects = [...formValues.subjectsTaught];
-                      updatedSubjects[index] = selectedOption ? selectedOption.value : "";
+                      updatedSubjects[index] = selectedOption ? selectedOption?.value: "";
 
-                      setFormValues({ ...formValues, subjectsTaught: [JSON.stringify(updatedSubjects) ]});
+                      setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
                     }}
                     placeholder="Select or create a subject"
                   />
