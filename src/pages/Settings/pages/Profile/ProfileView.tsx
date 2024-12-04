@@ -4,35 +4,36 @@ import { SvgTesMessageSquareEdit, TesCheckedboxMarkedCircle } from "components/i
 import { user } from "assets/images";
 import { Link } from "react-router-dom";
 import { UPDATE_PROFILE } from "routes/CONSTANTS";
+import React from "react";
 
 import { UserDetails } from "types";
 import { Formik } from "formik";
 import { downloadLogo } from "assets/logos";
 import LogoLoader from "components/widgets/loader/LogoLoader";
 
+import * as Yup from "yup";
 // import { Link } from "react-router-dom";
 
 // type ModalId = string | null;
 interface Props {
   loading: boolean;
-  create: Function;
+  
   userDetails: UserDetails;
   image: string;
-  pictureUpload: Function;
+  pictureUpload: (event: React.ChangeEvent<HTMLInputElement>) => void | Promise<void>;
 }
 
+
+const validationSchema = Yup.object().shape({
+  file: Yup.mixed().required("File is required"),
+});
+
 function ProfileView({ loading, userDetails, pictureUpload }: Props) {
+ 
+
+ 
 
 
-  // const onsubmit = (updatedProfile: Settings) => {
-  //   create(updatedProfile);
-  // };
-
-  const handlePhotoUpload = (event: any) => {
-    const file = event.currentTarget.files[0];
-
-    pictureUpload(file);
-  };
 
   const postingLetterUrl = userDetails?.letters;
 
@@ -46,10 +47,21 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
       ) : (
         <div className="mt-6 p-6 bg-white-700 rounded-lg shadow-md">
           <Formik
-            initialValues={{}}
-            onSubmit={handlePhotoUpload}
+            initialValues={{ file: null }}
+            onSubmit={async (values, { setSubmitting }) => {
+              try {
+                if (values.file) {
+                  await pictureUpload(values.file);
+                  alert("Upload successful!");
+                }
+              } catch {
+                alert("Upload failed!");
+              } finally {
+                setSubmitting(false);
+              }
+            }}
             enableReinitialize
-            validationSchema={{}}
+            validationSchema={validationSchema}
           >
             <div className="relative flex justify-center mt-10 overflow-hidden">
               <div className="relative flex items-center flex-col mb-6 w-32 h-32">
@@ -68,7 +80,7 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
                   type="file"
                   name="select-photo"
                   id="select-photo"
-                  onChange={handlePhotoUpload}
+                  onChange={pictureUpload}
                   accept="image/png, image/jpeg, image/jpg"
                 />
                 <div className="flex items-center space-x-2 mt-2">

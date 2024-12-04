@@ -619,43 +619,44 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
               </div>
 
               {/* Subject Taught with dynamic CreatableSelect fields */}
-              {formValues.subjectsTaught.map((subject, index) => (
-                <div key={index} className="subjectsTaught-field-group">
-                  <label
-                    htmlFor={`subjectsTaught-${index}`}
-                    className="block text-l font-medium text-gray-900"
-                  >
-                    Subject Taught
-                  </label>
-                  <CreatableSelect
-                    isClearable
-                    value={{ value: subject, label: subject }}
-                    options={subjectsTaught.map((sub) => ({ value: sub, label: sub }))}
-                    onChange={(selectedOption) => {
-                      console.log(selectedOption)
-                      const updatedSubjects = [...formValues.subjectsTaught];
-                      updatedSubjects[index] = selectedOption ? selectedOption?.value: "";
+{formValues.subjectsTaught.map((subject, index) => (
+  <div key={index} className="subjectsTaught-field-group">
+    <label
+      htmlFor={`subjectsTaught-${index}`}
+      className="block text-l font-medium text-gray-900"
+    >
+      Subject Taught
+    </label>
+    <CreatableSelect
+      isClearable
+      value={{ value: subject, label: subject }}
+      options={subjectsTaught.map((sub) => ({ value: sub, label: sub }))}
+      onChange={(selectedOption) => {
+        console.log(selectedOption?.value); // Log selectedOption for debugging
+        const updatedSubjects = [...formValues.subjectsTaught];  // Make a copy of the array
+        updatedSubjects[index] = selectedOption ? selectedOption.value : "";  // Ensure only string value is stored
 
-                      setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
-                    }}
-                    placeholder="Select or create a subject"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeSubject(index)}
-                    className="bg-red-500 text-white px-1 py-1 rounded-md mt-2"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={addSubject}
-                className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
-              >
-                Add Subjects Taught
-              </button>
+        setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
+      }}
+      placeholder="Select or create a subject"
+    />
+    <button
+      type="button"
+      onClick={() => removeSubject(index)}  // Implement the removeSubject function
+      className="bg-red-500 text-white px-1 py-1 rounded-md mt-2"
+    >
+      Remove
+    </button>
+  </div>
+))}
+
+<button
+  type="button"
+  onClick={addSubject}  // Implement the addSubject function
+  className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
+>
+  Add Subjects Taught
+</button>
 
               {/* Qualifications with dynamic CreatableSelect fields */}
               {formValues.qualifications.map((qualification, index) => (
