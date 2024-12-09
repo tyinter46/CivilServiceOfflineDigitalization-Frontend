@@ -20,7 +20,11 @@ import {
   cadre,
   graduateCadre,
   localGovernmentOfOrigin,
-  wards
+  wards,
+
+  remoDivisionZones,
+  ijebuDivisionZones,
+  egbaDivisionZones
 } from "./DropDownOptions";
 
 import { Calender, Navbar, TesCalendar } from "components";
@@ -33,17 +37,58 @@ import { UserDetails, ISchools } from "types";
 // ];
 // const zoneOptions = zones
 
+// const yewaZoneOptions = yewaDivisionZones.map((option) => ({
+//   value: option ?? "",
+//   label: `${option}`
+// }));
+
 const zoneOptions = zones.map((option) => ({
   value: option ?? "",
   label: `${option}`
 }));
+
+// const ijebuZoneOptions = ijebuDivisionZones.map((option) => ({
+//   value: option ?? "",
+//   label: `${option}`
+// }));
+
+// const remoZoneOptions = remoDivisionZones.map((option) => ({
+//   value: option ?? "",
+//   label: `${option}`
+// }));
+
+// const egbaZoneOptions = egbaDivisionZones.map((option) => ({
+//   value: option ?? "",
+//   label: `${option}`
+// }));
+
 
 interface PageProps {
   schools: ISchools[];
   onSubmit: Function;
   userDetails: UserDetails;
 }
-const divisionOptions = ["YEWA", "EGBA", "IJEBU", "REMO"].map((option) => ({
+
+const divisionOptions = ["EGBA", "IJEBU", "REMO", "YEWA"].map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const egbaDivisionOption = ["EGBA"].map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+const IjebuDivisionOption = ["IJEBU"].map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const remoDivisionOptions = ["REMO"].map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const yewaDivisionOptions = ["YEWA"].map((option) => ({
   value: option ?? "",
   label: `${option}`
 }));
@@ -493,7 +538,11 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 <Select
                   isClearable
                   required
-                  options={zoneOptions}
+                  options={
+                    
+                    zoneOptions
+
+                  }
                   value={zoneOptions.find((option) => option.value === formValues.zone)}
                   onChange={handleSelectChange("zone")}
                   placeholder="Select or create a zone"
@@ -507,8 +556,15 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 </label>
                 <Select
                   isClearable
+                  isDisabled={!formValues.zone}
                   required
-                  options={divisionOptions}
+                  options={
+                    ijebuDivisionZones.includes(formValues.zone) ? IjebuDivisionOption 
+                    : egbaDivisionZones.includes(formValues.zone) ? egbaDivisionOption
+                    : remoDivisionZones.includes(formValues.zone) ? remoDivisionOptions 
+                    : yewaDivisionOptions
+                
+                  }
                   value={divisionOptions.find((option) => option.value === formValues.division)}
                   onChange={handleSelectChange("division")}
                   placeholder="Select or create a division"

@@ -1226,28 +1226,63 @@ export const states = [
   "Other"
 ];
 
-export const zones = [
-  "Ewekoro",
-  "Abeokuta South",
-  "Odogbolu",
-  "Sagamu",
+export const yewaDivisionZones = [
   "Ado-Odo Ota",
-  "Abeokuta North",
-  "Ijebu Ode",
-  "Obafemi Owode",
-  "Ijebu North",
   "Yewa North",
   "Imeko Afon",
   "Yewa South",
   "Ipokia",
+
+];
+
+export const ijebuDivisionZones = [
+  "Ogun Water Side",
+  "Ijebu East",
   "Ijebu North East",
+  "Ijebu Ode",
+  "Odogbolu",
+  "Ijebu North",
+]
+
+export const zones = [
+  "Abeokuta North",
+  "Abeokuta South",
+  "Obafemi-Owode",
   "Ifo",
   "Odeda",
-  "Ikenne",
+  "Ewekoro",
   "Remo North",
+  "Ikenne",
+  "Sagamu",
   "Ogun Water Side",
-  "Ijebu East"
-];
+  "Ijebu East",
+  "Ijebu North East",
+  "Ijebu Ode",
+  "Odogbolu",
+  "Ijebu North",
+  "Ado-Odo Ota",
+  "Yewa North",
+  "Imeko Afon",
+  "Yewa South",
+  "Ipokia",
+ 
+]
+
+export const remoDivisionZones = [
+"Remo North",
+"Ikenne",
+"Sagamu"
+]
+
+export const egbaDivisionZones = [
+  "Abeokuta North",
+  "Abeokuta South",
+  "Obafemi-Owode",
+  "Ifo",
+  "Odeda",
+  "Ewekoro",
+ 
+]
 
 export const PFA = [
   "AIICO Pension Managers Limited",
@@ -1390,6 +1425,40 @@ export const nonProfessionalGradeLevel = [
   "14"
 ];
 
+export const secretariatAssistantGradeLevel = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9"
+]
+
+export const driverStorekeeperClericalGradeLevel = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+]
+
+export const messengerWatchmanGradeLevel = [
+  "1",
+  "2",
+  "3",
+  "4",
+]
+
+export const cleanerGradeLevel = [
+  "1",
+  "2",
+  "3",
+]
 
 export const teachingOrNonTeaching = ["TEACHING", "NON-TEACHING"];
 
