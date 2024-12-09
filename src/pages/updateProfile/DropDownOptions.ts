@@ -1462,17 +1462,6 @@ export const cleanerGradeLevel = [
 
 export const teachingOrNonTeaching = ["TEACHING", "NON-TEACHING"];
 
-export const graduateCadre = [
-  "Master II",
-  "Master I",
-  "Senior Master",
-  "Principal Grd.III",
-  "Principal Grd.II",
-  "Principal Grd.I",
-  "Principal Special Grd.II",
-  "Principal Special Grd.I",
-  "Principal Special Grd.I"
-];
 
 export const wards =  ["Ward 1", "Ward 2", "Ward 3", "Ward 4", "Ward 5", "Ward 6", "Ward 7", "Ward 8", "Ward 9", "Ward 10", "Ward 11", "Ward 12", "Ward 13", "Ward 14", "Ward 15", "Ward 16", "Ward 17", "Ward 18", "Ward 19", "Ward 20", "Ward 21", "Ward 22", "Ward 23", "Ward 24", "Ward 25", "Ward 26", "Ward 27", "Ward 28", "Ward 29", "Ward 30"]
 
@@ -1564,3 +1553,80 @@ export const cadre = [
   "Senior Cleaner",
   "Head Cleaner"
 ];
+export const executiveOfficer = [
+  "Assistant Executive Officer",
+  "Executive Officer",
+  "Higher Executive Officer",
+  "Senior Executive Officer",
+  "Principal Executive Officer Grd.II",
+  "Principal Executive Officer Grd.I",
+  "Assistant Chief Executive Officer",
+  "Chief Executive Officer",
+]
+
+export const secreteriatAssistant = [
+  "Secretarial Assistant IV",
+  "Secretarial Assistant III",
+  "Secretarial Assistant II",
+  "Secretarial Assistant I",
+  "Senior Secretarial Assistant II",
+  "Senior Secretarial Assistant I",
+  "Principal Secretariat Assistant",
+  "Assistant Chief Secretariat Assistant",
+  "Chief Secretariat Assistant",
+]
+
+export const driverStorekeeperClerical = [
+  "Motor Driver/Mechanic",
+  "Senior Motor Driver/Mechanic Grade II",
+  "Senior Motor Driver/Mechanic Grade I",
+  "Chief Motor Driver/Mechanic",
+  "Clerical Assistant",
+  "Clerical Officer Grade II",
+  "Clerical Officer Grade I",
+  "Senior Clerical Officer",
+  "Chief Clerical Officer",
+  "Store Assistant",
+  "Storekeeper",
+  "Senior Storekeeper",
+  "Assistant Chief Storekeeper",
+  "Chief Storekeeper",
+]
+
+export const messengerAndWatchman = [
+  "Messenger",
+  "Senior Messenger",
+  "Head Messenger",
+  "Watchman Grade II",
+  "Watchman Grade I",
+  "Senior Watchman",
+  "Head Watchman",
+]
+
+export const cleaner = [
+  "Cleaner",
+  "Senior Cleaner",
+  "Head Cleaner"
+]
+
+export const graduateCadre = [
+  "Master II",
+  "Master I",
+  "Senior Master",
+  "Principal Grd.III",
+  "Principal Grd.II",
+  "Principal Grd.I",
+  "Principal Special Grd.II",
+  "Principal Special Grd.I",
+  "Principal Special Grd.I"
+];
+
+export const nceCadre = [
+  "Master III",
+  "Master II",
+  "Master I",
+  "Senior Master III",
+  "Senior Master II",
+  "Senior Master I",
+  "Senior Master Special",
+]

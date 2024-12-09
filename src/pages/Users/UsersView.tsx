@@ -207,6 +207,28 @@ export const UsersView: React.FC = () => {
                                 <p>
                                   <strong>Grade Level:</strong> {user?.gradeLevel}
                                 </p>
+                                <p>
+                                  <strong>Cadre:</strong> {user?.cadre}
+                                </p>
+                                <p>
+                                  <strong>Nationality:</strong> {user?.nationality}
+                                </p>
+                                <p>
+                                  <strong>State of Origin:</strong> {user?.stateOfOrigin}
+                                </p>
+                                <p>
+                                  <strong>Local Government of Origin:</strong> {user?.lgOfOrigin}
+                                </p>
+                                <p>
+                                  <strong>School of Present Posting :</strong> {user?.schoolOfPresentPosting?.nameOfSchool}
+                                
+                                </p>
+                                <p>
+                                  <strong>Zone:</strong> {user?.zone}
+                                </p>
+                                <p>
+                                  <strong>Division:</strong> {user?.division}
+                                </p>
                               </div>
                             ) : (
                               <p className="text-gray-500"> {user.serviceStatus}</p>

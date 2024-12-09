@@ -24,7 +24,18 @@ import {
 
   remoDivisionZones,
   ijebuDivisionZones,
-  egbaDivisionZones
+  egbaDivisionZones,
+
+  driverStorekeeperClerical,
+  secreteriatAssistant,
+  messengerAndWatchman,
+  driverStorekeeperClericalGradeLevel,
+  executiveOfficer,
+  nceCadre,
+  secretariatAssistantGradeLevel,
+  messengerWatchmanGradeLevel,
+  cleanerGradeLevel,
+
 } from "./DropDownOptions";
 
 import { Calender, Navbar, TesCalendar } from "components";
@@ -107,6 +118,29 @@ const nonProfessionalGradeLevelOptions = nonProfessionalGradeLevel.map((option) 
   value: option ?? "",
   label: `${option}`
 }));
+
+const secretariatAssistantGradeLevelOptions = secretariatAssistantGradeLevel.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const driverStorekeeperClericalGradeLevelOptions = driverStorekeeperClericalGradeLevel.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const cleanerGradeLevelOptions = cleanerGradeLevel.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+const messengerWatchmanGradeLevelOptions = messengerWatchmanGradeLevel.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}));
+
+
+
 
 const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({}); // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
@@ -454,7 +488,13 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   options={
                     graduateCadre.includes(formValues.cadre)
                       ? professionalGradeLevelOptions
-                      : nonProfessionalGradeLevelOptions
+                      : nceCadre.includes (formValues.cadre) ? nonProfessionalGradeLevelOptions 
+                      : secreteriatAssistant.includes(formValues.cadre) ? secretariatAssistantGradeLevelOptions
+                      : executiveOfficer.includes(formValues.cadre) ? nonProfessionalGradeLevelOptions 
+                      : messengerAndWatchman.includes(formValues.cadre) ? messengerWatchmanGradeLevelOptions
+                      : driverStorekeeperClerical.includes(formValues.cadre) ? driverStorekeeperClericalGradeLevelOptions
+                      :  cleanerGradeLevelOptions
+                      
                   }
                   value={CadreOptions.find((option) => option.value === formValues.gradeLevel)}
                   onChange={handleSelectChange("gradeLevel")}
@@ -567,7 +607,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   }
                   value={divisionOptions.find((option) => option.value === formValues.division)}
                   onChange={handleSelectChange("division")}
-                  placeholder="Select or create a division"
+                  placeholder="Select a division"
                 />
               </div>
 
