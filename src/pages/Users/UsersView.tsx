@@ -6,6 +6,7 @@ import { fetchUsers } from "../../services/users.service";
 // import { getLongDate } from "utils";
 import LogoLoader from "components/widgets/loader/LogoLoader";
 import { IUser } from "types";
+import { downloadLogo } from "assets/logos";
 // import { user } from "assets/images";
 
 const ITEMS_PER_PAGE = 9;
@@ -188,6 +189,10 @@ export const UsersView: React.FC = () => {
                                   <strong>TSC File Number:</strong>
                                   {user?.tscFileNumber}
                                 </p>
+                                <p>
+                                  <strong>TSC File Number:</strong>
+                                  {user?.cadre}
+                                </p>
                                 {/* <p>
                                   <strong>Date of Present Posting:</strong>
                                   {user?.dateOfPresentSchoolPosting?.toLocaleDateString()}
@@ -229,6 +234,16 @@ export const UsersView: React.FC = () => {
                                 <p>
                                   <strong>Division:</strong> {user?.division}
                                 </p>
+                                <p>
+                                  <strong>Posting Letter:</strong> 
+                                  <a href={user?.letters.postingLetter} download>
+                  <div className=" flex justify-center items-center shadow rounded-full w-[80px] h-[80px] bg-green">
+                    <img src={downloadLogo} alt="Click Here To Download" className="h-10 w-10" />
+                  </div>
+                </a>
+                                 
+                                </p>
+                                <p className="text-gray-500"> <strong>Service Status:</strong>  {user.serviceStatus}</p>
                               </div>
                             ) : (
                               <p className="text-gray-500"> {user.serviceStatus}</p>
