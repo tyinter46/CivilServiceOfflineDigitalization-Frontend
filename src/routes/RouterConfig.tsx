@@ -11,6 +11,7 @@ import {
   School,
   PrincipalsAndVicePrincipals,
   ForgotPassword,
+  StaffPosting,
   User,
   UpdateProfilePage
 } from "pages";
@@ -27,7 +28,8 @@ import {
   PRINCIPALSANDVICEPRINCIPALS,
    FORGOT_PASSWORD,
    USER,
-   UPDATE_PROFILE
+   UPDATE_PROFILE,
+   STAFFPOSTING
 } from "./CONSTANTS";
 
 import type { FC } from "react";
@@ -48,7 +50,7 @@ const RouterConfig: FC = () => {
         <Route path="/" element={<PublicRoute />}>
           <Route path={CONFIRM_ACCOUNT} element={<ConfirmAccount />} />
           <Route path={FORGOT_PASSWORD} element={< ForgotPassword/>} />
-        
+          
           {/* <Route /> */}
         </Route>
 
@@ -69,6 +71,8 @@ const RouterConfig: FC = () => {
         <Route path="/" element={<ProtectedRoute navigate={LOGIN} />}>
           {/* <Route path = {SCHOOL} element = {<School />} /> */}
           <Route path={PRINCIPALSANDVICEPRINCIPALS} element={<PrincipalsAndVicePrincipals />} />
+          <Route path={STAFFPOSTING} element={<StaffPosting />} />
+
           <Route path={ABOUT_ME} element={<Profile />} />
           <Route path = {UPDATE_PROFILE} element = {<UpdateProfilePage />} />
           <Route path= {USER} element= {<User />} />

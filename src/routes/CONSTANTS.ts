@@ -17,3 +17,4 @@ export const DASHBOARD = "/dashboard";
 export const SCHOOL = "/schools";
 export const USER = "/users";
 export const PRINCIPALSANDVICEPRINCIPALS = "/principalsAndViceprincipals";
+export const STAFFPOSTING = "/staffPosting"

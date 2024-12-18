@@ -34,6 +34,7 @@ export const fetchUsersFromAparticularSchool = async (id: string) => {
     throw error;
   }
 };
+
 export const postPrincipalsAndVicePrincipals = async ({
   previousSchool,
   staleOrNew,
@@ -72,6 +73,51 @@ export const postPrincipalsAndVicePrincipals = async ({
 
   try {
     const response = await axios.patch(`${env.API_BASE_URL}/schools/${schoolId}`, payload, configs);
+    console.log(response);
+    return toast.success(response.data.message);
+    // return response.data.message;
+  } catch (error: any) {
+    console.error("Error posting staff:", error);
+    toast.error(error.message || "An error occurred while posting staff.");
+    throw error; // Ensure any errors are thrown for proper handling
+  }
+};
+
+
+
+export const postStaff = async ({
+  previousSchool,
+  staff,
+  cadre,
+  schoolId
+}: {
+  previousSchool: string;
+  staff: string;
+  cadre: string;
+  schoolId: string;
+}) => {
+  const headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Credentials": true
+  };
+
+  const configs = {
+    headers,
+    withCredentials: true
+  };
+
+  const payload = {
+    previousSchoolId: previousSchool.toString(),
+    staff: staff.toString(),
+    cadre: cadre.toString(),
+   
+  };
+
+  console.log("Payload:", payload);
+
+  try {
+    const response = await axios.patch(`${env.API_BASE_URL}/staffPosting/schools/${schoolId}`, payload, configs);
     console.log(response);
     return toast.success(response.data.message);
     // return response.data.message;

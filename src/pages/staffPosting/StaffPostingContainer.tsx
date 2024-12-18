@@ -1,12 +1,13 @@
 import { FC, useState, useEffect, useCallback } from "react";
-import { PrincipalsAndVicePrincipalsView } from "./PrincipalsAndVicePrincipalsView";
+// import { PrincipalsAndVicePrincipalsView } from "./StaffPostingView";
 import { fetchSchools } from "../../services/schools.service";
 import {  fetchUsersWithoutPopulation } from "../../services/users.service";
 import { ISchools, IUser } from "types";
 import { toast } from "react-toastify";
 import LogoLoader from "../../components/widgets/loader/Loader";
+import { StaffPostingView } from "./StaffPostingView";
 
-export const PrincipalsAndVicePrincipalsContainer: FC = () => {
+export const StaffPostingContainer: FC = () => {
   const [schools, setSchools] = useState<ISchools[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -65,6 +66,6 @@ export const PrincipalsAndVicePrincipalsContainer: FC = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <PrincipalsAndVicePrincipalsView schools={schools} staff={users}  />
+    <StaffPostingView schools={schools} staff={users}  />
   );
 };
