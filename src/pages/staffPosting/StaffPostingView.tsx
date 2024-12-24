@@ -179,7 +179,7 @@ export const StaffPostingView: React.FC<PostingFormProps> = ({
       {!loading ? 
       (<div className="flex flex-row pt-6 gap-4 px-4">
         {/* Form Container */}
-        <div className="flex-1 p-6 bg-green-500 rounded-lg shadow-lg mt-16">
+        <div className="flex-1 p-6 bg-yellow-500 rounded-lg shadow-lg mt-16">
           <h2 className="text-xl font-bold mb-6 text-black">Post Principals & Vice Principals</h2>
 
           {/* stale OR new selection
@@ -240,18 +240,18 @@ export const StaffPostingView: React.FC<PostingFormProps> = ({
             />
           </div>
 
-          {/* Principal Selection */}
+          {/* Staff Selection */}
           <div className="mb-6">
-            <label htmlFor="principal" className="block text-lg font-medium text-black mb-2">
+            <label htmlFor="staff" className="block text-lg font-medium text-black mb-2">
               Staff
             </label>
             <Select<SelectOption>
-              id="principal"
+              id="staff"
               options={staffOptions}
               value={staffOptions.find((option) => option.value === selectedStaff) ?? null}
               onChange={handleSelectChange(setSelectedStaff)}
               className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Select Principal"
+              placeholder="Select Staff"
               isSearchable
               isClearable
             />
