@@ -405,7 +405,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   return (
     <>
       <Navbar />
-      <div className="w-full max-w-4xl mx-auto my-2 bg-white p-6 rounded-lg shadow-md mt-20 min-h-screen">
+      <div className="w-full max-w-4xl mx-auto my-2 bg-black-900 p-6 rounded-lg shadow-md mt-20 min-h-screen">
         <div className="py-8">
           <h2 className="text-lg font-medium text-gray-900">Update Profile Details</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -533,6 +533,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 <Calender
                   selectedDate={selectedDateOfPresentPosting}
                   onDateChange={handleDateChange}
+                
                 />
               </div>
 
@@ -715,6 +716,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
               </div>
 
               {/* Subject Taught with dynamic CreatableSelect fields */}
+              
 {formValues.subjectsTaught.map((subject, index) => (
   <div key={index} className="subjectsTaught-field-group">
     <label
@@ -746,12 +748,20 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   </div>
 ))}
 
+
+
+
+
+
+
+
+
 <button
   type="button"
   onClick={addSubject}  // Implement the addSubject function
   className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
 >
-  Add Subjects Taught
+  Click to Add Subjects Taught
 </button>
 
               {/* Qualifications with dynamic CreatableSelect fields */}
@@ -891,7 +901,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 onClick={addQualification}
                 className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
               >
-                Add Qualification
+               Click to Add Qualification
               </button>
               {/* PFA Number  & PFA */}
               <div>

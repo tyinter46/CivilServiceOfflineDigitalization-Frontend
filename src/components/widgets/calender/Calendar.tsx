@@ -25,7 +25,8 @@ const Calender: React.FC<CalenderProps> = ({ selectedDate, onDateChange }) => {
   dateFormat="MMMM d, yyyy"
   minDate={minDate}  // Add minDate
   maxDate={maxDate}  // Add maxDate
-  className='border-gray-300'
+  className='bg-gray-100 br-30'
+  placeholderText='   Click to Select Date'
   required
  />
      
