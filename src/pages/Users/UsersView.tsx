@@ -236,7 +236,7 @@ export const UsersView: React.FC = () => {
                                 </p>
                                 <p>
                                   <strong>Posting Letter:</strong> 
-                                  <a href={user?.letters.postingLetter} download>
+                                  <a href={user?.letters?.postingLetter} download>
                   <div className=" flex justify-center items-center shadow rounded-full w-[80px] h-[80px] bg-green">
                     <img src={downloadLogo} alt="Click Here To Download" className="h-10 w-10" />
                   </div>

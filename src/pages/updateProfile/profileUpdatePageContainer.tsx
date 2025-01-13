@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { fetchSchools } from "../../services/schools.service";
 import { ISchools, Settings } from "types";
+import { ABOUT_ME } from "routes/CONSTANTS";
 
 
 import { toast } from "react-toastify";
@@ -8,6 +9,7 @@ import LogoLoader from "../../components/widgets/loader/Loader";
 import ProfileUpdatePage from "./ProfileUpdateView";
 import { useUpdateUserProfileMutation } from "../../services/users.service";
 import { fetchUser } from "../../redux/slices/auth.slice";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "hooks";
 
 export const ProfileUpdateViewContainer: FC = () => {
@@ -16,6 +18,7 @@ export const ProfileUpdateViewContainer: FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [updateUser, result] = useUpdateUserProfileMutation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
   console.log(user)
   const [userSaved, setUserSaved] = useState<any>(user);
@@ -24,6 +27,7 @@ export const ProfileUpdateViewContainer: FC = () => {
     toast.success(result.data?.MESSAGE);
     console.log(result.data?.MESSAGE)
     toast.error(result.isError && result.data?.MESSAGE);
+
     // setLoading(result.isLoading);
   }, [result]);
 
@@ -31,12 +35,13 @@ export const ProfileUpdateViewContainer: FC = () => {
     dispatch(fetchUser(user.user._doc._id))
       .unwrap()
       .then((res: any) => {
-        console.log(res);
-        console.log(user.user._doc._id)
+         console.log(res);
+        // console.log(user.user._doc._id)
         console.log(userSaved.user._doc._id)
         setUserSaved(user);
       })
       .catch((err: any) => {
+        // toast.error(err)
         console.log(err);
       });
   }, [dispatch]);
@@ -68,6 +73,8 @@ export const ProfileUpdateViewContainer: FC = () => {
     console.log(details)
     console.log(user.user._doc._id)
      void updateUser({ id: user.user._doc._id, details });
+
+      setTimeout(()=> navigate(ABOUT_ME), 6000)
   };
 
   if (error) return <div>{error}</div>;

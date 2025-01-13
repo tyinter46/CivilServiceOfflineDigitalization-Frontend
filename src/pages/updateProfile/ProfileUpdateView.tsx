@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { toast } from "react-toastify";
+import { useAppSelector } from "hooks";
 
 // import LogoLoader from "../../components/widgets/loader/LogoLoader";
 // import { zones, subjectsTaught} from "./DropDownOptions";
@@ -40,6 +41,7 @@ import {
 
 import { Calender, Navbar, TesCalendar } from "components";
 import { UserDetails, ISchools } from "types";
+// import { useAppSelector, useAppDispatch } from "hooks";
 
 // Sample dropdown options
 // const schoolOptions = [
@@ -143,11 +145,18 @@ const messengerWatchmanGradeLevelOptions = messengerWatchmanGradeLevel.map((opti
 
 
 const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
+
+
+
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({}); // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
   const [selectedDateOfPresentPosting, setSelectedDateOfPresentPosting] = useState<Date | null>(
     null
   );
   const [selectedDateOfLastPromotion, setSelectedDateOfLastPromotion] = useState<Date | null>(null);
+  const { user } = useAppSelector((state) => state.auth);
+  console.log(user)
+
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDateOfPresentPosting(date);
@@ -159,32 +168,33 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     const dateOfLastPromotionToString = date ? date.toLocaleDateString() : "";
     formValues.dateOfLastPromotion = dateOfLastPromotionToString;
   };
+  // console.log(userDetails?.user?._doc?.email)
   const [formValues, setFormValues] = useState({
     dateOfFirstAppointment: userDetails?.dateOfFirstAppointment,
-    tscFileNumber: userDetails?.tscFileNumber || "",
-    schoolOfPresentPosting: userDetails?.schoolOfPresentPosting || "",
-    schoolOfPreviousPosting: userDetails?.schoolOfPreviousPosting || "",
-    zone: userDetails?.zone || "",
-    division: userDetails?.division || "",
-    nationality: userDetails?.nationality || "",
-    stateOfOrigin: userDetails?.stateOfOrigin || "",
-    lgOfOrigin: userDetails?.lgOfOrigin || "",
-    ward: userDetails?.ward || "",
+    tscFileNumber: user?.user?._doc?.tscFileNumber ,
+    schoolOfPresentPosting:  user?.user?._doc?.schoolOfPresentPosting || "",
+    schoolOfPreviousPosting:   user?.user?._doc?.schoolOfPreviousPosting || "",
+    zone:  user?.user?._doc?.zone || "",
+    division:  user?.user?._doc?.division || "",
+    nationality:  user?.user?._doc?.nationality || "",
+    stateOfOrigin: user?.user?._doc?.stateOfOrigin || "",
+    lgOfOrigin: user?.user?._doc?.lgOfOrigin || "",
+    ward: user?.user?._doc?.ward || "",
     qualifications: userDetails?.qualifications || [],
     subjectsTaught: userDetails?.subjectsTaught || [],
-    dateOfPresentSchoolPosting: userDetails?.dateOfPresentSchoolPosting ?? "",
-    cadre: userDetails?.cadre || "",
-    gradeLevel: userDetails?.gradeLevel || "",
-    pfa: userDetails?.pfa || "",
-    pensionNumber: userDetails?.pensionNumber || "",
-    staffType: userDetails?.staffType || "",
-    email: userDetails?.email || "",
-    nameOfNextOfKin: userDetails?.nameOfNextOfKin ?? "",
-    nextOfKinAddress: userDetails?.nextOfKinAddress ?? "",
-    nextOfKinPhoneNumber: userDetails?.nextOfKinPhoneNumber ?? "",
-    gender: userDetails?.gender ?? "",
-    residentialAddress: userDetails?.residentialAddress ?? "",
-    dateOfLastPromotion: userDetails?.dateOfLastPromotion ?? ""
+    dateOfPresentSchoolPosting: user?.user?._doc?.dateOfPresentSchoolPosting ?? "",
+    cadre: user?.user?._doc?.cadre || "",
+    gradeLevel: user?.user?._doc?.gradeLevel ,
+    pfa: user?.user?._doc?.pfa || "",
+    pensionNumber: user?.user?._doc?.pensionNumber || "",
+    staffType: user?.user?._doc?.staffType ,
+    email: user.user._doc.email ,
+    nameOfNextOfKin: user?.user?._doc?.nameOfNextOfKin ?? "",
+    nextOfKinAddress: user?.user?._doc?.nextOfKinAddress ?? "",
+    nextOfKinPhoneNumber: user?.user?._doc?.nextOfKinPhoneNumber ?? "",
+    gender: user?.user?._doc?.gender ?? "",
+    residentialAddress: user?.user?._doc?.residentialAddress ?? "",
+    dateOfLastPromotion: user?.user?._doc?.dateOfLastPromotion ?? ""
   });
 
   //       const subjectsTaughtOptions = subjectsTaught.map((option) => ({
@@ -279,7 +289,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
       .required("Tsc File Number Required"),
     schoolOfPresentPosting: Yup.string().required("schoolOfPresentPosting Required"),
     schoolOfPreviousPosting: Yup.string().required("schoolOfPreviousPosting Required"),
-    zone: Yup.string().min(4, "zone Too short!").required("zone Required"),
+    zone: Yup.string().min(3, "zone Too short!").required("zone Required"),
     division: Yup.string().required("Division required"),
     nationality: Yup.string().required("Nationality Required"),
     stateOfOrigin: Yup.string().required("stateOfOrigin Required"),
@@ -420,7 +430,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   required
                   name="tscFileNumber"
                   placeholder="Enter TSC File Number"
-                  value={formValues.tscFileNumber}
+                  value={ formValues.tscFileNumber }
                   onChange={handleInputChange}
                   className={`input-field border-gray-300 rounded-md ${
                     errors.tscFileNumber ? "border-red-500" : ""
@@ -440,7 +450,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   isClearable
                   required
                   options={staffType}
-                  value={staffType.find((option) => option.value === formValues.staffType)}
+                  value={staffType.find((option) => option.value === formValues.staffType) }
                   onChange={handleSelectChange("staffType")}
                   placeholder="Select Teaching or Non-Teaching Staff"
                 />
@@ -496,7 +506,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                       :  cleanerGradeLevelOptions
                       
                   }
-                  value={CadreOptions.find((option) => option.value === formValues.gradeLevel)}
+                  value={ CadreOptions.find((option) => option.value === formValues.gradeLevel)}
                   onChange={handleSelectChange("gradeLevel")}
                   placeholder="Select Grade Level"
                 />
@@ -933,6 +943,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   value={formValues.pensionNumber}
                   onChange={handleInputChange}
                   required
+                  type="number"
                 />
               </div>
 
@@ -1004,7 +1015,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   className="input-field"
                   value={formValues.nextOfKinPhoneNumber}
                   onChange={handleInputChange}
-                  type="phone"
+                  type="number"
                   required
                 
                 />

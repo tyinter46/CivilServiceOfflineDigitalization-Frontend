@@ -41,7 +41,7 @@ export const fetchUsersWithoutPopulation = async () => {
   }
 };
 
-export const fetchUser = async (id: any) => {
+export const getUser = async (id: any) => {
   try {
     const response = await fetch(`${env.API_BASE_URL}${`/user/${id}`}`);
     const fetchedData = await response.data;

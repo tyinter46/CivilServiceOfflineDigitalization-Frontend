@@ -46,7 +46,7 @@ export const signin = async ({ ogNumber, password }: { ogNumber: string; passwor
 export const loginSuccess = async () => {
   try {
     const config = {
-      url: `${env.API_BASE_URL}`,
+      url: `${env.API_BASE_URL}${'/auth/login/success'}`,
       method: "get",
       withCredentials: true,
       headers: {

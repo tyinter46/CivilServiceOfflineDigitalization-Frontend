@@ -145,7 +145,7 @@ export const forgotPassword = createAsyncThunk(
 
 export const fetchUser = createAsyncThunk("auth/fethUser", async (id: string, thunkAPI) => {
   try {
-    const response = await UserService.fetchUser(id);
+    const response = await UserService.getUser(id);
     // const fetchedData = response
     console.log(response);
     const user = response;
