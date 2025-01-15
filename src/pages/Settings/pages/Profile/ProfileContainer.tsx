@@ -7,13 +7,13 @@ import ProfileView from "./ProfileView";
 import { UserDetails } from "types";
 import env from "configs";
 import {  UPLOAD_IMAGE } from "../../../../services/CONSTANTS";
-
+import { useLocation } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "hooks";
 import { getLongDate } from "utils";
 import { loginSuccess } from "services/auth.service";
 import { fetchUser } from "../../../../redux/slices/auth.slice";
-// import { getUser } from "../../../../services/users.service";
+//  import { getUser } from "../../../../services/users.service";
 import { useEffect, useState} from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -27,9 +27,10 @@ import { toast } from "react-toastify";
 
 export const ProfileContainer = () => {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
-console.log(user)
-  const [userSaved, setUserSaved] = useState<any>(user);
+  const location = useLocation ()
+  const updatedUser = location?.state?.user?.data?.DATA
+  console.log(updatedUser)
+
   const [postingLetter, setPosttingLetter] = useState<null | string | any>("");
   
 
@@ -48,20 +49,26 @@ console.log(user)
       .catch((err) => {
         console.error(err);
       });
+     
     
   }, []);
+  const { user } = useAppSelector((state) => state.auth);
+  console.log(user)
+    const [userSaved, setUserSaved] = useState<any>(user);
   useEffect(() => {
-  
+    // console.log(getUser('675ff81d3f8a0725f567461e'))
+ 
     dispatch(
-      fetchUser(userSaved?.user?._doc?._id))
+      fetchUser(userSaved.user?._id))
       .unwrap()
       .then((res) => {
         console.log(res);
+        console.log(userSaved.user?._id)
         // setUserSaved(res)
        
          setUserSaved(res);
         setPosttingLetter(res);
-        
+        window.location.reload()
         return console.log(postingLetter);
       })
       .catch((err) => {
@@ -72,46 +79,44 @@ console.log(user)
 
   // const latestUser = setUserSaved(dispatch(fetchUser(user?._id)))
   // console.log(latestUser, 'Latest User')
-  
-
   // console.log(postingLetter?.staffName?.firstName);
-  const dateOfBirth = getLongDate(userSaved?.user?._doc?.dateOfBirth);
-  const dateOfFirstAppointment = getLongDate(userSaved?.user?._doc?.dateOfFirstAppointment);
-  const dateOfRetirement = getLongDate(userSaved?.user?._doc?.dateOfRetirement);
+  const dateOfBirth = getLongDate(userSaved?.user?.dateOfBirth);
+  const dateOfFirstAppointment = getLongDate(userSaved?.user?.dateOfFirstAppointment );
+  const dateOfRetirement = getLongDate(userSaved?.user?.dateOfRetirement);
 
   const userDetails: UserDetails = {
-    subjectsTaught: userSaved?.user?._doc?.subjectsTaught,
-    _id: userSaved?.user?._doc?._id,
-    staffName: userSaved?.user?._doc?.staffName?.firstName,
+    subjectsTaught: updatedUser?.subjectsTaught ?? userSaved?.user?.subjectsTaught,
+    _id: userSaved?.user?._id,
+    staffName: updatedUser?.staffName?.firstName ?? userSaved?.user?.staffName?.firstName,
     dateOfBirth,
     dateOfFirstAppointment,
     dateOfRetirement,
-    ogNumber: userSaved?.user?._doc?.ogNumber,
-    phoneNumber: userSaved?.user?._doc?.phoneNumber,
-    letters: postingLetter?.letters?.postingLetter,
-    tscFileNumber: userSaved?.user?._doc?.tscFileNumber,
-    schoolOfPresentPosting:userSaved?.user?._doc?.schoolOfPresentPosting?.nameOfSchool,
-    schoolOfPreviousPosting:userSaved?.user?._doc?.schoolOfPreviousPosting?.nameOfSchool,
-    residentialAddress: userSaved?.user?._doc?.residentialAddress,
-    zone: userSaved?.user?._doc?.zone,
-    division: userSaved?.user?._doc?.division,
-    nationality: userSaved?.user?._doc?.nationality,
-    stateOfOrigin: userSaved?.user?._doc?.stateOfOrigin,
-    lgOfOrigin: userSaved?.user?._doc?.lgOfOrigin,
-    ward: userSaved?.user?._doc?.ward,
-    staffType:userSaved?.user?._doc?.staffType,
-    qualifications: userSaved?.user?._doc?.qualifications,
-    dateOfPresentSchoolPosting: userSaved?.user?._doc?.dateOfPresentSchoolPosting,
-    cadre: userSaved?.user?._doc?.cadre,
+    ogNumber: updatedUser?.ogNumber ?? userSaved?.user?.ogNumber,
+    phoneNumber: updatedUser?.phoneNumber ?? userSaved?.user?.phoneNumber,
+    letters: postingLetter?.letters?.postingLetter ?? userSaved?.user?.letters?.postingLetter,
+    tscFileNumber: updatedUser?.tscFileNumber ?? userSaved?.user?.tscFileNumber,
+    schoolOfPresentPosting:updatedUser?.schoolOfPresentPosting?.nameOfSchool ?? userSaved?.user?.schoolOfPresentPosting?.nameOfSchool,
+    schoolOfPreviousPosting:updatedUser?.schoolOfPreviousPosting?.nameOfSchool ?? userSaved?.user?.schoolOfPreviousPosting.nameOfSchool,
+    residentialAddress: updatedUser?.residentialAddress ?? userSaved?.user?.residentialAddress,
+    zone: updatedUser?.zone ?? userSaved?.user?.zone ,
+    division: updatedUser?.division ?? userSaved?.user?.division,
+    nationality: updatedUser?.nationality ?? userSaved?.user?.nationality,
+    stateOfOrigin: updatedUser?.stateOfOrigin ?? userSaved?.user?.stateOfOrigin,
+    lgOfOrigin: updatedUser?.lgOfOrigin ?? userSaved?.user?.lgOfOrigin,
+    ward: updatedUser?.ward ?? userSaved?.user?.ward,
+    staffType:updatedUser?.staffType ?? userSaved?.user?.staffType,
+    qualifications: updatedUser?.qualifications ?? userSaved?.user?.qualifications,
+    dateOfPresentSchoolPosting: updatedUser?.dateOfPresentSchoolPosting ?? userSaved?.user?.dateOfPresentPosting,
+    cadre: updatedUser?.cadre ?? userSaved?.user?.cadre,
       // dateOfFirstAppointment?: Date;
     // dateOfLastPromotion?: Date;
     // dateOfBirth?: Date;
-    gradeLevel: userSaved?.user?._doc?.gradeLevel,
-    pfa: userSaved?.user?._doc?.pfa,
-    pensionNumber: userSaved?.user?._doc?.pensionNumber,
+    gradeLevel: updatedUser?.gradeLevel ?? userSaved?.user?.gradeLevel,
+    pfa: updatedUser?.pfa ?? userSaved?.user?.pfa,
+    pensionNumber: updatedUser?.pensionNumber ?? userSaved?.user?.pensionNumber,
     // dateOfRetirement?: Date;
-    professionalStatus:userSaved?.user?._doc?.professionalStatus,
-    email: userSaved?.user?._doc?.email
+    professionalStatus:updatedUser?.professionalStatus ?? userSaved?.user?.professionalStatus,
+    email: updatedUser?.email ?? userSaved?.user?.email
   };
 
  

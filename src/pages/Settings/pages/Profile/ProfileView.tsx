@@ -2,7 +2,7 @@
 import { Input, Loader, Navbar } from "components";
 import { SvgTesMessageSquareEdit, TesCheckedboxMarkedCircle } from "components/icons";
 import { user } from "assets/images";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { UPDATE_PROFILE } from "routes/CONSTANTS";
 import React from "react";
 
@@ -155,7 +155,7 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
           
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">State</div>
-                <span className="text-lg">{userDetails?.division || "-"}</span>
+                <span className="text-lg">{userDetails?.stateOfOrigin || "-"}</span>
               </div>
             
             </div>
@@ -164,7 +164,7 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
           <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6">
             <div className="flex flex-col sm:flex-row">
               <div className="p-2 flex-1">
-                <div className="text-md font-semibold text-yellow-500">School of Previos Posting</div>
+                <div className="text-md font-semibold text-yellow-500">School of Previous Posting</div>
                 <span className="text-lg">{userDetails?.schoolOfPreviousPosting || "-"}</span>
               </div>
              
@@ -173,11 +173,11 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
                 <span className="text-lg">{userDetails?.schoolOfPresentPosting || "-"}</span>
               </div>
               <div className="p-2 flex-1">
-                <div className="text-md font-semibold text-yellow-500">City</div>
+                <div className="text-md font-semibold text-yellow-500">Zone</div>
                 <span className="text-lg">{userDetails?.zone || "-"}</span>
               </div>
               <div className="p-2 flex-1">
-                <div className="text-md font-semibold text-yellow-500">State</div>
+                <div className="text-md font-semibold text-yellow-500">Division</div>
                 <span className="text-lg">{userDetails?.division || "-"}</span>
               </div>
             </div>

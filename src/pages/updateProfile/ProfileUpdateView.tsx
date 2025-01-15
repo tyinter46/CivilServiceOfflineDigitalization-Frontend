@@ -82,10 +82,10 @@ interface PageProps {
   userDetails: UserDetails;
 }
 
-const divisionOptions = ["EGBA", "IJEBU", "REMO", "YEWA"].map((option) => ({
-  value: option ?? "",
-  label: `${option}`
-}));
+// const divisionOptions = ["EGBA", "IJEBU", "REMO", "YEWA"].map((option) => ({
+//   value: option ?? "",
+//   label: `${option}`
+// }));
 
 const egbaDivisionOption = ["EGBA"].map((option) => ({
   value: option ?? "",
@@ -171,30 +171,30 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   // console.log(userDetails?.user?._doc?.email)
   const [formValues, setFormValues] = useState({
     dateOfFirstAppointment: userDetails?.dateOfFirstAppointment,
-    tscFileNumber: user?.user?._doc?.tscFileNumber ,
-    schoolOfPresentPosting:  user?.user?._doc?.schoolOfPresentPosting || "",
-    schoolOfPreviousPosting:   user?.user?._doc?.schoolOfPreviousPosting || "",
-    zone:  user?.user?._doc?.zone || "",
-    division:  user?.user?._doc?.division || "",
-    nationality:  user?.user?._doc?.nationality || "",
-    stateOfOrigin: user?.user?._doc?.stateOfOrigin || "",
-    lgOfOrigin: user?.user?._doc?.lgOfOrigin || "",
-    ward: user?.user?._doc?.ward || "",
+    tscFileNumber: user?.user?.tscFileNumber ,
+    schoolOfPresentPosting:  user?.user?.schoolOfPresentPosting ,
+    schoolOfPreviousPosting:   user?.user?.schoolOfPreviousPosting ,
+    zone:  user?.user?.zone || "",
+    division:  user?.user?.division || "",
+    nationality:  user?.user?.nationality || "",
+    stateOfOrigin: user?.user?.stateOfOrigin || "",
+    lgOfOrigin: user?.user?.lgOfOrigin || "",
+    ward: user?.user?.ward || "",
     qualifications: userDetails?.qualifications || [],
     subjectsTaught: userDetails?.subjectsTaught || [],
-    dateOfPresentSchoolPosting: user?.user?._doc?.dateOfPresentSchoolPosting ?? "",
-    cadre: user?.user?._doc?.cadre || "",
-    gradeLevel: user?.user?._doc?.gradeLevel ,
-    pfa: user?.user?._doc?.pfa || "",
-    pensionNumber: user?.user?._doc?.pensionNumber || "",
-    staffType: user?.user?._doc?.staffType ,
-    email: user.user._doc.email ,
-    nameOfNextOfKin: user?.user?._doc?.nameOfNextOfKin ?? "",
-    nextOfKinAddress: user?.user?._doc?.nextOfKinAddress ?? "",
-    nextOfKinPhoneNumber: user?.user?._doc?.nextOfKinPhoneNumber ?? "",
-    gender: user?.user?._doc?.gender ?? "",
-    residentialAddress: user?.user?._doc?.residentialAddress ?? "",
-    dateOfLastPromotion: user?.user?._doc?.dateOfLastPromotion ?? ""
+    dateOfPresentSchoolPosting: user?.user?.dateOfPresentSchoolPosting ,
+    cadre: user?.user?.cadre || "",
+    gradeLevel: user?.user?.gradeLevel ,
+    pfa: user?.user?.pfa || "",
+    pensionNumber: user?.user?.pensionNumber || "",
+    staffType: user?.user?.staffType ,
+    email: user?.user?.email ,
+    nameOfNextOfKin: user?.user?.nameOfNextOfKin ?? "",
+    nextOfKinAddress: user?.user?.nextOfKinAddress,
+    nextOfKinPhoneNumber: user?.user?.nextOfKinPhoneNumber ?? "",
+    gender: user?.user?.gender ?? "",
+    residentialAddress: user?.user?.residentialAddress ?? "",
+    dateOfLastPromotion: user?.user?.dateOfLastPromotion 
   });
 
   //       const subjectsTaughtOptions = subjectsTaught.map((option) => ({
@@ -285,7 +285,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   const ProfileViewSchema = Yup.object().shape({
     tscFileNumber: Yup.string()
       .min(8, "tscFileNumber Too Short")
-      .max(16, "Too Long!")
+      .max(16, "File Number Too Long!")
       .required("Tsc File Number Required"),
     schoolOfPresentPosting: Yup.string().required("schoolOfPresentPosting Required"),
     schoolOfPreviousPosting: Yup.string().required("schoolOfPreviousPosting Required"),
@@ -402,6 +402,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     } catch (validationErrors: any) {
       // Handle validation errors
       toast.error(validationErrors);
+      // toast.error(validationErrors)
       console.error("Validation errors: ", validationErrors);
       // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
       const errorMessages: { [key: string]: string } = {}; // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
@@ -415,7 +416,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   return (
     <>
       <Navbar />
-      <div className="w-full max-w-4xl mx-auto my-2 bg-black-900 p-6 rounded-lg shadow-md mt-20 min-h-screen">
+      <div className="w-full max-w-4xl mx-auto my-2 bg-black-400 p-6 rounded-lg shadow-md mt-20 min-h-screen">
         <div className="py-8">
           <h2 className="text-lg font-medium text-gray-900">Update Profile Details</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -528,7 +529,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                     (option) => option.value === formValues.schoolOfPresentPosting
                   )}
                   onChange={handleSelectChange("schoolOfPresentPosting")}
-                  placeholder="Select or create a school"
+                  placeholder="Select a school"
                 />
               </div>
               {/* Date of present school posting */}
@@ -578,7 +579,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                     (option) => option.value === formValues.schoolOfPreviousPosting
                   )}
                   onChange={handleSelectChange("schoolOfPreviousPosting")}
-                  placeholder="Select or create a school"
+                  placeholder="Select a school"
                 />
               </div>
               {/* Zone using CreatableSelect */}
@@ -616,7 +617,10 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                     : yewaDivisionOptions
                 
                   }
-                  value={divisionOptions.find((option) => option.value === formValues.division)}
+                  value={  ijebuDivisionZones.includes(formValues.zone) ? IjebuDivisionOption 
+                    : egbaDivisionZones.includes(formValues.zone) ? egbaDivisionOption
+                    : remoDivisionZones.includes(formValues.zone) ? remoDivisionOptions 
+                    : yewaDivisionOptions}
                   onChange={handleSelectChange("division")}
                   placeholder="Select a division"
                 />

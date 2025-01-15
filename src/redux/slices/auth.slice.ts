@@ -71,7 +71,7 @@ export const login = createAsyncThunk(
       return {
         userId: DATA.user.id,
         ogNumber: DATA.user.ogNumber,
-        firstName: DATA.user._doc.staffName.firstName
+        firstName: DATA.user.staffName.firstName
       };
     } catch (error) {
       const message = formatErrorResponse(error);
@@ -332,7 +332,7 @@ const authSlice = createSlice({
     });
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.user = action.payload;
+      state.user = action.payload.user;
     });
     builder.addCase(fetchUser.rejected, (state) => {
       state.isLoading = false;

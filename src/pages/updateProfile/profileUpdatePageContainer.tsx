@@ -2,23 +2,24 @@ import { FC, useState, useEffect } from "react";
 import { fetchSchools } from "../../services/schools.service";
 import { ISchools, Settings } from "types";
 import { ABOUT_ME } from "routes/CONSTANTS";
-
+import { useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import LogoLoader from "../../components/widgets/loader/Loader";
 import ProfileUpdatePage from "./ProfileUpdateView";
 import { useUpdateUserProfileMutation } from "../../services/users.service";
 import { fetchUser } from "../../redux/slices/auth.slice";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "hooks";
+// import { useNavigate } from "react-router-dom";
+import { useAppSelector, useAppDispatch,  } from "hooks";
 
 export const ProfileUpdateViewContainer: FC = () => {
   const [schools, setSchools] = useState<ISchools[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [updateUser, result] = useUpdateUserProfileMutation();
+  const navigate = useNavigate()
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
   console.log(user)
   const [userSaved, setUserSaved] = useState<any>(user);
@@ -32,12 +33,12 @@ export const ProfileUpdateViewContainer: FC = () => {
   }, [result]);
 
   useEffect(() => {
-    dispatch(fetchUser(user.user._doc._id))
+    dispatch(fetchUser(user?.user?._id))
       .unwrap()
       .then((res: any) => {
          console.log(res);
         // console.log(user.user._doc._id)
-        console.log(userSaved.user._doc._id)
+        console.log(userSaved?.user?._id)
         setUserSaved(user);
       })
       .catch((err: any) => {
@@ -69,12 +70,22 @@ export const ProfileUpdateViewContainer: FC = () => {
       </div>
     );
   }
-  const onSubmit = (details: Settings) => {
+  const onSubmit = async (details: Settings) => {
     console.log(details)
-    console.log(user.user._doc._id)
-     void updateUser({ id: user.user._doc._id, details });
-
-      setTimeout(()=> navigate(ABOUT_ME), 6000)
+    console.log(user.user._id)
+     void updateUser({ id: user.user._id, details });
+     const updatedUser = await updateUser({ id: user.user._id, details });
+     console.log(updatedUser)
+  if (error) toast.error(error)
+    else {
+      setTimeout(()=> {
+        // window.location.href = ABOUT_ME
+        navigate(ABOUT_ME, { state: { user: updatedUser} });
+       
+      
+      }, 5000)
+     
+    }
   };
 
   if (error) return <div>{error}</div>;
