@@ -116,7 +116,7 @@ export const ProfileContainer = () => {
     pensionNumber: updatedUser?.pensionNumber ?? userSaved?.user?.pensionNumber,
     // dateOfRetirement?: Date;
     professionalStatus:updatedUser?.professionalStatus ?? userSaved?.user?.professionalStatus,
-    email: updatedUser?.email ?? userSaved?.user?.email
+    email: updatedUser?.email ?? userSaved?.user?.email,
   };
 
  

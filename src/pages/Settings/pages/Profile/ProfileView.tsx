@@ -149,7 +149,7 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
             <div className="flex flex-col sm:flex-row">
              
               <div className="p-2 flex-1">
-                <div className="text-md font-semibold text-yellow-500">Country</div>
+                <div className="text-md font-semibold text-yellow-500">Nationality</div>
                 <span className="text-lg">{userDetails?.nationality || "-"}</span>
               </div>
           
