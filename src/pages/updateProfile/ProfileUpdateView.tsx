@@ -22,11 +22,9 @@ import {
   graduateCadre,
   localGovernmentOfOrigin,
   wards,
-
   remoDivisionZones,
   ijebuDivisionZones,
   egbaDivisionZones,
-
   driverStorekeeperClerical,
   secreteriatAssistant,
   messengerAndWatchman,
@@ -35,8 +33,7 @@ import {
   nceCadre,
   secretariatAssistantGradeLevel,
   messengerWatchmanGradeLevel,
-  cleanerGradeLevel,
-
+  cleanerGradeLevel
 } from "./DropDownOptions";
 
 import { Calender, Navbar, TesCalendar } from "components";
@@ -74,7 +71,6 @@ const zoneOptions = zones.map((option) => ({
 //   value: option ?? "",
 //   label: `${option}`
 // }));
-
 
 interface PageProps {
   schools: ISchools[];
@@ -126,10 +122,12 @@ const secretariatAssistantGradeLevelOptions = secretariatAssistantGradeLevel.map
   label: `${option}`
 }));
 
-const driverStorekeeperClericalGradeLevelOptions = driverStorekeeperClericalGradeLevel.map((option) => ({
-  value: option ?? "",
-  label: `${option}`
-}));
+const driverStorekeeperClericalGradeLevelOptions = driverStorekeeperClericalGradeLevel.map(
+  (option) => ({
+    value: option ?? "",
+    label: `${option}`
+  })
+);
 
 const cleanerGradeLevelOptions = cleanerGradeLevel.map((option) => ({
   value: option ?? "",
@@ -141,22 +139,14 @@ const messengerWatchmanGradeLevelOptions = messengerWatchmanGradeLevel.map((opti
   label: `${option}`
 }));
 
-
-
-
 const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
-
-
-
-
   const [errors, setErrors] = useState<{ [key: string]: string }>({}); // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
   const [selectedDateOfPresentPosting, setSelectedDateOfPresentPosting] = useState<Date | null>(
     null
   );
   const [selectedDateOfLastPromotion, setSelectedDateOfLastPromotion] = useState<Date | null>(null);
   const { user } = useAppSelector((state) => state.auth);
-  console.log(user)
-
+  console.log(user);
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDateOfPresentPosting(date);
@@ -171,31 +161,32 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   // console.log(userDetails?.user?._doc?.email)
   const [formValues, setFormValues] = useState({
     dateOfFirstAppointment: userDetails?.dateOfFirstAppointment,
-    tscFileNumber: user?.user?.tscFileNumber ,
-    schoolOfPresentPosting:  user?.user?.schoolOfPresentPosting ,
-    schoolOfPreviousPosting:   user?.user?.schoolOfPreviousPosting ,
-    zone:  user?.user?.zone || "",
-    division:  user?.user?.division || "",
-    nationality:  user?.user?.nationality || "",
+    tscFileNumber: user?.user?.tscFileNumber,
+    schoolOfPresentPosting: user?.user?.schoolOfPresentPosting,
+    schoolOfPreviousPosting: user?.user?.schoolOfPreviousPosting,
+    zone: user?.user?.zone || "",
+    division: user?.user?.division || "",
+    nationality: user?.user?.nationality || "",
     stateOfOrigin: user?.user?.stateOfOrigin || "",
     lgOfOrigin: user?.user?.lgOfOrigin || "",
     ward: user?.user?.ward || "",
     qualifications: userDetails?.qualifications || [],
     subjectsTaught: userDetails?.subjectsTaught || [],
-    dateOfPresentSchoolPosting: user?.user?.dateOfPresentSchoolPosting ,
+    dateOfPresentSchoolPosting: user?.user?.dateOfPresentSchoolPosting,
     cadre: user?.user?.cadre || "",
-    gradeLevel: user?.user?.gradeLevel ,
+    gradeLevel: user?.user?.gradeLevel,
     pfa: user?.user?.pfa || "",
     pensionNumber: user?.user?.pensionNumber || "",
-    staffType: user?.user?.staffType ,
-    email: user?.user?.email ,
-    nameOfNextOfKin: user?.user?.nameOfNextOfKin ?? "",
+    staffType: user?.user?.staffType,
+    email: user?.user?.email,
+    nameOfNextOfKin: user?.user?.nameOfNextOfKin ,
     nextOfKinAddress: user?.user?.nextOfKinAddress,
-    nextOfKinPhoneNumber: user?.user?.nextOfKinPhoneNumber ?? "",
-    gender: user?.user?.gender ?? "",
-    residentialAddress: user?.user?.residentialAddress ?? "",
-    dateOfLastPromotion: user?.user?.dateOfLastPromotion 
+    nextOfKinPhoneNumber: user?.user?.nextOfKinPhoneNumber ,
+    gender: user?.user?.gender ,
+    residentialAddress: user?.user?.residentialAddress ,
+    dateOfLastPromotion: user?.user?.dateOfLastPromotion
   });
+
 
   //       const subjectsTaughtOptions = subjectsTaught.map((option) => ({
   //       value: option,
@@ -387,36 +378,56 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   //   );
   //   setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
   // };
-  console.log(formValues);
+  // console.log(formValues);
   const handleSubmit = async (e: React.FormEvent) => {
-    // console.log(formValues);
     e.preventDefault();
     console.log(formValues);
+  
     try {
       await ProfileViewSchema.validate(formValues, { abortEarly: true });
       setErrors({});
-      console.log(formValues);
+  
+      if (formValues.subjectsTaught.length === 0) {
+        toast.error("Kindly fill subject assigned field");
+        return;
+      }
+  
+      if (formValues.qualifications.length === 0) {
+        toast.error("Kindly fill qualifications field");
+        return;
+      }
+  
       onSubmit(formValues);
-      // Perform form submission
       console.log("Form submitted with values: ", formValues);
     } catch (validationErrors: any) {
-      // Handle validation errors
-      toast.error(validationErrors);
-      // toast.error(validationErrors)
       console.error("Validation errors: ", validationErrors);
-      // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
-      const errorMessages: { [key: string]: string } = {}; // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
-      validationErrors.inner.forEach((error: any) => {
-        errorMessages[error.path] = error.message;
-      });
+  
+      if (validationErrors.inner && validationErrors.inner.length > 0) {
+        // Loop through all validation errors
+        validationErrors.inner.forEach((error: any) => {
+          toast.error(error.message); // Show each error message in a toast
+        });
+      } else {
+        // Handle single validation error
+        toast.error(validationErrors.message || "Validation failed");
+      }
+  
+      // Collect errors to display them in the UI
+      const errorMessages: { [key: string]: string } = {};
+      if (validationErrors.inner) {
+        validationErrors.inner.forEach((error: any) => {
+          errorMessages[error.path] = error.message;
+        });
+      }
+  
       setErrors(errorMessages);
     }
   };
-
+  
   return (
     <>
       <Navbar />
-      <div className="w-full max-w-4xl mx-auto my-2 bg-black-400 p-6 rounded-lg shadow-md mt-20 min-h-screen">
+      <div className="w-full max-w-4xl mx-auto my-2 bg-blue-100 p-6 rounded-lg shadow-md mt-20 min-h-screen">
         <div className="py-8">
           <h2 className="text-lg font-medium text-gray-900">Update Profile Details</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -431,7 +442,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   required
                   name="tscFileNumber"
                   placeholder="Enter TSC File Number"
-                  value={ formValues.tscFileNumber }
+                  value={formValues.tscFileNumber}
                   onChange={handleInputChange}
                   className={`input-field border-gray-300 rounded-md ${
                     errors.tscFileNumber ? "border-red-500" : ""
@@ -451,7 +462,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   isClearable
                   required
                   options={staffType}
-                  value={staffType.find((option) => option.value === formValues.staffType) }
+                  value={staffType.find((option) => option.value === formValues.staffType)}
                   onChange={handleSelectChange("staffType")}
                   placeholder="Select Teaching or Non-Teaching Staff"
                 />
@@ -499,52 +510,21 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   options={
                     graduateCadre.includes(formValues.cadre)
                       ? professionalGradeLevelOptions
-                      : nceCadre.includes (formValues.cadre) ? nonProfessionalGradeLevelOptions 
-                      : secreteriatAssistant.includes(formValues.cadre) ? secretariatAssistantGradeLevelOptions
-                      : executiveOfficer.includes(formValues.cadre) ? nonProfessionalGradeLevelOptions 
-                      : messengerAndWatchman.includes(formValues.cadre) ? messengerWatchmanGradeLevelOptions
-                      : driverStorekeeperClerical.includes(formValues.cadre) ? driverStorekeeperClericalGradeLevelOptions
-                      :  cleanerGradeLevelOptions
-                      
+                      : nceCadre.includes(formValues.cadre)
+                        ? nonProfessionalGradeLevelOptions
+                        : secreteriatAssistant.includes(formValues.cadre)
+                          ? secretariatAssistantGradeLevelOptions
+                          : executiveOfficer.includes(formValues.cadre)
+                            ? nonProfessionalGradeLevelOptions
+                            : messengerAndWatchman.includes(formValues.cadre)
+                              ? messengerWatchmanGradeLevelOptions
+                              : driverStorekeeperClerical.includes(formValues.cadre)
+                                ? driverStorekeeperClericalGradeLevelOptions
+                                : cleanerGradeLevelOptions
                   }
-                  value={ CadreOptions.find((option) => option.value === formValues.gradeLevel)}
+                  value={CadreOptions.find((option) => option.value === formValues.gradeLevel)}
                   onChange={handleSelectChange("gradeLevel")}
                   placeholder="Select Grade Level"
-                />
-              </div>
-
-              {/* School of Present Posting using CreatableSelect */}
-              <div>
-                <label
-                  htmlFor="schoolOfPresentPosting"
-                  className="block text-l font-medium text-gray-900"
-                >
-                  School of Present Posting
-                </label>
-                <Select
-                  isClearable
-                  required
-                  options={schoolOptions}
-                  value={schoolOptions.find(
-                    (option) => option.value === formValues.schoolOfPresentPosting
-                  )}
-                  onChange={handleSelectChange("schoolOfPresentPosting")}
-                  placeholder="Select a school"
-                />
-              </div>
-              {/* Date of present school posting */}
-              <div className="flex flex-row">
-                <label
-                  htmlFor="dateOfPresentSchoolPosting"
-                  className="block text-l font-medium text-gray-900"
-                >
-                  Date of Present School Posting
-                </label>
-                <TesCalendar></TesCalendar>{" "}
-                <Calender
-                  selectedDate={selectedDateOfPresentPosting}
-                  onDateChange={handleDateChange}
-                
                 />
               </div>
 
@@ -563,6 +543,20 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 />
               </div>
 
+              {/* Date of present school posting */}
+              <div className="flex flex-row">
+                <label
+                  htmlFor="dateOfPresentSchoolPosting"
+                  className="block text-l font-medium text-gray-900"
+                >
+                  Date of Present School Posting
+                </label>
+                <TesCalendar></TesCalendar>{" "}
+                <Calender
+                  selectedDate={selectedDateOfPresentPosting}
+                  onDateChange={handleDateChange}
+                />
+              </div>
               {/* School of Previous Posting using CreatableSelect */}
               <div>
                 <label
@@ -582,7 +576,26 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   placeholder="Select a school"
                 />
               </div>
-              {/* Zone using CreatableSelect */}
+              {/* School of Present Posting using CreatableSelect */}
+              <div>
+                <label
+                  htmlFor="schoolOfPresentPosting"
+                  className="block text-l font-medium text-gray-900"
+                >
+                  School of Present Posting
+                </label>
+                <Select
+                  isClearable
+                  required
+                  options={schoolOptions}
+                  value={schoolOptions.find(
+                    (option) => option.value === formValues.schoolOfPresentPosting
+                  )}
+                  onChange={handleSelectChange("schoolOfPresentPosting")}
+                  placeholder="Select a school"
+                />
+              </div>
+              {/* Zone */}
               <div>
                 <label htmlFor="zone" className="block text-l font-medium text-gray-900">
                   Zone
@@ -590,11 +603,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 <Select
                   isClearable
                   required
-                  options={
-                    
-                    zoneOptions
-
-                  }
+                  options={zoneOptions}
                   value={zoneOptions.find((option) => option.value === formValues.zone)}
                   onChange={handleSelectChange("zone")}
                   placeholder="Select or create a zone"
@@ -607,20 +616,26 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   Division
                 </label>
                 <Select
-                  isClearable
                   isDisabled={!formValues.zone}
                   required
                   options={
-                    ijebuDivisionZones.includes(formValues.zone) ? IjebuDivisionOption 
-                    : egbaDivisionZones.includes(formValues.zone) ? egbaDivisionOption
-                    : remoDivisionZones.includes(formValues.zone) ? remoDivisionOptions 
-                    : yewaDivisionOptions
-                
+                    ijebuDivisionZones.includes(formValues.zone)
+                      ? IjebuDivisionOption
+                      : egbaDivisionZones.includes(formValues.zone)
+                        ? egbaDivisionOption
+                        : remoDivisionZones.includes(formValues.zone)
+                          ? remoDivisionOptions
+                          : yewaDivisionOptions
                   }
-                  value={  ijebuDivisionZones.includes(formValues.zone) ? IjebuDivisionOption 
-                    : egbaDivisionZones.includes(formValues.zone) ? egbaDivisionOption
-                    : remoDivisionZones.includes(formValues.zone) ? remoDivisionOptions 
-                    : yewaDivisionOptions}
+                  value={
+                    ijebuDivisionZones.includes(formValues.zone)
+                      ? IjebuDivisionOption
+                      : egbaDivisionZones.includes(formValues.zone)
+                        ? egbaDivisionOption
+                        : remoDivisionZones.includes(formValues.zone)
+                          ? remoDivisionOptions
+                          : yewaDivisionOptions
+                  }
                   onChange={handleSelectChange("division")}
                   placeholder="Select a division"
                 />
@@ -730,53 +745,45 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
               </div>
 
               {/* Subject Taught with dynamic CreatableSelect fields */}
-              
-{formValues.subjectsTaught.map((subject, index) => (
-  <div key={index} className="subjectsTaught-field-group">
-    <label
-      htmlFor={`subjectsTaught-${index}`}
-      className="block text-l font-medium text-gray-900"
-    >
-      Subject Taught
-    </label>
-    <CreatableSelect
-      isClearable
-      value={{ value: subject, label: subject }}
-      options={subjectsTaught.map((sub) => ({ value: sub, label: sub }))}
-      onChange={(selectedOption) => {
-        console.log(selectedOption?.value); // Log selectedOption for debugging
-        const updatedSubjects = [...formValues.subjectsTaught];  // Make a copy of the array
-        updatedSubjects[index] = selectedOption ? selectedOption.value : "";  // Ensure only string value is stored
 
-        setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
-      }}
-      placeholder="Select or create a subject"
-    />
-    <button
-      type="button"
-      onClick={() => removeSubject(index)}  // Implement the removeSubject function
-      className="bg-red-500 text-white px-1 py-1 rounded-md mt-2"
-    >
-      Remove
-    </button>
-  </div>
-))}
+              {formValues.subjectsTaught.map((subject, index) => (
+                <div key={index} className="subjectsTaught-field-group">
+                  <label
+                    htmlFor={`subjectsTaught-${index}`}
+                    className="block text-l font-medium text-gray-900"
+                  >
+                    Subject Taught
+                  </label>
+                  <CreatableSelect
+                    isClearable
+                    value={{ value: subject, label: subject }}
+                    options={subjectsTaught.map((sub) => ({ value: sub, label: sub }))}
+                    onChange={(selectedOption) => {
+                      console.log(selectedOption?.value); // Log selectedOption for debugging
+                      const updatedSubjects = [...formValues.subjectsTaught]; // Make a copy of the array
+                      updatedSubjects[index] = selectedOption ? selectedOption.value : ""; // Ensure only string value is stored
 
+                      setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
+                    }}
+                    placeholder="Select or create a subject"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeSubject(index)} // Implement the removeSubject function
+                    className="bg-red-500 text-white px-1 py-1 rounded-md mt-2"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
 
-
-
-
-
-
-
-
-<button
-  type="button"
-  onClick={addSubject}  // Implement the addSubject function
-  className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
->
-  Click to Add Subjects Taught
-</button>
+              <button
+                type="button"
+                onClick={addSubject} // Implement the addSubject function
+                className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
+              >
+                Click to Add Subjects Taught
+              </button>
 
               {/* Qualifications with dynamic CreatableSelect fields */}
               {formValues.qualifications.map((qualification, index) => (
@@ -913,9 +920,9 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
               <button
                 type="button"
                 onClick={addQualification}
-                className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
+                className="bg-green-700 text-white px-1 py-1 rounded-md mt-4"
               >
-               Click to Add Qualification
+                Click to Add Qualifications
               </button>
               {/* PFA Number  & PFA */}
               <div>
@@ -925,7 +932,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 <CreatableSelect
                   name="pfa"
                   id="pfa"
-                  className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="block w-full text-l border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Select Pension Fund Administrator"
                   isSearchable
                   isClearable
@@ -943,7 +950,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   id="pensionNumber"
                   name="pensionNumber"
                   placeholder="Enter PFA Number"
-                  className="input-field"
+                  className="block w-full  text-l border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   value={formValues.pensionNumber}
                   onChange={handleInputChange}
                   required
@@ -962,7 +969,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   id="residentialAddress"
                   name="residentialAddress"
                   placeholder="Enter Residential Address"
-                  className="input-field"
+                  className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   value={formValues.residentialAddress}
                   onChange={handleInputChange}
                   required
@@ -970,20 +977,16 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
               </div>
 
               <div>
-                <label
-                  htmlFor="nameOfNextOfKin"
-                  className="block text-l font-medium text-gray-900"
-                >
+                <label htmlFor="nameOfNextOfKin" className="block text-l font-medium text-gray-900">
                   Name of Next of Kin
                 </label>
                 <input
                   id="nameOfNextOfKin"
                   name="nameOfNextOfKin"
                   placeholder="Enter Name of Next of Kin"
-                  className="input-field"
+                  className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   value={formValues.nameOfNextOfKin}
                   onChange={handleInputChange}
-                
                 />
               </div>
               <div>
@@ -997,11 +1000,10 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   id="nextOfKinAddress"
                   name="nextOfKinAddress"
                   placeholder="Enter Next of Kin Address"
-                  className="input-field"
+                  className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   value={formValues.nextOfKinAddress}
                   onChange={handleInputChange}
                   required
-                
                 />
               </div>
 
@@ -1016,16 +1018,13 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   id="nextOfKinPhoneNumber"
                   name="nextOfKinPhoneNumber"
                   placeholder="Enter Next of Kin Phone Number"
-                  className="input-field"
+                  className="block w-full text-lg border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   value={formValues.nextOfKinPhoneNumber}
                   onChange={handleInputChange}
                   type="number"
                   required
-                
                 />
               </div>
-
-  
             </div>
 
             {/* Submit Button */}

@@ -83,7 +83,7 @@ export const ProfileUpdateViewContainer: FC = () => {
         navigate(ABOUT_ME, { state: { user: updatedUser} });
        
       
-      }, 5000)
+      }, 3000)
      
     }
   };

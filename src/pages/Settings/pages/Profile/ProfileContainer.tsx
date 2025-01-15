@@ -72,7 +72,7 @@ export const ProfileContainer = () => {
         return console.log(postingLetter);
       })
       .catch((err) => {
-        toast.error(err)
+        // toast.error(err)
         console.log(err);
       });
   }, [dispatch]);

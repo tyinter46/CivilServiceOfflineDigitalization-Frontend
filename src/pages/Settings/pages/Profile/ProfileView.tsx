@@ -203,11 +203,12 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
               <span className="text-lg">{userDetails?.cadre || "-"}</span>
             </div>
           </div>
-          <div className="flex justify-end">
+          <Link to={UPDATE_PROFILE}> <div className="w-full h-full text-xl bg-yellow-600 text-center justify-end">
            
-             <Link to={UPDATE_PROFILE}>{loading ? <Loader /> : "Edit"}</Link> 
+             {loading ? <Loader /> : "Edit"} 
           
           </div>
+          </Link>
         </div>
       )}
    
