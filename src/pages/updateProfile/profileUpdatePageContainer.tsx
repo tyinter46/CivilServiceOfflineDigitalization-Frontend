@@ -25,6 +25,7 @@ export const ProfileUpdateViewContainer: FC = () => {
   const [userSaved, setUserSaved] = useState<any>(user);
 
   useEffect(() => {
+    setLoading(true)
     toast.success(result.data?.MESSAGE);
     console.log(result.data?.MESSAGE)
     toast.error(result.isError && result.data?.MESSAGE);
@@ -78,6 +79,7 @@ export const ProfileUpdateViewContainer: FC = () => {
      console.log(updatedUser)
   if (error) toast.error(error)
     else {
+ 
       setTimeout(()=> {
         // window.location.href = ABOUT_ME
         navigate(ABOUT_ME, { state: { user: updatedUser} });

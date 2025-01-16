@@ -126,8 +126,8 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
                 <span className="text-lg">{userDetails.dateOfFirstAppointment}</span>
               </div>
               <div className="p-2 flex-1">
-                <div className="text-md font-semibold text-yellow-500">Phone Number</div>
-                <span className="text-lg">{userDetails?.phoneNumber || "-"}</span>
+                <div className="text-md font-semibold text-yellow-500">Grade Level</div>
+                <span className="text-lg">{userDetails?.gradeLevel || "-"}</span>
               </div>
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">OG Number</div>
@@ -136,26 +136,47 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
             </div>
 
             </div>
-          <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6">
+            <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6">
             <div className="flex flex-col sm:flex-row">
-              <div className="p-2 flex-1">
-                <div className="text-md font-semibold text-yellow-500">Address</div>
-                <span className="text-lg">{userDetails?.residentialAddress || "-"}</span>
-              </div>
-             
             
+            <div className="p-2 flex-1">
+              <div className="text-md font-semibold text-yellow-500">File Number</div>
+              <span className="text-lg">{userDetails?.tscFileNumber || "-"}</span>
+            </div>
+            <div className="p-2 flex-1">
+              <div className="text-md font-semibold text-yellow-500">Staff Type</div>
+              <span className="text-lg">{userDetails?.staffType || "-"}</span>
+            </div>
+            <div className="p-2 flex-1">
+              <div className="text-md font-semibold text-yellow-500">Cadre</div>
+              <span className="text-lg">{userDetails?.cadre || "-"}</span>
+            </div>
             </div>
             
+
+          </div>
+
+          <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6">
+            
+            
             <div className="flex flex-col sm:flex-row">
-             
+            <div className="p-2 flex-1">
+                <div className="text-md font-semibold text-yellow-500">Phone Number</div>
+                <span className="text-lg">{userDetails?.phoneNumber || "-"}</span>
+              </div>
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">Nationality</div>
                 <span className="text-lg">{userDetails?.nationality || "-"}</span>
               </div>
           
               <div className="p-2 flex-1">
-                <div className="text-md font-semibold text-yellow-500">State</div>
+                <div className="text-md font-semibold text-yellow-500">State of Origin </div>
                 <span className="text-lg">{userDetails?.stateOfOrigin || "-"}</span>
+              </div>
+
+              <div className="p-2 flex-1">
+                <div className="text-md font-semibold text-yellow-500">Local Government ogf Origin</div>
+                <span className="text-lg">{userDetails?.lgOfOrigin || "-"}</span>
               </div>
             
             </div>
@@ -185,24 +206,19 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
           
           </div>
 
-
+         
           <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6 flex flex-col sm:flex-row">
             
             <div className="p-2 flex-1">
               <div className="text-md font-semibold text-yellow-500">Email Address</div>
               <span className="text-lg">{userDetails?.email || "-"}</span>
             </div>
-          </div>
-          <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6 flex flex-col sm:flex-row">
             <div className="p-2 flex-1">
-              <div className="text-md font-semibold text-yellow-500">File Number</div>
-              <span className="text-lg">{userDetails?.tscFileNumber || "-"}</span>
-            </div>
-            <div className="p-2 flex-1">
-              <div className="text-md font-semibold text-yellow-500">Cadre</div>
-              <span className="text-lg">{userDetails?.cadre || "-"}</span>
-            </div>
+                <div className="text-md font-semibold text-yellow-500">Address</div>
+                <span className="text-lg">{userDetails?.residentialAddress || "-"}</span>
+              </div>
           </div>
+         
           <Link to={UPDATE_PROFILE}> <div className="w-full h-full text-xl bg-yellow-600 text-center justify-end">
            
              {loading ? <Loader /> : "Edit"} 
