@@ -96,7 +96,7 @@ export const ProfileContainer = () => {
     letters: postingLetter?.letters?.postingLetter ?? userSaved?.user?.letters?.postingLetter,
     tscFileNumber: updatedUser?.tscFileNumber ?? userSaved?.user?.tscFileNumber,
     schoolOfPresentPosting:updatedUser?.schoolOfPresentPosting?.nameOfSchool ?? userSaved?.user?.schoolOfPresentPosting?.nameOfSchool,
-    schoolOfPreviousPosting:updatedUser?.schoolOfPreviousPosting?.nameOfSchool ?? userSaved?.user?.schoolOfPreviousPosting.nameOfSchool,
+    schoolOfPreviousPosting:updatedUser?.schoolOfPreviousPosting?.nameOfSchool ?? userSaved?.user?.schoolOfPreviousPosting?.nameOfSchool,
     residentialAddress: updatedUser?.residentialAddress ?? userSaved?.user?.residentialAddress,
     zone: updatedUser?.zone ?? userSaved?.user?.zone ,
     division: updatedUser?.division ?? userSaved?.user?.division,

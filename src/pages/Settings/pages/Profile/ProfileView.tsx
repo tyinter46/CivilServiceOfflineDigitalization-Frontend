@@ -211,30 +211,30 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
               <div className="text-md font-semibold text-yellow-500 mb-4">School Details</div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {userDetails?.qualifications?.length > 0 ? (
-                  userDetails.qualifications.map((schoolDetail, index) => (
+                  userDetails?.qualifications?.map((schoolDetail, index) => (
                     <div
                       key={index}
                       className="p-4 bg-green-900 rounded-md shadow-sm border border-yellow-500"
                     >
                       <div className="text-sm text-white-400">
                         <span className="font-semibold text-yellow-400">School Name:</span>{" "}
-                        {schoolDetail.schoolName || "-"}
+                        {schoolDetail?.schoolName || "-"}
                       </div>
                       <div className="text-sm text-white-400">
                         <span className="font-semibold font-semibold text-yellow-400">Specialization:</span>{" "}
-                        {schoolDetail.specialization || "-"}
+                        {schoolDetail?.specialization || "-"}
                       </div>
                       <div className="text-sm text-white-400">
                         <span className="font-semibold font-semibold text-yellow-400">Degree Type:</span>{" "}
-                        {schoolDetail.degreeType || "-"}
+                        {schoolDetail?.degreeType || "-"}
                       </div>
                       <div className="text-sm text-white-400">
                         <span className="font-semibold font-semibold text-yellow-400">Start Year:</span>{" "}
-                        {schoolDetail.startYear || "-"}
+                        {schoolDetail?.startYear || "-"}
                       </div>
                       <div className="text-sm text-white-400">
                         <span className="font-semibold font-semibold text-yellow-400">End Year:</span>{" "}
-                        {schoolDetail.endYear || "-"}
+                        {schoolDetail?.endYear || "-"}
                       </div>
                     </div>
                   ))
