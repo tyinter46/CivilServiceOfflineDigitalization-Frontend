@@ -194,6 +194,30 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
             </div>
           </div>
 
+          <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6">
+          <div className="p-2 flex-1">
+              <div className="text-md font-semibold text-yellow-500 mb-4">Subjects Assigned</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {userDetails?.subjectsTaught?.length > 0 ? (
+                  userDetails?.subjectsTaught?.map((subject, index) => (
+                    <div
+                      key={index}
+                      className="p-4 bg-green-900 rounded-md shadow-sm border border-yellow-500"
+                    >
+                      <div className="text-sm text-white-400">
+                        <span className="font-semibold text-yellow-400">Subject</span>{" "}
+                        {subject || "-"}
+                      </div>
+                      
+                    </div>
+                  ))
+                ) : (
+                  <span className="text-yellow-300">No school records available</span>
+                )}
+              </div>
+            </div>
+          </div>
+
           <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6 flex flex-col sm:flex-row">
             <div className="p-2 flex-1">
               <div className="text-md font-semibold text-yellow-500">Email Address</div>
