@@ -395,6 +395,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   
       if (formValues.subjectsTaught.length === 0) {
         toast.error("Kindly fill subject assigned field");
+        setLoading(false)
         // setLoading(false)
         return;
       }
@@ -402,6 +403,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
       if (formValues.qualifications.length === 0) {
         toast.error("Kindly fill qualifications field");
         // setLoading(false)
+        setLoading(false)
 
         return;
       }
