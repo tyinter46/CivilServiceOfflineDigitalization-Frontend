@@ -2,8 +2,8 @@
 import { Input, Loader, Navbar } from "components";
 import { SvgTesMessageSquareEdit, TesCheckedboxMarkedCircle } from "components/icons";
  import { user } from "assets/images";
-// import { Link } from "react-router-dom";
-// import { UPDATE_PROFILE } from "routes/CONSTANTS";
+import { Link } from "react-router-dom";
+import { UPDATE_PROFILE } from "routes/CONSTANTS";
 import React from "react";
 
 import { UserDetails } from "types";
@@ -272,12 +272,12 @@ function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
 
           <div className="relative">
   <div className="flex justify-end">
-    {/* <Link
+    <Link
       to={UPDATE_PROFILE}
       className="w-20 bg-yellow-500 text-white font-semibold text-center py-2 px-4 rounded-md shadow-md hover:bg-yellow-600 transition-all duration-200"
-    > */}
+    >
       {loading ? <Loader /> : "Edit"}
-    {/* </Link> */}
+    </Link>
   </div>
 </div>
 
