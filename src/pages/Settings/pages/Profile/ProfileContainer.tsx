@@ -32,7 +32,7 @@ export const ProfileContainer = () => {
   console.log(updatedUser)
 
   const [postingLetter, setPosttingLetter] = useState<null | string | any>("");
-  
+  const [imageUrl, setImageUrl] = useState<null | string | any>("");
 
 
   // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,6 +162,7 @@ export const ProfileContainer = () => {
           console.log('Upload successful:', response.data);
           toast.success('Upload successful')
           alert('Picture uploaded successfully!');
+          setImageUrl(response.data)
           // Optionally update the image URL in your UI or state
         }
       } catch (error) {
@@ -177,7 +178,7 @@ export const ProfileContainer = () => {
         loading={false}
       
         userDetails={userDetails}
-        image={"imageUrl"}
+        image={imageUrl}
         pictureUpload={handleFileChange}
       ></ProfileView>
     </>

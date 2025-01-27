@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 import { Input, Loader, Navbar } from "components";
 import { SvgTesMessageSquareEdit, TesCheckedboxMarkedCircle } from "components/icons";
-import { user } from "assets/images";
+ import { user } from "assets/images";
 // import { Link } from "react-router-dom";
 // import { UPDATE_PROFILE } from "routes/CONSTANTS";
 import React from "react";
@@ -28,7 +28,7 @@ const validationSchema = Yup.object().shape({
   file: Yup.mixed().required("File is required")
 });
 
-function ProfileView({ loading, userDetails, pictureUpload }: Props) {
+function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
   const postingLetterUrl = userDetails?.letters;
 
   console.log(postingLetterUrl);
@@ -57,11 +57,12 @@ function ProfileView({ loading, userDetails, pictureUpload }: Props) {
             enableReinitialize
             validationSchema={validationSchema}
           >
+            {/* "http://res.cloudinary.com/dhkhxaxca/image/upload/v1737545792/fewte31ad6al2pnjq15v.png"  */}
             <div className="relative flex justify-center mt-10 overflow-hidden">
               <div className="relative flex items-center flex-col mb-6 w-32 h-32">
                 <div className="relative shadow rounded-full w-full h-full">
                   <img
-                    src={user}
+                    src={image || user}
                     alt="Profile"
                     className="shadow rounded-full w-full h-full border-2 border-yellow-500"
                   />

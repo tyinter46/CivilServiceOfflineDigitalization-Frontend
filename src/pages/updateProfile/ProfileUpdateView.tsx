@@ -4,6 +4,7 @@ import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { useAppSelector } from "hooks";
+// import LogoLoader from "../../components/widgets/loader/Loader";
 
 // import LogoLoader from "../../components/widgets/loader/LogoLoader";
 // import { zones, subjectsTaught} from "./DropDownOptions";
@@ -437,7 +438,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
       setErrors(errorMessages);
     }
   };
-  
+  // if (loading) return <LogoLoader />;
   return (
     <>
       <Navbar />

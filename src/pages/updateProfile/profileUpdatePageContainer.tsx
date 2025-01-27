@@ -5,12 +5,13 @@ import { ABOUT_ME } from "routes/CONSTANTS";
 import { useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
-import LogoLoader from "../../components/widgets/loader/Loader";
+
 import ProfileUpdatePage from "./ProfileUpdateView";
 import { useUpdateUserProfileMutation } from "../../services/users.service";
 import { fetchUser } from "../../redux/slices/auth.slice";
 // import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch,  } from "hooks";
+import LogoLoader from "../../components/widgets/loader/LogoLoader";
 
 export const ProfileUpdateViewContainer: FC = () => {
   const [schools, setSchools] = useState<ISchools[]>([]);
@@ -25,7 +26,7 @@ export const ProfileUpdateViewContainer: FC = () => {
   const [userSaved, setUserSaved] = useState<any>(user);
 
   useEffect(() => {
-    setLoading(true)
+    
     toast.success(result.data?.MESSAGE);
     console.log(result.data?.MESSAGE)
     toast.error(result.isError && result.data?.MESSAGE);
@@ -49,7 +50,9 @@ export const ProfileUpdateViewContainer: FC = () => {
   }, [dispatch]);
 
   const loadSchools = async () => {
+    
     try {
+      setLoading(true)
       const fetchedSchools = await fetchSchools();
       setSchools(fetchedSchools);
     } catch (error) {
@@ -64,13 +67,7 @@ export const ProfileUpdateViewContainer: FC = () => {
     void loadSchools();
   }, []); 
 
-  if (loading) {
-    return (
-      <div>
-        <LogoLoader />
-      </div>
-    );
-  }
+
   const onSubmit = async (details: Settings) => {
     console.log(details)
     console.log(user.user._id)
@@ -92,6 +89,6 @@ export const ProfileUpdateViewContainer: FC = () => {
 
   if (error) return <div>{error}</div>;
 
-  return <ProfileUpdatePage onSubmit={onSubmit} userDetails = {user} schools = {schools} />;
+  return loading ? <LogoLoader /> : <ProfileUpdatePage onSubmit={onSubmit} userDetails = {user} schools = {schools} />
   // return <ProfileUpdatePage schools={schools} create={create} />;
 };
