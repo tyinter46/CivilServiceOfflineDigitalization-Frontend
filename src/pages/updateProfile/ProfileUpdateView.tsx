@@ -279,6 +279,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   // Schema validation using Yup
   const ProfileViewSchema = Yup.object().shape({
     tscFileNumber: Yup.string()
+    .matches(/^TSC\/[NHG]\/\d{4,5}$/, "Invalid TSC File Number format. Expected format: TSC/N/12345, TSC/H/12345, or TSC/G/12345")
       .min(8, "tscFileNumber Too Short")
       .max(16, "File Number Too Long!")
       .required("Tsc File Number Required"),
@@ -421,10 +422,12 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
         // Loop through all validation errors
         validationErrors.inner.forEach((error: any) => {
           toast.error(error.message); // Show each error message in a toast
+          setLoading(false)
         });
       } else {
         // Handle single validation error
         toast.error(validationErrors.message || "Validation failed");
+        setLoading(false)
       }
   
       // Collect errors to display them in the UI
@@ -463,9 +466,10 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                     errors.tscFileNumber ? "border-red-500" : ""
                   }`}
                 />
-                {errors.tscFileNumber && (
+                {errors.tscFileNumber  && (
                   <span className="text-red-500 text-sm">{errors.tscFileNumber}</span>
-                )}
+                )
+                }
               </div>
 
               {/* Teaching or Non Teaching */}
