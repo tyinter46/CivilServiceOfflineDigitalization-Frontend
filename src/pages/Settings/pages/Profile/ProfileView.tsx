@@ -233,7 +233,7 @@ function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
           <div className="p-4 bg-green-800 border-white border-2 rounded-md shadow-md mb-6 flex flex-col sm:flex-row">
             {/* Email Address Section */}
             <div className="p-2 flex-1">
-              <div className="text-md font-semibold text-yellow-500 mb-4">School Details</div>
+              <div className="text-md font-semibold text-yellow-500 mb-4">All Schools Attended Details</div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {userDetails?.qualifications?.length > 0 ? (
                   userDetails?.qualifications?.map((schoolDetail, index) => (
@@ -242,7 +242,7 @@ function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
                       className="p-4 bg-green-900 rounded-md shadow-sm border border-yellow-500"
                     >
                       <div className="text-sm text-white-400">
-                        <span className="font-semibold text-yellow-400">School Name:</span>{" "}
+                        <span className="font-semibold text-yellow-400">Institution Attended:</span>{" "}
                         {schoolDetail?.schoolName || "-"}
                       </div>
                       <div className="text-sm text-white-400">

@@ -555,6 +555,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                 <Calender
                   selectedDate={selectedDateOfLastPromotion}
                   onDateChange={handleDateofLastPromotionChange}
+                  
                 />
               </div>
 
