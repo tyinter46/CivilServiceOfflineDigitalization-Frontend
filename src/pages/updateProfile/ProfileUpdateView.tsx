@@ -279,7 +279,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   // Schema validation using Yup
   const ProfileViewSchema = Yup.object().shape({
     tscFileNumber: Yup.string()
-    .matches(/^TSC\/[NHG]\/\d{4,5}$/, "Invalid TSC File Number format. Expected format: TSC/N/12345, TSC/H/12345, or TSC/G/12345")
+    .matches(/^TSC\/(NTS|[NHG])\/\d{4,5}$/, "Invalid TSC File Number format. Expected formats: TSC/NTS/1234, TSC/N/1234, TSC/G/1234, or TSC/H/1234")
       .min(8, "tscFileNumber Too Short")
       .max(16, "File Number Too Long!")
       .required("Tsc File Number Required"),
