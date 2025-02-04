@@ -838,7 +838,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                     htmlFor={`qualifications-${index}-degreeType`}
                     className="block text-l font-medium text-gray-900 mt-2"
                   >
-                    Degree Type
+                    Qualification
                   </label>
                   <CreatableSelect
                     isClearable

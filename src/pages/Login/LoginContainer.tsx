@@ -20,13 +20,14 @@ export const LoginContainer = () => {
         console.log("SUCCESSFULLY LOGGED IN");
         console.log(res);
         setTimeout(() => {
-          toast.success(`Welcome ${res?.user?.user._doc.staffName.firstName}`);
+          toast.success(`Welcome `);
+          // ${res?.user?.user?._doc?.staffName?.firstName}
         }, 5000);
         navigate(ABOUT_ME);
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
         setTimeout(() => {
           toast.error(err.message);
         }, 5000);
@@ -67,7 +68,7 @@ export const LoginContainer = () => {
         .then((res) => {
           console.log(res);
           setTimeout(() => {
-            toast.success(`Welcome ${res.firstName}`);
+            toast.success(`Welcome ${res?.firstName}`);
           }, 5000);
           window.location.reload();
           getAuthenticatedUser()

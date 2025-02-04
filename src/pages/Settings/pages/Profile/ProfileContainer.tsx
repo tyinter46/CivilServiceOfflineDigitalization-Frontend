@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 
 
 
+
 // import {toast} from "react-toastify"
 // import FormData from "form-data"
 // import axios from "axios";
@@ -111,6 +112,9 @@ export const ProfileContainer = () => {
       // dateOfFirstAppointment?: Date;
     // dateOfLastPromotion?: Date;
     // dateOfBirth?: Date;
+    nextOfKinAddress: updatedUser?.nextOfKinAddress ?? userSaved?.user?.nextOfKinAddress,
+    nameOfNextOfKin: updatedUser?.nameOfNextOfKin ?? userSaved?.user?.nameOfNextOfKin,
+    nextOfKinPhoneNumber: updatedUser?.nextOfKinPhoneNumber ?? userSaved?.user?.nextOfKinPhoneNumber, 
     gradeLevel: updatedUser?.gradeLevel ?? userSaved?.user?.gradeLevel,
     pfa: updatedUser?.pfa ?? userSaved?.user?.pfa,
     pensionNumber: updatedUser?.pensionNumber ?? userSaved?.user?.pensionNumber,

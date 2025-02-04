@@ -109,13 +109,13 @@ function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
             <div className="flex flex-col md:flex-row justify-between gap-4">
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">Full Name</div>
-                <span className="text-lg">{userDetails.staffName}</span>
+                <span className="text-lg">{userDetails?.staffName}</span>
               </div>
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">
                   Date of First Appointment
                 </div>
-                <span className="text-lg">{userDetails.dateOfFirstAppointment}</span>
+                <span className="text-lg">{userDetails?.dateOfFirstAppointment}</span>
               </div>
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">Grade Level</div>
@@ -267,6 +267,21 @@ function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
                   <span className="text-yellow-300">No school records available</span>
                 )}
               </div>
+            </div>
+          </div>
+
+          <div className="p-4 bg-green-800  border-color-white border-2  rounded-md shadow-md mb-6 flex flex-col sm:flex-row">
+            <div className="p-2 flex-1">
+              <div className="text-md font-semibold text-yellow-500"> Next of Kin Name</div>
+              <span className="text-lg">{userDetails?.nameOfNextOfKin ?? "-"}</span>
+            </div>
+            <div className="p-2 flex-1">
+              <div className="text-md font-semibold text-yellow-500">Next of Kin Address</div>
+              <span className="text-lg">{userDetails?.nextOfKinAddress ?? "-"}</span>
+            </div>
+            <div className="p-2 flex-1">
+              <div className="text-md font-semibold text-yellow-500">Next of Kin Phone Number</div>
+              <span className="text-lg">{userDetails?.nextOfKinPhoneNumber ?? "-"}</span>
             </div>
           </div>
 

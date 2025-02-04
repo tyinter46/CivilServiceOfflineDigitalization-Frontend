@@ -69,9 +69,9 @@ export const login = createAsyncThunk(
 
       console.log(DATA);
       return {
-        userId: DATA.user.id,
-        ogNumber: DATA.user.ogNumber,
-        firstName: DATA.user.staffName.firstName
+        userId: DATA?.user?.id,
+        ogNumber: DATA?.user?.ogNumber,
+        firstName: DATA?.user?.staffName?.firstName
       };
     } catch (error) {
       const message = formatErrorResponse(error);
