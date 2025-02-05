@@ -71,8 +71,8 @@ export const ProfileUpdateViewContainer: FC = () => {
   const onSubmit = async (details: Settings) => {
     console.log(details)
     console.log(user.user._id)
-     void updateUser({ id: user.user._id, details });
-     const updatedUser = await updateUser({ id: user.user._id, details });
+     void updateUser({ id: user.user?._id, details });
+     const updatedUser = await updateUser({ id: user.user?._id, details });
      console.log(updatedUser)
   if (error) toast.error(error)
     else {
