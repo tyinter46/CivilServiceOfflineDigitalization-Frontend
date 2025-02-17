@@ -780,9 +780,9 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                     value={{ value: subject, label: subject }}
                     options={subjectsTaught.map((sub) => ({ value: sub, label: sub }))}
                     onChange={(selectedOption) => {
-                      console.log(selectedOption?.value); // Log selectedOption for debugging
-                      const updatedSubjects = [...formValues.subjectsTaught]; // Make a copy of the array
-                      updatedSubjects[index] = selectedOption ? selectedOption.value : ""; // Ensure only string value is stored
+                      console.log(selectedOption?.value); 
+                      const updatedSubjects = [...formValues.subjectsTaught]; 
+                      updatedSubjects[index] = selectedOption ? selectedOption.value : "";
 
                       setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
                     }}

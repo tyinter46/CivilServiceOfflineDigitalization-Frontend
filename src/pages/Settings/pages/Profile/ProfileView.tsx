@@ -213,7 +213,7 @@ function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
                     </div>
                   ))
                 ) : (
-                  <span className="text-yellow-300">No school records available</span>
+                  <span className="text-yellow-300">No subject assigned available</span>
                 )}
               </div>
             </div>
