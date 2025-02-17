@@ -112,10 +112,10 @@ function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
                 <span className="text-lg">{userDetails?.staffName}</span>
               </div>
               <div className="p-2 flex-1">
-                <div className="text-md font-semibold text-yellow-500">
+                {/* <div className="text-md font-semibold text-yellow-500">
                   Date of First Appointment
-                </div>
-                <span className="text-lg">{userDetails?.dateOfFirstAppointment}</span>
+                </div> */}
+                {/* <span className="text-lg">{userDetails?.dateOfFirstAppointment}</span> */}
               </div>
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">Grade Level</div>
