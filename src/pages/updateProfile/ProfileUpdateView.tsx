@@ -28,6 +28,10 @@ import {
   egbaDivisionZones,
   driverStorekeeperClerical,
   secreteriatAssistant,
+  assistantChiefSecretariat,
+  chiefSecretariat,
+  assistantChiefSecretariatGradeLevel,
+  chiefSecretariatGradeLevel,
   messengerAndWatchman,
   driverStorekeeperClericalGradeLevel,
   executiveOfficer,
@@ -122,6 +126,16 @@ const secretariatAssistantGradeLevelOptions = secretariatAssistantGradeLevel.map
   value: option ?? "",
   label: `${option}`
 }));
+
+const assistantChiefSecretariatGradeLevelOptions = assistantChiefSecretariatGradeLevel.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}))
+
+const chiefSecretariatGradeLevelOptions = chiefSecretariatGradeLevel.map((option) => ({
+  value: option ?? "",
+  label: `${option}`
+}))
 
 const driverStorekeeperClericalGradeLevelOptions = driverStorekeeperClericalGradeLevel.map(
   (option) => ({
@@ -533,6 +547,10 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                         ? nonProfessionalGradeLevelOptions
                         : secreteriatAssistant.includes(formValues.cadre)
                           ? secretariatAssistantGradeLevelOptions
+                          : assistantChiefSecretariat.includes(formValues.cadre) 
+                          ? assistantChiefSecretariatGradeLevelOptions
+                          : chiefSecretariat.includes(formValues.cadre)
+                          ? chiefSecretariatGradeLevelOptions
                           : executiveOfficer.includes(formValues.cadre)
                             ? nonProfessionalGradeLevelOptions
                             : messengerAndWatchman.includes(formValues.cadre)

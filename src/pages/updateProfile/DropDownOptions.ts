@@ -1422,6 +1422,33 @@ export const secretariatAssistantGradeLevel = [
   "9"
 ]
 
+export const assistantChiefSecretariatGradeLevel = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10"
+]
+
+export const chiefSecretariatGradeLevel = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "12"
+]
+
 export const driverStorekeeperClericalGradeLevel = [
   "1",
   "2",
@@ -1557,9 +1584,9 @@ export const secreteriatAssistant = [
   "Senior Secretarial Assistant II",
   "Senior Secretarial Assistant I",
   "Principal Secretariat Assistant",
-  "Assistant Chief Secretariat Assistant",
-  "Chief Secretariat Assistant",
-]
+ ]
+ export const chiefSecretariat = ["Chief Secretariat Assistant"]
+  export const assistantChiefSecretariat = ["Assistant Chief Secretariat Assistant"]
 
 export const driverStorekeeperClerical = [
   "Motor Driver/Mechanic",
