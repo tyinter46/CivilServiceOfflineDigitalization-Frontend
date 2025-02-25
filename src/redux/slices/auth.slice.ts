@@ -36,7 +36,7 @@ export const signup = createAsyncThunk(
       });
       toast.success(MESSAGE);
 
-      console.log(DATA);
+      // console.log(DATA);
 
       return { userId: DATA.id, name: DATA.user?.staffName?.firstName };
     } catch (error) {
@@ -67,7 +67,7 @@ export const login = createAsyncThunk(
     try {
       const { DATA } = await AuthService.signin({ ogNumber, password });
 
-      console.log(DATA);
+      // console.log(DATA);
       return {
         userId: DATA?.user?.id,
         ogNumber: DATA?.user?.ogNumber,
@@ -98,7 +98,7 @@ export const confirmAccount = createAsyncThunk(
     try {
       const { MESSAGE, DATA } = await AuthService.confirmAccount(code, ogNumber);
       toast.success(MESSAGE);
-      console.log(DATA);
+      // console.log(DATA);
       return { userId: DATA.id, ogNumber: DATA.ogNumber, firstName: DATA.staffName.firstName };
     } catch (error) {
       const message = formatErrorResponse(error);
@@ -147,7 +147,7 @@ export const fetchUser = createAsyncThunk("auth/fethUser", async (id: string, th
   try {
     const response = await UserService.getUser(id);
     // const fetchedData = response
-    console.log(response);
+    // console.log(response);
     const user = response;
 
     if (!response) {

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 export const fetchSchools = async () => {
   try {
     const response = await axios.get(`${env.API_BASE_URL}${`/schools`}`);
-    console.log(response);
+    // console.log(response);
     const fetchedData = response.data.DATA.programs;
     const schools = fetchedData;
     console.log(fetchedData);

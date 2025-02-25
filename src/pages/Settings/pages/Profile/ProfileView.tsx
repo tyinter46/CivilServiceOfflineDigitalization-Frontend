@@ -31,7 +31,7 @@ const validationSchema = Yup.object().shape({
 function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
   const postingLetterUrl = userDetails?.letters;
 
-  console.log(postingLetterUrl);
+  // console.log(postingLetterUrl);
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />

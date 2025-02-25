@@ -22,13 +22,13 @@ export const ProfileUpdateViewContainer: FC = () => {
   const dispatch = useAppDispatch();
   // const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
-  console.log(user)
+  // console.log(user)
   const [userSaved, setUserSaved] = useState<any>(user);
 
   useEffect(() => {
     
     toast.success(result.data?.MESSAGE);
-    console.log(result.data?.MESSAGE)
+    // console.log(result.data?.MESSAGE)
     toast.error(result.isError && result.data?.MESSAGE);
 
     // setLoading(result.isLoading);
@@ -38,9 +38,11 @@ export const ProfileUpdateViewContainer: FC = () => {
     dispatch(fetchUser(user?.user?._id))
       .unwrap()
       .then((res: any) => {
-         console.log(res);
+        //  console.log(res);
         // console.log(user.user._doc._id)
-        console.log(userSaved?.user?._id)
+        const response = res
+        response + "123"
+         console.log(userSaved?.user?._id+ "1fgrdfg")
         setUserSaved(user);
       })
       .catch((err: any) => {
@@ -69,8 +71,8 @@ export const ProfileUpdateViewContainer: FC = () => {
 
 
   const onSubmit = async (details: Settings) => {
-    console.log(details)
-    console.log(user.user._id)
+    // console.log(details)
+    // console.log(user.user._id)
      void updateUser({ id: user.user?._id, details });
      const updatedUser = await updateUser({ id: user.user?._id, details });
      console.log(updatedUser)

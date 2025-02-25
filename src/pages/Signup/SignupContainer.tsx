@@ -53,7 +53,7 @@ export const SignupContainer = () => {
     }),
 
     onSubmit: (details) => {
-      console.log("is verifying", details);
+      // console.log("is verifying", details);
       void dispatch(setOgNumber(String(details.ogNumber)));
       void dispatch(
         signup({

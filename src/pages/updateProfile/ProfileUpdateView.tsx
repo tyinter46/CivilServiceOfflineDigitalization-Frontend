@@ -162,7 +162,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   const [selectedDateOfLastPromotion, setSelectedDateOfLastPromotion] = useState<Date | null>(null);
   const { user } = useAppSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
-  console.log(user);
+  // console.log(user);
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDateOfPresentPosting(date);
@@ -397,7 +397,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   //   );
   //   setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
   // };
-  console.log(formValues);
+  // console.log(formValues);
   const handleSubmit = async (e: React.FormEvent) => {
    
     e.preventDefault();

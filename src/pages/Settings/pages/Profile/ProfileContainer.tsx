@@ -30,7 +30,7 @@ export const ProfileContainer = () => {
   const dispatch = useAppDispatch();
   const location = useLocation ()
   const updatedUser = location?.state?.user?.data?.DATA
-  console.log(updatedUser)
+  // console.log(updatedUser)
 
   const [postingLetter, setPosttingLetter] = useState<null | string | any>("");
   const [imageUrl, setImageUrl] = useState<null | string | any>("");
@@ -54,7 +54,7 @@ export const ProfileContainer = () => {
     
   }, []);
   const { user } = useAppSelector((state) => state.auth);
-  console.log(user)
+  // console.log(user)
     const [userSaved, setUserSaved] = useState<any>(user);
   useEffect(() => {
     // console.log(getUser('675ff81d3f8a0725f567461e'))
@@ -63,8 +63,8 @@ export const ProfileContainer = () => {
       fetchUser(userSaved.user?._id))
       .unwrap()
       .then((res) => {
-        console.log(res);
-        console.log(userSaved.user?._id)
+        // console.log(res);
+        // console.log(userSaved.user?._id)
         // setUserSaved(res)
        
          setUserSaved(res);
@@ -163,7 +163,7 @@ export const ProfileContainer = () => {
         // });
 
         if (response.data) {
-          console.log('Upload successful:', response.data);
+          // console.log('Upload successful:', response.data);
           toast.success('Upload successful')
           alert('Picture uploaded successfully!');
           setImageUrl(response.data)

@@ -36,7 +36,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(destinationSchoolDetails);
+     console.log(destinationSchoolDetails);
     if (selectedDestinationSchool) {
       const schoolDetails =
       schools.find((school) => school._id === selectedDestinationSchool) ?? null;
@@ -63,7 +63,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
 
 
   const handleSubmit = async () => {
-    console.log(destinationSchoolStaff);
+     console.log(destinationSchoolStaff);
 
     if (!selectedpreviousSchool) {
       toast.error("Please select a previous school.");
@@ -74,7 +74,7 @@ export const PrincipalsAndVicePrincipalsView: React.FC<PostingFormProps> = ({
       return;
     }
     if (!selectedStaleOrNew) {
-      console.log(selectedStaleOrNew)
+      // console.log(selectedStaleOrNew)
       toast.error("Please select Stale or New");
       return;
     }

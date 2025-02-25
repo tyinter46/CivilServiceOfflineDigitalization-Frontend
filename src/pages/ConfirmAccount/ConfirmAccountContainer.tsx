@@ -37,8 +37,8 @@ export const ConfirmAccountContainer = () => {
           }, 5000);
         })
         .catch((error) => {
-          console.log(error.message);
-          console.log(details.ogNumber);
+          // console.log(error.message);
+          // console.log(details.ogNumber);
           setTimeout(() => {
             toast.error(`${error.message}`);
           }, 5000);

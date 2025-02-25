@@ -66,7 +66,7 @@ export const LoginContainer = () => {
       dispatch(login({ ogNumber: details.ogNumber, password: details.password }))
         .unwrap()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setTimeout(() => {
             toast.success(`Welcome ${res?.firstName}`);
           }, 5000);
