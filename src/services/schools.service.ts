@@ -20,6 +20,23 @@ export const fetchSchools = async () => {
   }
 };
 
+export const fetchBasicSchools = async () => {
+  try {
+    const response = await axios.get(`${env.API_BASE_URL}${`/getSchools/basic`}`);
+    console.log(response);
+    const fetchedData = response.data.DATA.programs;
+    const schools = fetchedData;
+    console.log(fetchedData);
+    if (!response) {
+      throw new Error("Network response was not ok");
+    }
+    return schools;
+  } catch (error) {
+    console.error("Error fetching schools:", error);
+    throw error;
+  }
+};
+
 export const fetchUsersFromAparticularSchool = async (id: string) => {
   try {
     const response = await fetch(`${env.API_BASE_URL}${`/schools/users/${id}`}`);

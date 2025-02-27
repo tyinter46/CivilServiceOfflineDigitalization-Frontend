@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import { fetchSchools } from "../../services/schools.service";
+import {  fetchBasicSchools} from "../../services/schools.service";
 import { ISchools, Settings } from "types";
 import { ABOUT_ME } from "routes/CONSTANTS";
 import { useNavigate } from "react-router-dom";
@@ -55,7 +55,9 @@ export const ProfileUpdateViewContainer: FC = () => {
     
     try {
       setLoading(true)
-      const fetchedSchools = await fetchSchools();
+      // const fetchedSchools = await fetchSchools();
+       const fetchedSchools = await fetchBasicSchools();
+
       setSchools(fetchedSchools);
     } catch (error) {
       toast.error("Failed to fetch schools");
