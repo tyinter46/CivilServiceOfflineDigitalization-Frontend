@@ -45,6 +45,7 @@ export const SignupContainer = () => {
         .required("Confirm Password is required")
         .oneOf([Yup.ref('password')], 'Passwords must match'),
       phoneNumber: Yup.string()
+      .matches(/^[1-9]\d*$/, "Phone number cannot start with 0")
         .required("Phone Number is Required")
         .min(18, "Phone Number Length Incomplete"),
       confirmPhoneNumber: Yup.string()
