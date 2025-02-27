@@ -27,7 +27,7 @@ const FormInput = ({ id, label, errors, touched, required, ...rest }: Props) => 
         } w-full`}
       />
 
-      {error && <p className="text-red text-base">{errors}</p>}
+      {error ? <p className="text-red text-base">{errors}</p> : ""}
     </div>
   );
 };

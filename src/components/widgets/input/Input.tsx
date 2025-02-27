@@ -82,7 +82,7 @@ const Input = ({ end, size = "md", className = "", ...props }: Props) => {
         preferredCountries={["ng"]}
         onChange={(_, __, e) => {
           props.onChange(e);
-          // console.log(e.target.value);
+         console.log(e.target.value);
         }}
         countryCodeEditable={false}
         disableDropdown={true}

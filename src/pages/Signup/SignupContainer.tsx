@@ -43,12 +43,16 @@ export const SignupContainer = () => {
         ),
         confirmPassword: Yup.string()
         .required("Confirm Password is required")
+    
         .oneOf([Yup.ref('password')], 'Passwords must match'),
+
       phoneNumber: Yup.string()
-      .matches(/^[1-9]\d*$/, "Phone number cannot start with 0")
-        .required("Phone Number is Required")
+            .required("Phone Number is Required")
+            // .matches(/^[1-9][0-9]*$/, "Phone number should not start with 0")
         .min(18, "Phone Number Length Incomplete"),
+ 
       confirmPhoneNumber: Yup.string()
+      // .matches(/^[1-9][0-9]*$/, "Phone number should not start with 0")
         .oneOf([Yup.ref("phoneNumber")], "Does not match with the phone number")
         .required("Confirm Phone Number is Required")
     }),
