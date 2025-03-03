@@ -38,7 +38,8 @@ import {
   nceCadre,
   secretariatAssistantGradeLevel,
   messengerWatchmanGradeLevel,
-  cleanerGradeLevel
+  cleanerGradeLevel,
+  yewaDivisionZones
 } from "./DropDownOptions";
 
 import { Calender, Navbar, TesCalendar, Loader } from "components";
@@ -108,6 +109,12 @@ const yewaDivisionOptions = ["YEWA"].map((option) => ({
   label: `${option}`
 }));
 
+
+
+// const emptyDivisionOptions = [""].map((option) => ({
+//   value: option ?? "",
+//   label: `${option}`
+// }));
 const CadreOptions = cadre.map((option) => ({
   value: option ?? "",
   label: `${option}`
@@ -182,7 +189,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     schoolOfPresentPosting: user?.user?.schoolOfPresentPosting?.nameOfSchool,
     schoolOfPreviousPosting: user?.user?.schoolOfPreviousPosting?.nameOfSchool,
     zone: user?.user?.zone ,
-    division: user?.user?.division ,
+    division:  "" ,
     nationality: user?.user?.nationality || "",
     stateOfOrigin: user?.user?.stateOfOrigin || "",
     lgOfOrigin: user?.user?.lgOfOrigin || "",
@@ -304,7 +311,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     schoolOfPresentPosting: Yup.string().required("schoolOfPresentPosting Required"),
     schoolOfPreviousPosting: Yup.string().required("schoolOfPreviousPosting Required"),
     zone: Yup.string().min(3, "zone Too short!").required("zone Required"),
-    division: Yup.string().required("Division required"),
+    division: Yup.string().required(" Kindly select the division available"),
     nationality: Yup.string().required("Nationality Required"),
     stateOfOrigin: Yup.string().required("stateOfOrigin Required"),
     lgOfOrigin: Yup.string().required("lgOfOrigin Required"),
@@ -355,6 +362,15 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
     });
   };
 
+  const handleZoneChange = (name: string) => (selectedOption: any) => {
+    setFormValues({
+      ...formValues,
+      [name]: selectedOption ? selectedOption.value : ""
+    });
+
+  };
+
+
   // Handle changes for input fields
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -401,14 +417,32 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   //   );
   //   setFormValues({ ...formValues, subjectsTaught: updatedSubjects });
   // };
-  // console.log(formValues);
+   console.log(formValues);
+  //  const divisionOptions = ["YEWA", "EGBA", "REMO", "IJEBU"].map((option) => ({
+  //   value: option ?? "",
+  //   label: `${option}`
+  // }));
+
+  // {
+  //   formValues.zone === egbaDivisionZones.includes(formValues.zone)
+  //   ? formValues.division = "EGBA"
+  //   :    formValues.zone ===  remoDivisionZones.includes(formValues.zone)
+  //     ?  formValues.division = "REMO"
+  //     : formValues.zone === ijebuDivisionZones.includes(formValues.zone)
+  //       ? formValues.division = "IJEBU"
+  //       :  formValues.zone ===  yewaDivisionOptions.includes(formValues.zone)
+  //      ?  formValues.division = "YEWA"
+  //      :  yewaDivisionOptions
+  // }
   const handleSubmit = async (e: React.FormEvent) => {
    
     e.preventDefault();
     
     console.log(formValues);
-  
+    
+    
     try {
+      
       setLoading(true)
       await ProfileViewSchema.validate(formValues, { abortEarly: true });
       setErrors({});
@@ -419,8 +453,66 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
         // setLoading(false)
         return;
       }
-  
-      if (formValues.qualifications.length === 0) {
+      if (formValues.division === ""){
+        toast.error("Kindly select the available division option");
+        
+   
+        setLoading(false)
+        // setLoading(false)
+        return;
+      }
+  if(formValues.division !== "EGBA" && formValues.zone.includes(egbaDivisionZones)){
+    toast.error("Kindly select the correct division option");
+        
+   
+    setLoading(false)
+    // setLoading(false)
+    return;
+  }
+
+  if(formValues.division !== "YEWA" && formValues.zone.includes(yewaDivisionZones)){
+    toast.error("Kindly select the correct division option");
+        
+   
+    setLoading(false)
+    // setLoading(false)
+    return;
+  }
+  if(formValues.division !== "REMO" && formValues.zone.includes(remoDivisionZones)){
+   console.log(!formValues.zone.includes(remoDivisionZones))
+   toast.error("Kindly select the correct division option");
+        
+   
+   setLoading(false)
+    // setLoading(false)
+    return;
+  }
+
+  if(formValues.division !== "IJEBU" && formValues.zone.includes(ijebuDivisionZones)){
+    toast.error("Kindly select the correct division option");
+        
+   
+    setLoading(false)
+    // setLoading(false)
+    return;
+  }
+    // egbaDivisionZones.includes(formValues.zone)
+    //   ? setFormValues({...formValues,
+    //     division : "EGBA"})
+    //   :     remoDivisionZones.includes(formValues.zone)
+    //     ?  setFormValues({...formValues,
+    //       division : "REMO"})
+    //     :  ijebuDivisionZones.includes(formValues.zone)
+    //       ? setFormValues({...formValues,
+    //         division : "IJEBU"})
+    //       :  yewaDivisionOptions.includes(formValues.zone)
+    //      ?  setFormValues({...formValues,
+    //       division : "YEWA"})
+    //      :  yewaDivisionOptions
+
+
+
+            if (formValues.qualifications.length === 0) {
         toast.error("Kindly fill qualifications field");
         // setLoading(false)
         setLoading(false)
@@ -461,7 +553,10 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   };
   // if (loading) return <LogoLoader />;
   return (
+
+    
     <>
+   
       <Navbar />
       <div className="w-full max-w-4xl mx-auto my-2 bg-blue-100 p-6 rounded-lg shadow-md mt-20 min-h-screen">
         <div className="py-8">
@@ -507,7 +602,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
 
               {/* Gender */}
               <div>
-                <label htmlFor="cadre" className="block text-l font-medium text-gray-900">
+                <label htmlFor="gender" className="block text-l font-medium text-gray-900">
                   Gender
                 </label>
                 <Select
@@ -648,13 +743,19 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   required
                   options={zoneOptions}
                   value={zoneOptions.find((option) => option.value === formValues.zone)}
-                  onChange={handleSelectChange("zone")}
+                  onChange= {handleZoneChange("zone")}
+                  // {handleSelectChange("zone")
+
+                    
+                  // }
                   placeholder="Select or create a zone"
                 />
               </div>
+             
+             
 
               {/* Division using CreatableSelect */}
-              <div>
+               <div>
                 <label htmlFor="division" className="block text-l font-medium text-gray-900">
                   Division
                 </label>
@@ -670,19 +771,34 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                           ? remoDivisionOptions
                           : yewaDivisionOptions
                   }
-                  value={
-                    ijebuDivisionZones.includes(formValues.zone)
-                      ? IjebuDivisionOption
-                      : egbaDivisionZones.includes(formValues.zone)
-                        ? egbaDivisionOption
-                        : remoDivisionZones.includes(formValues.zone)
-                          ? remoDivisionOptions
-                          : yewaDivisionOptions
-                  }
+                   value={
+                    //  divisionOptions.find((option) => option.value === formValues.division)
+                     
+                    
+                      egbaDivisionZones.includes(formValues.zone)
+                      ? egbaDivisionOption
+                      :     remoDivisionZones.includes(formValues.zone)
+                        ?  remoDivisionOptions
+                        : ijebuDivisionZones.includes(formValues.zone)
+                          ? IjebuDivisionOption
+                          :   yewaDivisionOptions.includes(formValues.zone)
+                         ?  yewaDivisionOptions
+                         :  yewaDivisionOptions
+                  
+                    // ijebuDivisionZones.includes(formValues.zone)
+                    //   ? IjebuDivisionOption
+                    //   : egbaDivisionZones.includes(formValues.zone)
+                    //     ? egbaDivisionOption
+                    //     : remoDivisionZones.includes(formValues.zone)
+                    //       ? remoDivisionOptions
+                    //       :  yewaDivisionOptions.includes(formValues.zone)
+                    //      ? yewaDivisionOptions
+                    //      :  yewaDivisionOptions
+                 }
                   onChange={handleSelectChange("division")}
                   placeholder="Select a division"
                 />
-              </div>
+              </div> 
 
               <div>
                 <label htmlFor="nationality" className="block text-l font-medium text-gray-900">
