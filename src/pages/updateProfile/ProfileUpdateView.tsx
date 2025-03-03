@@ -43,6 +43,7 @@ import {
 
 import { Calender, Navbar, TesCalendar, Loader } from "components";
 import { UserDetails, ISchools } from "types";
+
 // import { useAppSelector, useAppDispatch } from "hooks";
 
 // Sample dropdown options
@@ -412,7 +413,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
       await ProfileViewSchema.validate(formValues, { abortEarly: true });
       setErrors({});
   
-      if (formValues.subjectsTaught.length === 0) {
+      if (formValues.staffType === 'TEACHING' && formValues.subjectsTaught.length === 0) {
         toast.error("Kindly fill subject assigned field");
         setLoading(false)
         // setLoading(false)
@@ -787,7 +788,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
               </div>
 
               {/* Subject Taught with dynamic CreatableSelect fields */}
-
+            
               {formValues.subjectsTaught.map((subject, index) => (
                 <div key={index} className="subjectsTaught-field-group">
                   <label
@@ -818,14 +819,15 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   </button>
                 </div>
               ))}
-
-              <button
+  {formValues.staffType === 'TEACHING' ?
+              (<button
                 type="button"
                 onClick={addSubject} // Implement the addSubject function
                 className="bg-indigo-500 text-white px-1 py-1 rounded-md mt-4"
               >
                 Click to Add Subjects Assigned
-              </button>
+              </button>) : <></>
+}
 
               {/* Qualifications with dynamic CreatableSelect fields */}
               {formValues.qualifications.map((qualification, index) => (
