@@ -104,7 +104,7 @@ export const UsersView: React.FC = () => {
     <>
       <Navbar />
       <div className="flex flex-col h-full w-full bg-gray-900 mt-16 gap-2 p-5">
-      <h3 className="text-white"> Total Number of Users : {users.length}</h3>
+      <h4 className="text-white"> Total Number of Users : {users.length}</h4>
         <div className="flex flex-row w-full justify-end items-center color-white gap-1 items-right mb-4">
       
           <Input

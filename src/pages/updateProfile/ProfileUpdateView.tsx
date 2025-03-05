@@ -335,6 +335,13 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
         schoolName: Yup.string().required("schoolName Required")
       })
     ),
+    subjectsTaught: Yup.array()
+    .of(Yup.string().required("Subject is required"))
+    .test("unique", "Subjects Assigned must be unique", (value) => {
+      if (!value) return true; // Allow undefined or empty arrays
+      const uniqueSubjects = new Set(value);
+      return uniqueSubjects.size === value.length;
+    }),
     // dateOfPresentSchoolPosting: Yup.date().max(new Date(), "Cannot be in the future"),
     cadre: Yup.string().required("cadre Required"),
     gradeLevel: Yup.string().when("cadre", {

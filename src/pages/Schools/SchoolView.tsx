@@ -83,9 +83,13 @@ export const SchoolView: React.FC = () => {
     (school) =>
       school.nameOfSchool.toLowerCase().includes(searchTerm.toLowerCase()) ||
       school.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      school.location.toLowerCase().includes(searchTerm.toLowerCase())
+      school.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      school?.listOfStaff?.some(
+        (staff) => staff?.staffName?.firstName?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
   );
 
+  console.log(filteredSchools);
   if (loading) return <LogoLoader />;
   if (error) return <p>{error}</p>;
 
@@ -169,6 +173,7 @@ export const SchoolView: React.FC = () => {
                                 <p>
                                   <strong>Name:</strong> {school?.principal?.staffName?.firstName}
                                 </p>
+
                                 <p>
                                   <strong>Position:</strong> {school.principal?.position}
                                 </p>
@@ -276,6 +281,7 @@ export const SchoolView: React.FC = () => {
                                   <strong>Position:</strong>{" "}
                                   {school.vicePrincipalAcademics?.position}
                                 </p>
+
                                 <p>
                                   <strong>Gender:</strong> {school?.vicePrincipalAcademics?.gender}
                                 </p>
@@ -333,6 +339,13 @@ export const SchoolView: React.FC = () => {
                               </p>
                               <p>
                                 <strong>Position:</strong> {staff?.position}
+                              </p>
+                              <p>
+                                <strong>Subjects Taught:</strong>
+                        
+                           {staff?.subjectsTaught?.map((subject : any, index:any) => 
+                            <div className="flex flex-row" key= {index}><p key= {index} >{subject}</p></div>
+                           )}
                               </p>
                               <p>
                                 <strong>Phone:</strong> {staff?.phoneNumber}
