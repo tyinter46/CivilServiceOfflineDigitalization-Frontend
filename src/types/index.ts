@@ -214,4 +214,14 @@ export interface imageResponse {
   DATA: any;
 }
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ExistingStaffDetails {}
+// export interface ExistingStaffDetails {}
+export interface IExistingStaff {
+  _id?: string;
+  nameOfOfficer: string;
+  gradeLevel: string;
+  ogNum: string;
+  dateOfBirth: Date;
+  dateOfRetirement: Date;
+  dateOfFirstAppointment: Date;
+
+}

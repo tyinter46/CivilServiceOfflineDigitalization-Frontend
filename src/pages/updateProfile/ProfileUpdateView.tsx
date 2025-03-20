@@ -920,7 +920,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   >
                     Subject Assinged 
                   </label>
-                  <Select
+                  <CreatableSelect
                     isClearable
                     value={{ value: subject, label: subject }}
                     options={subjectsTaught.map((sub) => ({ value: sub, label: sub }))}

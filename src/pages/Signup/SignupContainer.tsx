@@ -83,6 +83,7 @@ export const SignupContainer = () => {
           navigate(LOGIN);
         })
         .catch((error: any) => {
+          toast.error(error)
           console.log(error);
           if (
             error ===

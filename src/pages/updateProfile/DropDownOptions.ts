@@ -1151,6 +1151,7 @@ export const subjectsTaught = [
   "Animal Husbandry (Trade Subject)",
   "Data Processing (Trade Subject)",
   "Store-Keeping (Trade Subject)",
+  "Marketing (Trade Subject)",
   "Physics",
   "Literature",
   "Financial Accounting",

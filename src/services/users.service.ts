@@ -4,15 +4,15 @@ import axios from "axios";
 import { GET_USER, UPDATE_USER_PROFILE, USER_PROFILE_TAG } from "./CONSTANTS";
 import fetch from "./utils/FetchInterceptor";
 import { baseUserApi } from "./api";
-import { settingsResponse, Settings } from "types";
+import { settingsResponse, Settings,  } from "types";
 
 export const fetchUsers = async () => {
   try {
     const response = await axios.get(`${env.API_BASE_URL}${`/users`}`);
-    console.log(response);
+    // console.log(response);
     const fetchedData = response.data.DATA.users.users;
     // const users = fetchedData.DATA.users.users;
-    console.log(response);
+    // console.log(response);
     if (!response) {
       throw new Error("Network response was not ok");
     }
@@ -23,6 +23,22 @@ export const fetchUsers = async () => {
   }
 };
 
+export const fetchExistingUsers  = async () => {
+  try {
+    const response = await axios.get(`${env.API_BASE_URL}${`/existingStaff`}`);
+    // console.log(response);
+    const fetchedData = response;
+    // const users = fetchedData.DATA.users.users;
+     console.log(response);
+    if (!response) {
+      throw new Error("Network response was not ok");
+    }
+    return fetchedData;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
+};
 
 export const fetchUsersWithoutPopulation = async () => {
   try {
