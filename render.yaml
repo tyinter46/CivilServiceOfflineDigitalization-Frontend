@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: tescom-frontend
+    env: docker
+    repo: https://github.com/tyinter46/TescomDigitalizationFrontend.git
+    branch: main
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+    ports:
+      - port: 3000
