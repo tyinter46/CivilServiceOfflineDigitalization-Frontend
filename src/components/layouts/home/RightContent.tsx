@@ -12,12 +12,12 @@ const RightContent = () => {
     {
       title1: "Efficient.",
       title2: "Reliable.",
-      description: "Comprehensive HR Solutions for School Teachers",
+      description: "Comprehensive HR Solutions for Civil Servants",
     },
     {
       title1: "Dynamic.",
       title2: "Scalable.",
-      description: "Tailored Solutions for Educational Institutions",
+      description: "Tailored Solutions for Civil Service",
     },
     {
       title1: "Innovative.",
@@ -26,7 +26,7 @@ const RightContent = () => {
     },
  {
   title1:    "Innovating" ,
-  title2: "Education",
+  title2: "Civil Service",
   description:" Management"
 },
 
@@ -38,8 +38,8 @@ const RightContent = () => {
   , 
 {
        title1:"Optimizing HR",
-       title2:   "for Educational Institutions",
-       description: "Empowering Schools Through Technology",
+       title2:   "for Civil Service",
+       description: "Empowering Civil Service Through Technology",
 }
   ];
 

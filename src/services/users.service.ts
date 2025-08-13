@@ -102,8 +102,8 @@ export const { useGetUserDetailsQuery, useUpdateUserProfileMutation } = userApi;
 // gender,
 // phoneNumber,
 // tscFileNumber,
-// schoolOfPresentPosting,
-// schoolOfPreviousPosting,
+// agencyOfPresentPosting,
+// agencyOfPreviousPosting,
 // zone,
 // nationality,
 // stateOfOrigin,
@@ -122,8 +122,8 @@ export const { useGetUserDetailsQuery, useUpdateUserProfileMutation } = userApi;
 //   gender,
 //   phoneNumber,
 //   tscFileNumber,
-//   schoolOfPresentPosting,
-//   schoolOfPreviousPosting,
+//   agencyOfPresentPosting,
+//   agencyOfPreviousPosting,
 //   zone,
 //   nationality,
 //   stateOfOrigin,
@@ -142,8 +142,8 @@ export const { useGetUserDetailsQuery, useUpdateUserProfileMutation } = userApi;
 //   gender: string;
 //   phoneNumber: string;
 //   tscFileNumber: string;
-//   schoolOfPresentPosting: string;
-//   schoolOfPreviousPosting: string;
+//   agencyOfPresentPosting: string;
+//   agencyOfPreviousPosting: string;
 //   zone: string;
 //   nationality: string;
 //   stateOfOrigin: string;
@@ -173,8 +173,8 @@ export const { useGetUserDetailsQuery, useUpdateUserProfileMutation } = userApi;
 //     gender,
 //     phoneNumber,
 //     tscFileNumber,
-//     schoolOfPresentPosting,
-//     schoolOfPreviousPosting,
+//     agencyOfPresentPosting,
+//     agencyOfPreviousPosting,
 //     zone,
 //     nationality,
 //     stateOfOrigin,

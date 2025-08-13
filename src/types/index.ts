@@ -14,8 +14,8 @@ export interface UserDetails {
   dateOfBirth: string;
   dateOfFirstAppointment: string;
   dateOfRetirement: string;
-  schoolOfPresentPosting: string;
-  schoolOfPreviousPosting: string;
+  agencyOfPresentPosting: string;
+  agencyOfPreviousPosting: string;
   zone: string;
   division: string;
   nationality: string;
@@ -98,7 +98,7 @@ export interface IUser {
   phoneNumber?: string;
   confirmPhoneNumber?: string;
   tscFileNumber?: string;
-  schoolOfPresentPosting?: ISchools | null;
+  agencyOfPresentPosting?: ISchools | null;
   zone?: string;
   division?: string;
   nationality?: string;
@@ -147,8 +147,8 @@ export interface IUser {
 
 export interface Settings {
   tscFileNumber: string;
-  schoolOfPresentPosting: string;
-  schoolOfPreviousPosting: string;
+  agencyOfPresentPosting: string;
+  agencyOfPreviousPosting: string;
   zone: string;
   division: string;
   nationality: string;

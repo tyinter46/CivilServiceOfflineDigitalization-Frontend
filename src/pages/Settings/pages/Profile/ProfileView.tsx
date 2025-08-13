@@ -175,14 +175,14 @@ function ProfileView({ loading, userDetails, pictureUpload, image }: Props) {
                 <div className="text-md font-semibold text-yellow-500">
                   School of Previous Posting
                 </div>
-                <span className="text-lg">{userDetails?.schoolOfPreviousPosting || "-"}</span>
+                <span className="text-lg">{userDetails?.agencyOfPreviousPosting || "-"}</span>
               </div>
 
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">
                   School of Present Posting
                 </div>
-                <span className="text-lg">{userDetails?.schoolOfPresentPosting || "-"}</span>
+                <span className="text-lg">{userDetails?.agencyOfPresentPosting || "-"}</span>
               </div>
               <div className="p-2 flex-1">
                 <div className="text-md font-semibold text-yellow-500">Zone</div>

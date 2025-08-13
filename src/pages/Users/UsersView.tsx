@@ -84,7 +84,7 @@ export const UsersView: React.FC = () => {
   const filteredUsers = users.filter(
     (user)=>        user.staffName?.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ??
                     user.position?.toLowerCase().includes(searchTerm.toLowerCase()) ??
-                    user.schoolOfPresentPosting?.nameOfSchool?.toLowerCase().includes(searchTerm.toLowerCase()) ??
+                    user.agencyOfPresentPosting?.nameOfSchool?.toLowerCase().includes(searchTerm.toLowerCase()) ??
                     user.email?.toLowerCase().includes(searchTerm.toLowerCase())
     // (school) =>
     //   school.nameOfSchool.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -228,7 +228,7 @@ export const UsersView: React.FC = () => {
                                   <strong>Local Government of Origin:</strong> {user?.lgOfOrigin}
                                 </p>
                                 <p>
-                                  <strong>School of Present Posting :</strong> {user?.schoolOfPresentPosting?.nameOfSchool}
+                                  <strong>School of Present Posting :</strong> {user?.agencyOfPresentPosting?.nameOfSchool}
                                 
                                 </p>
                                 <p>

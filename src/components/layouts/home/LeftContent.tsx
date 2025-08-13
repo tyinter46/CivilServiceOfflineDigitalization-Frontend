@@ -5,7 +5,7 @@ import { SIGNUP } from "routes/CONSTANTS";
 
 const LeftContent = () => {
   return (
-    <div className="flex flex-col justify-center items-center w-1/3 h-screen bg-gradient-to-r from-green-500 to-black-100">
+    <div className="flex flex-col justify-center items-center w-1/3 h-screen bg-gradient-to-r from-yellow-900 to-black-100">
       <div className="text-center mt-20">
         <h4 className="text-white text-4xl font-bold">Simplified.</h4>
         <h4 className="text-yellow-400 text-4xl font-bold">Secure.</h4>

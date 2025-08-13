@@ -186,8 +186,8 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
   const [formValues, setFormValues] = useState({
     dateOfFirstAppointment: userDetails?.dateOfFirstAppointment,
     tscFileNumber: user?.user?.tscFileNumber,
-    schoolOfPresentPosting: user?.user?.schoolOfPresentPosting?.nameOfSchool,
-    schoolOfPreviousPosting: user?.user?.schoolOfPreviousPosting?.nameOfSchool,
+    agencyOfPresentPosting: user?.user?.agencyOfPresentPosting?.nameOfSchool,
+    agencyOfPreviousPosting: user?.user?.agencyOfPreviousPosting?.nameOfSchool,
     zone: user?.user?.zone ,
     division:  "" ,
     nationality: user?.user?.nationality || "",
@@ -308,8 +308,8 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
       .min(8, "tscFileNumber Too Short")
       .max(16, "File Number Too Long!")
       .required("Tsc File Number Required"),
-    schoolOfPresentPosting: Yup.string().required("schoolOfPresentPosting Required"),
-    schoolOfPreviousPosting: Yup.string().required("schoolOfPreviousPosting Required"),
+    agencyOfPresentPosting: Yup.string().required("agencyOfPresentPosting Required"),
+    agencyOfPreviousPosting: Yup.string().required("agencyOfPreviousPosting Required"),
     zone: Yup.string().min(3, "zone Too short!").required("zone Required"),
     division: Yup.string().required(" Kindly select the division available"),
     nationality: Yup.string().required("Nationality Required"),
@@ -705,7 +705,7 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
               {/* School of Previous Posting using CreatableSelect */}
               <div>
                 <label
-                  htmlFor="schoolOfPreviousPosting"
+                  htmlFor="agencyOfPreviousPosting"
                   className="block text-l font-medium text-gray-900"
                 >
                   School of Previous Posting
@@ -715,16 +715,16 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   required
                   options={schoolOptions}
                   value={ schoolOptions.find(
-                    (option) => option.value === formValues.schoolOfPreviousPosting
+                    (option) => option.value === formValues.agencyOfPreviousPosting
                   )}
-                  onChange={handleSelectChange("schoolOfPreviousPosting")}
+                  onChange={handleSelectChange("agencyOfPreviousPosting")}
                   placeholder="Select a school"
                 />
               </div>
               {/* School of Present Posting using CreatableSelect */}
               <div>
                 <label
-                  htmlFor="schoolOfPresentPosting"
+                  htmlFor="agencyOfPresentPosting"
                   className="block text-l font-medium text-gray-900"
                 >
                   School of Present Posting
@@ -734,9 +734,9 @@ const ProfileUpdatePage = ({ onSubmit, userDetails, schools }: PageProps) => {
                   required
                   options={schoolOptions}
                   value={ schoolOptions.find(
-                    (option) => option.value === formValues.schoolOfPresentPosting
+                    (option) => option.value === formValues.agencyOfPresentPosting
                   ) }
-                  onChange={handleSelectChange("schoolOfPresentPosting")}
+                  onChange={handleSelectChange("agencyOfPresentPosting")}
                   placeholder="Select a school"
                 />
               </div>

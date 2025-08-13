@@ -4,9 +4,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
         {/* Left Section: Company Information */}
         <div className="flex flex-col items-center md:items-start">
-         <div><h4 className="text-yellow-400 font-bold text-xl">Ogun State Teaching Service Commission</h4></div> 
+         <div><h4 className="text-yellow-400 font-bold text-xl">Ogun State Civil Service Commission</h4></div> 
          <div> <p className="mt-2 text-white text-gray-400 text-sm text-center md:text-left">
-            Empowering educational institutions through data-driven management.
+            Empowering Civil Service through data-driven management.
           </p>
           </div>
         </div>
@@ -45,7 +45,7 @@ const Footer = () => {
 
 
       <div className="mt-8 text-center text-gray-500 text-sm">
-        <p>&copy; {new Date().getFullYear()} Ogun State Teaching Service Commission. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Ogun State Civil Service Commission. All rights reserved.</p>
       </div>
     </footer>
   );

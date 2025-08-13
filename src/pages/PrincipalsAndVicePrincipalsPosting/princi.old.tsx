@@ -42,7 +42,7 @@
 //         null;
 //       setDestinationSchoolDetails(schoolDetails);
 //       const schoolStaff = staff.filter(
-//         (user) => user.schoolOfPresentPosting?._id === selectedDestinationSchool
+//         (user) => user.agencyOfPresentPosting?._id === selectedDestinationSchool
 //       );
 //       setDestinationSchoolStaff(schoolStaff);
 //     } else {

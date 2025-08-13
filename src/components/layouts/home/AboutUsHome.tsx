@@ -8,72 +8,85 @@ const AboutUsHome = () => {
       <div className="flex flex-col w-full p-10 bg-white text-black overflow-auto">
         <section className="mb-8">
           <h2 className="text-2xl font-bold text-green-700">
-            Welcome to Ogun State Teaching Service Commission Portal
+            Welcome to Ogun State Civil Service Commission Portal
           </h2>
+                   <h3 className="text-xl font-bold text-yellow-600">
+           Your all-in-one solution for seamless management of civil service personnel.
+           </h3>
           <p className="mt-4 text-lg">
-            Your all-in-one solution for seamless management of teaching and non-teaching staff. Our
-            platform is designed to empower educational institutions by efficiently storing and
-            processing all staff-related data while streamlining essential HR business logic. Here's
-            how we make managing your workforce a breeze:
+            Our
+            platform is designed to empower government ministries, departments, and agencies (MDAs)
+            by efficiently storing and processing all staff-related data while streamlining
+            essential HR business processes. Here’s how we make managing your workforce easier and
+            more effective:
           </p>
         </section>
 
         <section className="mb-8">
-          <h3 className="text-xl font-bold text-yellow-600">Simplified Staff Data Management</h3>
+          <h3 className="text-xl font-bold text-yellow-600">
+            Centralized Personnel Data Management
+          </h3>
           <p className="mt-2 text-base">
-            Say goodbye to scattered spreadsheets and manual record-keeping. Our intuitive platform
-            centralizes all staff data, providing a comprehensive and organized overview. Easily
-            access and update information, from personal details to professional achievements, in
-            one secure location.
+            Say goodbye to fragmented files and manual record-keeping. Our intuitive platform
+            consolidates all personnel records into a single, secure system, providing a
+            comprehensive and organized view. Easily access and update details — from personal
+            information to service history and professional milestones — all in one place.
           </p>
         </section>
 
         <section className="mb-8">
-          <h3 className="text-xl font-bold text-yellow-600">Streamlined HR Processes</h3>
+          <h3 className="text-xl font-bold text-yellow-600">Streamlined HR Operations</h3>
           <p className="mt-2 text-base">
-            Optimize your HR operations with our powerful tools that automate key processes. From
-            onboarding and attendance tracking to performance evaluations, we've got you covered.
-            Spend less time on administrative tasks and more time focusing on what matters –
-            delivering quality education.
+            Enhance your human resource management with automated workflows for critical processes.
+            From recruitment and postings to leave management, promotions, and performance reviews,
+            our tools simplify and accelerate administrative tasks, freeing you to focus on service
+            delivery and policy execution.
           </p>
         </section>
 
         <section className="mb-8">
-          <h3 className="text-xl font-bold text-yellow-600">Enhanced Collaboration</h3>
+          <h3 className="text-xl font-bold text-yellow-600">
+            Improved Communication and Collaboration
+          </h3>
           <p className="mt-2 text-base">
-            Foster collaboration among teaching and non-teaching staff members effortlessly. Our
-            platform facilitates communication, ensuring everyone stays informed about important
-            announcements, events, and updates. Collaborate seamlessly for a more connected and
-            engaged workforce.
+            Foster better collaboration among staff across units, departments, and locations. Our
+            platform facilitates timely communication of circulars, memos, policy updates, and event
+            notifications — ensuring that everyone stays informed and aligned.
           </p>
         </section>
 
         <section className="mb-8">
-          <h3 className="text-xl font-bold text-yellow-600">Customizable Business Logic</h3>
+          <h3 className="text-xl font-bold text-yellow-600">
+            Customizable Workflows and Policy Compliance
+          </h3>
           <p className="mt-2 text-base">
-            Tailor our platform to meet the unique needs of your institution. Define and implement
-            specific business rules and logic for HR processes, ensuring compliance with policies
-            and regulations. Our customizable solutions adapt to your workflow, not the other way
-            around.
+            Adapt the system to your specific operational requirements. Define and implement rules
+            that reflect your institution’s HR policies, statutory guidelines, and service
+            regulations. Our customizable framework ensures your processes remain compliant and
+            efficient.
           </p>
         </section>
 
         <section className="mb-8">
-          <h3 className="text-xl font-bold text-yellow-600">Data Security and Compliance</h3>
+          <h3 className="text-xl font-bold text-yellow-600">
+            Data Security and Regulatory Compliance
+          </h3>
           <p className="mt-2 text-base">
-            Rest easy knowing that your sensitive data is secure. We prioritize data protection and
-            compliance with industry standards. Our robust security measures ensure that only
-            authorized personnel have access to confidential information.
+            Protecting sensitive government data is our top priority. We employ robust security
+            protocols to ensure only authorized personnel can access confidential information, while
+            maintaining compliance with relevant civil service regulations and data protection laws.
           </p>
         </section>
 
         <section className="mb-8">
-          <h3 className="text-xl font-bold text-yellow-600">Real-time Analytics and Reporting</h3>
+          <h3 className="text-xl font-bold text-yellow-600">
+            Real-time Insights and Decision Support
+          </h3>
           <p className="mt-2 text-base">
-            Make informed decisions with real-time analytics and reporting tools. Track key metrics,
-            analyze trends, and generate insightful reports to support strategic planning. Our
-            analytics empower your institution to make data-driven decisions for continuous
-            improvement.
+            Empower leadership with real-time analytics and comprehensive reports. Monitor key
+            workforce metrics, identify trends, and generate insights to guide workforce planning,
+            budgeting, and policy formulation. Our analytics tools turn data into actionable
+            strategies for improved public service delivery.
           </p>
         </section>
 

@@ -41,7 +41,7 @@ export const StaffPostingView: React.FC<PostingFormProps> = ({
       schools.find((school) => school._id === selectedDestinationSchool) ?? null;
       setDestinationSchoolDetails(schoolDetails);
       const schoolStaff = staff.filter(
-        (user) => user.schoolOfPresentPosting?._id === selectedDestinationSchool
+        (user) => user.agencyOfPresentPosting?._id === selectedDestinationSchool
       );
       setDestinationSchoolStaff(schoolStaff);
     } else {
@@ -109,7 +109,7 @@ export const StaffPostingView: React.FC<PostingFormProps> = ({
         schools.find((school) => school._id === selectedDestinationSchool) ?? null;
       setDestinationSchoolDetails(updatedSchoolDetails);
       const updatedSchoolStaff = staff.filter(
-        (user) => user.schoolOfPresentPosting?._id === selectedDestinationSchool
+        (user) => user.agencyOfPresentPosting?._id === selectedDestinationSchool
       );
       setDestinationSchoolStaff(updatedSchoolStaff);
       // const updatedSaleOrNew = ["New", "Stale"].filter((option)=> option === selectedStaleOrNew)
@@ -170,7 +170,7 @@ export const StaffPostingView: React.FC<PostingFormProps> = ({
     : null;
 
   // const selectedSchoolStaff = selectedDestinationSchool
-  //   ? staff.filter((user) => user.schoolOfPresentPosting?._id === selectedDestinationSchool)
+  //   ? staff.filter((user) => user.agencyOfPresentPosting?._id === selectedDestinationSchool)
   //   : [];
 
   return (
